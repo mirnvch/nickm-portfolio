@@ -1,0 +1,19 @@
+---
+interface Props {
+  mode: 'professional' | 'personal';
+}
+
+const { mode } = Astro.props;
+---
+
+<section
+  class="flex flex-col items-center text-center"
+  data-mode={mode}
+  style="display: none;"
+>
+  <div class="flex flex-col gap-y-3 max-w-lg">
+    <div class="flex flex-col gap-y-2 font-garamond text-lg leading-relaxed text-muted-foreground">
+      <slot />
+    </div>
+  </div>
+</section>

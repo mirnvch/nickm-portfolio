@@ -1,0 +1,62 @@
+---
+interface Post {
+  title: string;
+  slug: string;
+  date: Date;
+  readTime: number;
+  pinned?: boolean;
+}
+
+interface Props {
+  posts: Post[];
+  mode: 'professional' | 'personal';
+}
+
+const { posts, mode } = Astro.props;
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  }).format(date);
+}
+---
+
+<section
+  class="flex flex-col gap-y-4"
+  data-mode={mode}
+  style="display: none;"
+>
+  <ul class="flex flex-col gap-y-3">
+    {posts.map((post) => (
+      <li class="flex items-baseline justify-between gap-4">
+        <div class="flex items-center gap-2 min-w-0">
+          {post.pinned && (
+            <span class="text-gold text-sm shrink-0" title="Featured">✦</span>
+          )}
+          <a
+            href={`/blog/${post.slug}/`}
+            class="font-cormorant text-lg font-medium text-foreground hover:text-gold transition-colors truncate"
+          >
+            {post.title}
+          </a>
+          <span class="text-xs text-muted-foreground shrink-0">· {post.readTime} min read</span>
+        </div>
+        <time
+          datetime={post.date.toISOString()}
+          class="shrink-0 text-sm text-muted-foreground hidden sm:block"
+        >
+          {formatDate(post.date)}
+        </time>
+      </li>
+    ))}
+  </ul>
+
+  <a
+    href="/blog"
+    class="text-sm text-muted-foreground hover:text-foreground transition-colors self-start"
+  >
+    View all posts →
+  </a>
+</section>

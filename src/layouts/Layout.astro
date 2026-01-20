@@ -1,0 +1,158 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Developer & AI Specialist",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-GB" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Nick M" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="Nick M" />
+    <meta property="og:image" content="/social-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/social-card.png" />
+
+    <title>{title}</title>
+    <ViewTransitions />
+
+    <!-- Theme initialization script (runs before page render) -->
+    <script is:inline>
+      (function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+        const html = document.documentElement;
+
+        if (mode === 'personal') {
+          html.classList.remove('dark');
+        } else {
+          html.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="flex justify-center bg-background scroll-smooth">
+    <main class="flex min-h-screen w-screen max-w-4xl flex-col items-center px-6 pb-10 pt-7 font-garamond text-[0.92rem] leading-relaxed sm:px-10 lg:px-16">
+      <div class="flex w-full flex-col gap-y-8">
+        <slot />
+      </div>
+
+      <!-- Footer Divider -->
+      <div class="flex items-center justify-center mt-20">
+        <div class="flex items-center gap-4">
+          <div class="h-px w-16 bg-gradient-to-r from-transparent to-gold opacity-50"></div>
+          <svg width="20" height="20" viewBox="0 0 20 20" class="text-gold opacity-60">
+            <circle cx="10" cy="10" r="2" fill="currentColor"></circle>
+            <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="0.5"></circle>
+          </svg>
+          <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold opacity-50"></div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Mode toggle functionality
+      function initModeToggle() {
+        const flipContainer = document.querySelector('.flip-container');
+        const modeToggle = document.getElementById('mode-toggle');
+        const html = document.documentElement;
+
+        function toggleMode() {
+          html.classList.toggle('dark');
+          flipContainer?.classList.toggle('flipped');
+
+          // Toggle visibility of mode-specific content
+          document.querySelectorAll('[data-mode]').forEach(el => {
+            const elMode = el.getAttribute('data-mode');
+            const isDark = html.classList.contains('dark');
+
+            if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
+              (el as HTMLElement).style.display = '';
+            } else {
+              (el as HTMLElement).style.display = 'none';
+            }
+          });
+
+          // Update URL
+          const newMode = html.classList.contains('dark') ? 'professional' : 'personal';
+          const url = new URL(window.location.href);
+          url.searchParams.set('mode', newMode);
+          window.history.replaceState({}, '', url);
+        }
+
+        // Click handlers
+        flipContainer?.addEventListener('click', toggleMode);
+        modeToggle?.addEventListener('click', toggleMode);
+
+        // Initialize based on URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+
+        if (mode === 'personal') {
+          html.classList.remove('dark');
+          flipContainer?.classList.add('flipped');
+        } else {
+          html.classList.add('dark');
+          flipContainer?.classList.remove('flipped');
+        }
+
+        // Set initial visibility
+        document.querySelectorAll('[data-mode]').forEach(el => {
+          const elMode = el.getAttribute('data-mode');
+          const isDark = html.classList.contains('dark');
+
+          if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
+            (el as HTMLElement).style.display = '';
+          } else {
+            (el as HTMLElement).style.display = 'none';
+          }
+        });
+      }
+
+      // Run on initial load
+      document.addEventListener('DOMContentLoaded', initModeToggle);
+
+      // Re-run after Astro page transitions
+      document.addEventListener('astro:after-swap', () => {
+        // Restore theme from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+        const html = document.documentElement;
+
+        if (mode === 'personal') {
+          html.classList.remove('dark');
+        } else {
+          html.classList.add('dark');
+        }
+
+        initModeToggle();
+      });
+    </script>
+  </body>
+</html>

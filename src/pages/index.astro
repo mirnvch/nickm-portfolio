@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProfilePhoto from '../components/ProfilePhoto.astro';
+import ModeToggle from '../components/ModeToggle.astro';
+import About from '../components/About.astro';
+import Posts from '../components/Posts.astro';
+import Projects from '../components/Projects.astro';
+
+// ============================================
+// CONFIGURATION — EDIT HERE
+// ============================================
+
+const config = {
+  name: {
+    professional: "Nick Mironovich",
+    personal: "Nick"
+  },
+  tagline: "Developer, AI & Automation",
+  description: "Helping businesses build digital products and automate workflows",
+};
+
+// Professional posts
+const professionalPosts = [
+  {
+    title: "Building AI-Powered Workflows with Claude",
+    slug: "ai-workflows-claude",
+    date: new Date("2025-01-15"),
+    readTime: 7,
+  },
+  {
+    title: "SEO Automation for Real Estate Websites",
+    slug: "seo-automation-real-estate",
+    date: new Date("2025-01-10"),
+    readTime: 5,
+  },
+  {
+    title: "Webflow + AI: The Perfect Combo for Content",
+    slug: "webflow-ai-content",
+    date: new Date("2024-12-20"),
+    readTime: 4,
+  },
+  {
+    title: "Why I Switched to Astro for Portfolio Sites",
+    slug: "astro-portfolio",
+    date: new Date("2024-12-15"),
+    readTime: 3,
+  },
+];
+
+// Personal posts
+const personalPosts = [
+  {
+    title: "Thoughts on Remote Work",
+    slug: "remote-work-thoughts",
+    date: new Date("2025-01-12"),
+    readTime: 3,
+    pinned: true,
+  },
+  {
+    title: "Learning in Public",
+    slug: "learning-in-public",
+    date: new Date("2025-01-05"),
+    readTime: 4,
+  },
+  {
+    title: "Digital Minimalism",
+    slug: "digital-minimalism",
+    date: new Date("2024-12-28"),
+    readTime: 5,
+  },
+];
+
+// Projects
+const projects = [
+  {
+    title: "Casa Rica Estate",
+    description: "Real estate website with SEO optimization and AI-powered content generation.",
+    image: "/images/projects/placeholder.svg",
+    link: "https://casaricaestate.com",
+    status: "active" as const,
+  },
+  {
+    title: "SEO Content Agent",
+    description: "AI agent that writes, translates, and publishes SEO-optimized articles.",
+    image: "/images/projects/placeholder.svg",
+    link: "#",
+    status: "active" as const,
+  },
+  {
+    title: "n8n Automation Suite",
+    description: "Collection of workflow automations for content publishing.",
+    image: "/images/projects/placeholder.svg",
+    link: "#",
+    status: "prototype" as const,
+  },
+  {
+    title: "QACamp",
+    description: "Educational platform for QA engineers and testers.",
+    image: "/images/projects/placeholder.svg",
+    link: "https://qacamp.com",
+    status: "active" as const,
+  },
+  {
+    title: "Linear Integration",
+    description: "Custom Linear API integration for project management.",
+    image: "/images/projects/placeholder.svg",
+    link: "#",
+    status: "prototype" as const,
+  },
+  {
+    title: "Portfolio Template",
+    description: "This portfolio template, inspired by thariq.io design.",
+    image: "/images/projects/placeholder.svg",
+    link: "#",
+    status: "active" as const,
+  },
+];
+---
+
+<Layout title={`${config.name.professional}`} description={config.description}>
+  <!-- Header Navigation -->
+  <header class="flex items-center w-full mb-8">
+    <a href="/" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+      Home
+    </a>
+    <div class="flex-1 flex justify-center">
+      <ModeToggle />
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col items-center gap-y-4">
+    <ProfilePhoto
+      professionalImage="/images/profile-professional.jpg"
+      personalImage="/images/profile-personal.jpg"
+    />
+
+    <!-- Name -->
+    <h1
+      class="font-cormorant text-4xl font-semibold tracking-wide text-foreground"
+      data-mode="professional"
+    >
+      {config.name.professional}
+    </h1>
+    <h1
+      class="font-cormorant text-4xl font-semibold tracking-wide text-foreground"
+      data-mode="personal"
+      style="display: none;"
+    >
+      {config.name.personal}
+    </h1>
+  </section>
+
+  <!-- About - Professional -->
+  <About mode="professional">
+    <p>Developer & AI specialist helping businesses automate and scale.</p>
+    <p>
+      Currently building <a class="illuminated-link font-medium text-foreground" href="https://casaricaestate.com">real estate websites</a>
+      with AI-powered SEO, automating workflows with <a class="illuminated-link font-medium text-foreground" href="#">Claude & n8n</a>,
+      and exploring what's possible when humans collaborate with AI.
+    </p>
+  </About>
+
+  <!-- About - Personal -->
+  <About mode="personal">
+    <p>Building things. Learning in public. Enjoying the journey.</p>
+  </About>
+
+  <!-- Posts - Professional -->
+  <Posts posts={professionalPosts} mode="professional" />
+
+  <!-- Posts - Personal -->
+  <Posts posts={personalPosts} mode="personal" />
+
+  <!-- Projects (Professional only) -->
+  <Projects projects={projects} mode="professional" title="Stuff I've Made" />
+</Layout>

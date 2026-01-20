@@ -1,0 +1,81 @@
+---
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+  status?: 'prototype' | 'acquisition' | 'active';
+}
+
+interface Props {
+  projects: Project[];
+  mode?: 'professional' | 'personal' | 'all';
+  title?: string;
+}
+
+const { projects, mode = 'professional', title = "Stuff I've Made" } = Astro.props;
+
+const statusLabels = {
+  prototype: 'Prototype',
+  acquisition: 'Acquisition',
+  active: 'Active'
+};
+---
+
+<section
+  class="flex flex-col gap-y-5"
+  data-mode={mode !== 'all' ? mode : undefined}
+  style={mode !== 'all' ? 'display: none;' : undefined}
+>
+  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{title}</h2>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    {projects.map((project) => (
+      <a
+        class="project-card group flex flex-col gap-y-2 transition-all duration-200"
+        href={project.link}
+        target={project.link.startsWith('http') ? '_blank' : '_self'}
+        rel={project.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+      >
+        <!-- Image -->
+        <div class="relative aspect-square overflow-hidden rounded-lg bg-card">
+          <img
+            src={project.image}
+            alt={project.title}
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+          {project.status && (
+            <span class="absolute top-2 right-2 px-2 py-0.5 rounded text-xxs font-medium bg-background/80 text-muted-foreground backdrop-blur-sm">
+              {statusLabels[project.status]}
+            </span>
+          )}
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-col gap-y-0.5">
+          <h3 class="font-cormorant text-base font-semibold text-foreground group-hover:text-gold transition-colors">
+            {project.title}
+          </h3>
+          <p class="text-xs leading-relaxed text-muted-foreground line-clamp-2">
+            {project.description}
+          </p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .project-card:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 4px;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

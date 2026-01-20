@@ -1,0 +1,136 @@
+---
+interface Props {
+  professionalImage: string;
+  personalImage: string;
+  professionalAlt?: string;
+  personalAlt?: string;
+}
+
+const {
+  professionalImage,
+  personalImage,
+  professionalAlt = "Professional profile photo",
+  personalAlt = "Personal profile photo"
+} = Astro.props;
+---
+
+<div class="flip-container w-48 h-48" role="button" tabindex="0" id="profile-photo">
+  <div class="flip-inner">
+    <!-- Professional (Front) -->
+    <div class="flip-face flip-front">
+      <div class="relative w-48 h-48">
+        <!-- Animated Circles -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg viewBox="0 0 200 200" class="absolute w-full h-full">
+            <!-- Outer ring - slow -->
+            <g class="whirl-slow">
+              <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="1" class="text-gold dark:text-white opacity-40"></circle>
+              <path d="M 100 5 A 95 95 0 0 1 195 100" fill="none" stroke="currentColor" stroke-width="2" class="text-gold dark:text-white opacity-70"></path>
+              <path d="M 195 100 A 95 95 0 0 1 100 195" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gold dark:text-white opacity-50"></path>
+            </g>
+            <!-- Middle ring - medium -->
+            <g class="whirl-medium">
+              <circle cx="100" cy="100" r="88" fill="none" stroke="currentColor" stroke-width="0.5" class="text-gold dark:text-white opacity-30"></circle>
+              <path d="M 100 12 A 88 88 0 0 1 188 100" fill="none" stroke="currentColor" stroke-width="1.5" class="text-bronze dark:text-white opacity-60"></path>
+              <path d="M 12 100 A 88 88 0 0 1 100 12" fill="none" stroke="currentColor" stroke-width="1" class="text-bronze dark:text-white opacity-40"></path>
+            </g>
+            <!-- Inner ring - fast -->
+            <g class="whirl-fast">
+              <circle cx="100" cy="100" r="82" fill="none" stroke="currentColor" stroke-width="0.5" class="text-gold dark:text-white opacity-20"></circle>
+              <path d="M 100 18 A 82 82 0 0 1 150 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+              <path d="M 182 100 A 82 82 0 0 1 170 150" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+              <path d="M 100 182 A 82 82 0 0 1 50 170" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+              <path d="M 18 100 A 82 82 0 0 1 30 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+            </g>
+          </svg>
+        </div>
+        <!-- Photo -->
+        <div class="relative w-full h-full flex items-center justify-center p-3">
+          <div class="w-full h-full rounded-full overflow-hidden warm-shadow-lg">
+            <img
+              src={professionalImage}
+              alt={professionalAlt}
+              class="w-full h-full object-cover"
+              loading="eager"
+              width="400"
+              height="400"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal (Back) -->
+    <div class="flip-face flip-back">
+      <div class="relative w-48 h-48">
+        <!-- Animated Circles -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg viewBox="0 0 200 200" class="absolute w-full h-full">
+            <g class="whirl-slow">
+              <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="1" class="text-gold dark:text-white opacity-40"></circle>
+              <path d="M 100 5 A 95 95 0 0 1 195 100" fill="none" stroke="currentColor" stroke-width="2" class="text-gold dark:text-white opacity-70"></path>
+              <path d="M 195 100 A 95 95 0 0 1 100 195" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gold dark:text-white opacity-50"></path>
+            </g>
+            <g class="whirl-medium">
+              <circle cx="100" cy="100" r="88" fill="none" stroke="currentColor" stroke-width="0.5" class="text-gold dark:text-white opacity-30"></circle>
+              <path d="M 100 12 A 88 88 0 0 1 188 100" fill="none" stroke="currentColor" stroke-width="1.5" class="text-bronze dark:text-white opacity-60"></path>
+              <path d="M 12 100 A 88 88 0 0 1 100 12" fill="none" stroke="currentColor" stroke-width="1" class="text-bronze dark:text-white opacity-40"></path>
+            </g>
+            <g class="whirl-fast">
+              <circle cx="100" cy="100" r="82" fill="none" stroke="currentColor" stroke-width="0.5" class="text-gold dark:text-white opacity-20"></circle>
+              <path d="M 100 18 A 82 82 0 0 1 150 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+              <path d="M 182 100 A 82 82 0 0 1 170 150" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+              <path d="M 100 182 A 82 82 0 0 1 50 170" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+              <path d="M 18 100 A 82 82 0 0 1 30 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gold dark:text-white opacity-60"></path>
+            </g>
+          </svg>
+        </div>
+        <!-- Photo -->
+        <div class="relative w-full h-full flex items-center justify-center p-3">
+          <div class="w-full h-full rounded-full overflow-hidden warm-shadow-lg">
+            <img
+              src={personalImage}
+              alt={personalAlt}
+              class="w-full h-full object-cover"
+              loading="eager"
+              width="400"
+              height="400"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initProfilePhoto() {
+    const profilePhoto = document.getElementById('profile-photo');
+
+    profilePhoto?.addEventListener('click', () => {
+      // Toggle mode based on current state
+      const isDark = document.documentElement.classList.contains('dark');
+      const newMode = isDark ? 'personal' : 'professional';
+
+      // Trigger the mode change via global function or button click
+      if (typeof window.setMode === 'function') {
+        window.setMode(newMode);
+      } else {
+        // Fallback: click the appropriate toggle button
+        const btn = document.querySelector(`[data-mode-btn="${newMode}"]`) as HTMLButtonElement;
+        btn?.click();
+      }
+    });
+
+    // Handle keyboard
+    profilePhoto?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        profilePhoto.click();
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initProfilePhoto);
+  document.addEventListener('astro:after-swap', initProfilePhoto);
+</script>

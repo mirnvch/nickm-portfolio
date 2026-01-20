@@ -1,0 +1,45 @@
+---
+interface Props {
+  type?: 'simple' | 'astrolabe';
+  mode?: 'all' | 'professional' | 'personal';
+}
+
+const { type = 'simple', mode = 'all' } = Astro.props;
+---
+
+<div
+  class="flex items-center justify-center"
+  data-mode={mode !== 'all' ? mode : undefined}
+  style={mode !== 'all' ? 'display: none;' : undefined}
+>
+  {type === 'simple' ? (
+    <div class="flex items-center gap-4">
+      <div class="h-px w-16 bg-gradient-to-r from-transparent to-gold opacity-50"></div>
+      <svg width="20" height="20" viewBox="0 0 20 20" class="text-gold opacity-60">
+        <circle cx="10" cy="10" r="2" fill="currentColor"></circle>
+        <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="0.5"></circle>
+      </svg>
+      <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold opacity-50"></div>
+    </div>
+  ) : (
+    <!-- Astrolabe SVG -->
+    <svg width="80" height="80" viewBox="0 0 100 100" class="animate-rotate-gentle text-bronze opacity-40" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="50" cy="50" r="40"></circle>
+        <circle cx="50" cy="50" r="30"></circle>
+        <circle cx="50" cy="50" r="20"></circle>
+        <circle cx="50" cy="50" r="10"></circle>
+        <!-- Radial lines -->
+        <line x1="60" y1="50" x2="90" y2="50"></line>
+        <line x1="57.07" y1="57.07" x2="78.28" y2="78.28"></line>
+        <line x1="50" y1="60" x2="50" y2="90"></line>
+        <line x1="42.93" y1="57.07" x2="21.72" y2="78.28"></line>
+        <line x1="40" y1="50" x2="10" y2="50"></line>
+        <line x1="42.93" y1="42.93" x2="21.72" y2="21.72"></line>
+        <line x1="50" y1="40" x2="50" y2="10"></line>
+        <line x1="57.07" y1="42.93" x2="78.28" y2="21.72"></line>
+      </g>
+      <circle cx="50" cy="50" r="3" fill="currentColor"></circle>
+    </svg>
+  )}
+</div>

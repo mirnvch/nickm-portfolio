@@ -1,0 +1,244 @@
+---
+// Mode Toggle - with sliding pill animation like thariq.io
+---
+
+<div class="mode-toggle-wrapper flex items-center justify-center gap-2">
+  <!-- Left star -->
+  <span class="star left-star">✦</span>
+
+  <!-- Pill container -->
+  <div class="mode-pill" id="mode-pill">
+    <!-- Sliding indicator -->
+    <div class="slide-indicator" id="slide-indicator"></div>
+
+    <button
+      id="mode-professional"
+      class="mode-btn"
+      data-mode-btn="professional"
+    >
+      <span class="icon">⚙</span>
+      <span>Professional</span>
+    </button>
+
+    <button
+      id="mode-personal"
+      class="mode-btn"
+      data-mode-btn="personal"
+    >
+      <span class="icon">✦</span>
+      <span>Personal</span>
+    </button>
+  </div>
+
+  <!-- Right star -->
+  <span class="star right-star">✦</span>
+</div>
+
+<style>
+  .mode-toggle-wrapper {
+    font-family: var(--font-garamond);
+  }
+
+  .star {
+    font-size: 0.6rem;
+    color: var(--color-gold);
+    opacity: 0.5;
+    user-select: none;
+    transition: color 0.4s ease, opacity 0.4s ease;
+  }
+
+  .mode-pill {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid rgba(200, 180, 160, 0.5);
+    background: rgba(240, 230, 220, 0.5);
+    padding: 0.2rem;
+    gap: 0;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+  }
+
+  :global(.dark) .mode-pill {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  /* Sliding indicator */
+  .slide-indicator {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    height: calc(100% - 0.4rem);
+    border-radius: 9999px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.35s ease,
+                box-shadow 0.35s ease,
+                width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .mode-btn {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--color-muted-foreground);
+    transition: color 0.3s ease;
+    font-family: inherit;
+  }
+
+  .mode-btn:hover {
+    color: var(--color-foreground);
+  }
+
+  .mode-btn:focus {
+    outline: none;
+  }
+
+  .mode-btn .icon {
+    font-size: 0.7rem;
+  }
+
+  /* Dark mode styles */
+  :global(.dark) .slide-indicator {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.6) 0%, rgba(184, 134, 11, 0.5) 100%);
+  }
+
+  :global(.dark) .mode-btn[data-mode-btn="professional"] {
+    color: var(--color-foreground);
+  }
+
+  :global(.dark) .mode-btn[data-mode-btn="personal"] {
+    color: var(--color-muted-foreground);
+  }
+
+  /* Light mode styles */
+  :global(html:not(.dark)) .slide-indicator {
+    background: linear-gradient(135deg, rgba(232, 180, 184, 0.7) 0%, rgba(210, 160, 150, 0.6) 100%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  :global(html:not(.dark)) .mode-btn[data-mode-btn="personal"] {
+    color: var(--color-foreground);
+  }
+
+  :global(html:not(.dark)) .mode-btn[data-mode-btn="professional"] {
+    color: var(--color-muted-foreground);
+  }
+
+  :global(html:not(.dark)) .star {
+    color: #e8b4b8;
+    opacity: 0.7;
+  }
+</style>
+
+<script>
+  function initModeToggle() {
+    const professionalBtn = document.getElementById('mode-professional');
+    const personalBtn = document.getElementById('mode-personal');
+    const slideIndicator = document.getElementById('slide-indicator');
+
+    function updateSlideIndicator(mode: 'professional' | 'personal') {
+      if (!slideIndicator || !professionalBtn || !personalBtn) return;
+
+      const targetBtn = mode === 'professional' ? professionalBtn : personalBtn;
+      const btnRect = targetBtn.getBoundingClientRect();
+      const pillRect = targetBtn.parentElement!.getBoundingClientRect();
+
+      const offsetX = targetBtn.offsetLeft - 3; // 0.2rem padding adjustment
+      slideIndicator.style.width = `${btnRect.width}px`;
+      slideIndicator.style.transform = `translateX(${offsetX}px)`;
+    }
+
+    function setMode(mode: 'professional' | 'personal') {
+      const html = document.documentElement;
+      const flipContainer = document.querySelector('.flip-container');
+
+      // Update slide indicator immediately for smooth animation
+      updateSlideIndicator(mode);
+
+      // Animate content out
+      const modeElements = document.querySelectorAll('[data-mode]:not([data-mode-btn])');
+      modeElements.forEach(el => {
+        const htmlEl = el as HTMLElement;
+        htmlEl.classList.remove('animate-in');
+        htmlEl.classList.add('animate-out');
+      });
+
+      // Wait for fade out, then switch theme
+      setTimeout(() => {
+        if (mode === 'professional') {
+          html.classList.add('dark');
+          flipContainer?.classList.remove('flipped');
+        } else {
+          html.classList.remove('dark');
+          flipContainer?.classList.add('flipped');
+        }
+
+        // Toggle visibility of mode-specific content
+        document.querySelectorAll('[data-mode]').forEach(el => {
+          const elMode = el.getAttribute('data-mode');
+          if (el.hasAttribute('data-mode-btn')) return;
+
+          const isDark = html.classList.contains('dark');
+          const htmlEl = el as HTMLElement;
+
+          if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
+            htmlEl.style.display = '';
+            htmlEl.classList.remove('animate-out');
+            // Trigger reflow to restart animation
+            void htmlEl.offsetWidth;
+            htmlEl.classList.add('animate-in');
+          } else {
+            htmlEl.style.display = 'none';
+            htmlEl.classList.remove('animate-in', 'animate-out');
+          }
+        });
+      }, 300);
+
+      // Update URL
+      const url = new URL(window.location.href);
+      url.searchParams.set('mode', mode);
+      window.history.replaceState({}, '', url);
+    }
+
+    // Make setMode globally available for ProfilePhoto
+    (window as any).setMode = setMode;
+
+    // Initialize indicator position and animate initial content
+    const isDark = document.documentElement.classList.contains('dark');
+    const initialMode = isDark ? 'professional' : 'personal';
+    setTimeout(() => {
+      updateSlideIndicator(initialMode);
+
+      // Animate initial content in
+      document.querySelectorAll('[data-mode]').forEach(el => {
+        const elMode = el.getAttribute('data-mode');
+        if (el.hasAttribute('data-mode-btn')) return;
+
+        const htmlEl = el as HTMLElement;
+        if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
+          htmlEl.style.display = '';
+          htmlEl.classList.add('animate-in');
+        } else {
+          htmlEl.style.display = 'none';
+        }
+      });
+    }, 50);
+
+    professionalBtn?.addEventListener('click', () => setMode('professional'));
+    personalBtn?.addEventListener('click', () => setMode('personal'));
+  }
+
+  document.addEventListener('DOMContentLoaded', initModeToggle);
+  document.addEventListener('astro:after-swap', initModeToggle);
+</script>
