@@ -96,11 +96,6 @@ body {
   transform: scale(1.05);
 }
 
-.flip-container:focus {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 4px;
-}
-
 .flip-inner {
   position: relative;
   width: 100%;
