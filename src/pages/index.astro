@@ -15,43 +15,44 @@ const config = {
     professional: "Nick Miranovich",
     personal: "Nick"
   },
-  tagline: "Developer, AI & Automation",
-  description: "Helping businesses build digital products and automate workflows",
+  tagline: "QA Engineer & AI Enthusiast",
+  description: "7+ years in QA, passionate about AI-powered automation and building smarter workflows",
 };
 
 // Professional posts
 const professionalPosts = [
   {
-    title: "Building AI-Powered Workflows with Claude",
-    slug: "ai-workflows-claude",
+    title: "How I Use AI in QA Testing",
+    slug: "ai-in-qa-testing",
     date: new Date("2025-01-15"),
-    readTime: 7,
+    readTime: 6,
+    pinned: true,
   },
   {
-    title: "SEO Automation for Real Estate Websites",
-    slug: "seo-automation-real-estate",
+    title: "Building Automated Workflows with n8n",
+    slug: "n8n-workflows",
     date: new Date("2025-01-10"),
     readTime: 5,
   },
   {
-    title: "Webflow + AI: The Perfect Combo for Content",
-    slug: "webflow-ai-content",
-    date: new Date("2024-12-20"),
-    readTime: 4,
+    title: "From Manual to Automation: My QA Journey",
+    slug: "manual-to-automation",
+    date: new Date("2025-01-05"),
+    readTime: 7,
   },
   {
-    title: "Why I Switched to Astro for Portfolio Sites",
-    slug: "astro-portfolio",
-    date: new Date("2024-12-15"),
-    readTime: 3,
+    title: "Playwright vs Cypress: My Take",
+    slug: "playwright-vs-cypress",
+    date: new Date("2024-12-20"),
+    readTime: 4,
   },
 ];
 
 // Personal posts
 const personalPosts = [
   {
-    title: "Thoughts on Remote Work",
-    slug: "remote-work-thoughts",
+    title: "The Remote Life",
+    slug: "remote-life",
     date: new Date("2025-01-12"),
     readTime: 3,
     pinned: true,
@@ -63,8 +64,8 @@ const personalPosts = [
     readTime: 4,
   },
   {
-    title: "Digital Minimalism",
-    slug: "digital-minimalism",
+    title: "AI Tools I Use Daily",
+    slug: "ai-tools-daily",
     date: new Date("2024-12-28"),
     readTime: 5,
   },
@@ -73,45 +74,45 @@ const personalPosts = [
 // Projects
 const projects = [
   {
-    title: "Casa Rica Estate",
-    description: "Real estate website with SEO optimization and AI-powered content generation.",
-    image: "/images/projects/placeholder.svg",
-    link: "https://casaricaestate.com",
-    status: "active" as const,
-  },
-  {
-    title: "SEO Content Agent",
-    description: "AI agent that writes, translates, and publishes SEO-optimized articles.",
-    image: "/images/projects/placeholder.svg",
-    link: "#",
-    status: "active" as const,
-  },
-  {
-    title: "n8n Automation Suite",
-    description: "Collection of workflow automations for content publishing.",
-    image: "/images/projects/placeholder.svg",
-    link: "#",
-    status: "prototype" as const,
-  },
-  {
     title: "QACamp",
-    description: "Educational platform for QA engineers and testers.",
-    image: "/images/projects/placeholder.svg",
+    description: "QA consulting firm with 20+ experts, 70+ projects. Clients: iHerb, Fisker, SprintRay.",
+    image: "/images/projects/qacamp.png",
     link: "https://qacamp.com",
     status: "active" as const,
   },
   {
-    title: "Linear Integration",
-    description: "Custom Linear API integration for project management.",
+    title: "Casa Rica Estate",
+    description: "Real estate website with AI-powered SEO content generation for Costa Rica properties.",
+    image: "/images/projects/casa-rica.png",
+    link: "https://casaricaestate.com",
+    status: "active" as const,
+  },
+  {
+    title: "Bake by Angie",
+    description: "Online baking education platform with video courses on sourdough, croissants & cakes.",
+    image: "/images/projects/bake-by-angie.png",
+    link: "https://bakebyangie.com",
+    status: "active" as const,
+  },
+  {
+    title: "SEO Content Agent",
+    description: "AI agent that writes, translates, and publishes SEO-optimized articles automatically.",
     image: "/images/projects/placeholder.svg",
     link: "#",
     status: "prototype" as const,
   },
   {
-    title: "Portfolio Template",
-    description: "This portfolio template, inspired by thariq.io design.",
+    title: "n8n Automation Suite",
+    description: "Collection of workflow automations for content publishing and testing pipelines.",
     image: "/images/projects/placeholder.svg",
     link: "#",
+    status: "prototype" as const,
+  },
+  {
+    title: "This Portfolio",
+    description: "Built with Astro, Tailwind CSS, and Claude AI. Inspired by thariq.io design.",
+    image: "/images/projects/placeholder.svg",
+    link: "https://github.com/mirnvch/nickm-portfolio",
     status: "active" as const,
   },
 ];
@@ -153,17 +154,19 @@ const projects = [
 
   <!-- About - Professional -->
   <About mode="professional">
-    <p>Developer & AI specialist helping businesses automate and scale.</p>
+    <p>QA Engineer with 7+ years of experience in software testing and quality assurance.</p>
     <p>
-      Currently building <a class="illuminated-link font-medium text-foreground" href="https://casaricaestate.com">real estate websites</a>
-      with AI-powered SEO, automating workflows with <a class="illuminated-link font-medium text-foreground" href="#">Claude & n8n</a>,
-      and exploring what's possible when humans collaborate with AI.
+      Working at <a class="illuminated-link font-medium text-foreground" href="https://qacamp.com">QACamp</a> with
+      manual and automated testing (Selenium, Playwright, Cypress), API testing, and mobile apps.
+      Passionate about <a class="illuminated-link font-medium text-foreground" href="#">AI-powered automation</a> and
+      building tools that make work smarter.
     </p>
   </About>
 
   <!-- About - Personal -->
   <About mode="personal">
-    <p>Building things. Learning in public. Enjoying the journey.</p>
+    <p>Building things. Learning in public. Enjoying the remote life.</p>
+    <p>QA by day, AI enthusiast always. Exploring how AI can transform the way we work and create.</p>
   </About>
 
   <!-- Posts - Professional -->
