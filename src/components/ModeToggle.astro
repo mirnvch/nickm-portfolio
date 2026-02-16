@@ -23,8 +23,9 @@ const t = useTranslations(lang);
       id="mode-professional"
       class="mode-btn"
       data-mode-btn="professional"
+      aria-label={`${t('professional')} mode`}
     >
-      <span class="icon">⚙</span>
+      <span class="icon" aria-hidden="true">⚙</span>
       <span>{t('professional')}</span>
     </button>
 
@@ -32,8 +33,9 @@ const t = useTranslations(lang);
       id="mode-personal"
       class="mode-btn"
       data-mode-btn="personal"
+      aria-label={`${t('personal')} mode`}
     >
-      <span class="icon">✦</span>
+      <span class="icon" aria-hidden="true">✦</span>
       <span>{t('personal')}</span>
     </button>
   </div>
@@ -108,8 +110,10 @@ const t = useTranslations(lang);
     color: var(--color-foreground);
   }
 
-  .mode-btn:focus {
-    outline: none;
+  .mode-btn:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+    border-radius: 9999px;
   }
 
   .mode-btn .icon {
@@ -150,6 +154,12 @@ const t = useTranslations(lang);
 </style>
 
 <script>
+  declare global {
+    interface Window {
+      setMode?: (mode: 'professional' | 'personal') => void;
+    }
+  }
+
   function initModeToggle() {
     const professionalBtn = document.getElementById('mode-professional');
     const personalBtn = document.getElementById('mode-personal');
@@ -220,7 +230,7 @@ const t = useTranslations(lang);
     }
 
     // Make setMode globally available for ProfilePhoto
-    (window as any).setMode = setMode;
+    window.setMode = setMode;
 
     // Initialize indicator position and animate initial content
     const isDark = document.documentElement.classList.contains('dark');

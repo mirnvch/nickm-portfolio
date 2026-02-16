@@ -19,6 +19,9 @@ export const ui = {
     statusPrototype: 'Prototype',
     statusDevelopment: 'In Development',
 
+    // Posts section
+    postsTitle: 'Writing',
+
     // Projects section
     projectsTitle: "Stuff I've Made",
     visitWebsite: 'Visit website →',
@@ -71,6 +74,9 @@ export const ui = {
     statusActive: 'Активен',
     statusPrototype: 'Прототип',
     statusDevelopment: 'В разработке',
+
+    // Posts section
+    postsTitle: 'Записи',
 
     // Projects section
     projectsTitle: 'Мои проекты',

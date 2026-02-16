@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { useTranslations, formatDateLong, getLocalePath } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+import type { Post } from '../data/posts';
+
+interface Props {
+  lang: Locale;
+  post: Post;
+  slug: string;
+}
+
+const { lang, post, slug } = Astro.props;
+const t = useTranslations(lang);
+const blogPath = getLocalePath(lang, '/blog');
+const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich';
+const postUrl = `https://nickm.dev${getLocalePath(lang, `/blog/${slug}/`)}`;
+---
+
+<Layout title={`${post.title} • ${siteName}`} description={post.description || post.title} lang={lang} jsonLd={{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.title,
+  "description": post.description || post.title,
+  "datePublished": post.date.toISOString(),
+  "author": { "@type": "Person", "name": "Nick Miranovich", "url": "https://nickm.dev" },
+  "publisher": { "@type": "Person", "name": "Nick Miranovich" },
+  "mainEntityOfPage": postUrl
+}}>
+  <!-- Header -->
+  <header class="flex items-center justify-between w-full">
+    <a href={blogPath} data-blog-link class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+      {t('backToBlog')}
+    </a>
+    <LanguageSwitcher lang={lang} />
+  </header>
+
+  <!-- Article -->
+  <article class="flex flex-col gap-y-6">
+    <header class="flex flex-col gap-y-2">
+      <h1 class="font-cormorant text-3xl font-semibold text-foreground">
+        {post.title}
+      </h1>
+      <div class="flex items-center gap-3 text-sm text-muted-foreground">
+        <time datetime={post.date.toISOString()}>
+          {formatDateLong(post.date, lang)}
+        </time>
+        <span>·</span>
+        <span>{post.readTime} {t('minRead')}</span>
+      </div>
+    </header>
+
+    <div class="prose prose-lg" set:html={post.content} />
+  </article>
+</Layout>

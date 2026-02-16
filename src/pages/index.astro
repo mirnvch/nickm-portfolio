@@ -27,7 +27,15 @@ const professionalProjects = allProjects.filter(p => p.mode === 'professional');
 const personalProjects = allProjects.filter(p => p.mode === 'personal');
 ---
 
-<Layout title={t('siteTitle')} description={t('siteDescription')} lang={lang}>
+<Layout title={t('siteTitle')} description={t('siteDescription')} lang={lang} jsonLd={{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nick Miranovich",
+  "url": "https://nickm.dev",
+  "jobTitle": "QA Engineer & AI Specialist",
+  "knowsAbout": ["QA Testing", "Test Automation", "AI", "Playwright", "n8n"],
+  "sameAs": []
+}}>
   <!-- Header Navigation -->
   <header class="flex items-center w-full mb-8">
     <a href="/" class="text-muted-foreground hover:text-foreground transition-colors text-sm">

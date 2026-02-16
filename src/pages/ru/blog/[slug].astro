@@ -1,12 +1,6 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import LanguageSwitcher from '../../../components/LanguageSwitcher.astro';
+import BlogPost from '../../../components/BlogPost.astro';
 import { getPostSlugs, getPost } from '../../../data/posts';
-import { useTranslations, formatDateLong } from '../../../i18n/utils';
-import type { Locale } from '../../../i18n/utils';
-
-const lang: Locale = 'ru';
-const t = useTranslations(lang);
 
 export function getStaticPaths() {
   return getPostSlugs('ru').map(slug => ({
@@ -15,77 +9,11 @@ export function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const post = getPost(lang, slug!);
+const post = getPost('ru', slug!);
 
 if (!post) {
   return Astro.redirect('/404');
 }
 ---
 
-<Layout title={`${post.title} • Ник Миранович`} description={post.description || post.title} lang={lang}>
-  <!-- Header -->
-  <header class="flex items-center justify-between w-full">
-    <a href="/ru/blog" data-blog-link class="text-muted-foreground hover:text-foreground transition-colors text-sm">
-      {t('backToBlog')}
-    </a>
-    <LanguageSwitcher lang={lang} />
-  </header>
-
-  <!-- Article -->
-  <article class="flex flex-col gap-y-6">
-    <header class="flex flex-col gap-y-2">
-      <h1 class="font-cormorant text-3xl font-semibold text-foreground">
-        {post.title}
-      </h1>
-      <div class="flex items-center gap-3 text-sm text-muted-foreground">
-        <time datetime={post.date.toISOString()}>
-          {formatDateLong(post.date, lang)}
-        </time>
-        <span>·</span>
-        <span>{post.readTime} {t('minRead')}</span>
-      </div>
-    </header>
-
-    <div class="prose prose-lg" set:html={post.content} />
-  </article>
-</Layout>
-
-<style is:global>
-  .prose {
-    color: var(--color-foreground);
-  }
-
-  .prose h2 {
-    font-family: var(--font-cormorant);
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: var(--color-foreground);
-  }
-
-  .prose p {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-  }
-
-  .prose ul {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-  }
-
-  .prose li {
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-  }
-
-  .prose a {
-    color: var(--color-gold);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .prose a:hover {
-    color: var(--color-bronze);
-  }
-</style>
+<BlogPost lang="ru" post={post} slug={slug!} />

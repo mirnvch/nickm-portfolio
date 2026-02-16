@@ -8,18 +8,21 @@ interface Props {
   title: string;
   description?: string;
   lang?: Locale;
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
   title,
   description = "Developer & AI Specialist",
   lang = 'en',
+  jsonLd,
 } = Astro.props;
 
 const htmlLang = lang === 'ru' ? 'ru' : 'en-GB';
 const ogLocale = lang === 'ru' ? 'ru_RU' : 'en_GB';
 const alternate = getAlternatePath(Astro.url.pathname);
 const siteUrl = 'https://nickm.dev';
+const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
 ---
 
 <!doctype html>
@@ -29,8 +32,16 @@ const siteUrl = 'https://nickm.dev';
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Nick M" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- hreflang -->
     <link rel="alternate" hreflang="en" href={`${siteUrl}${alternate.en}`} />
@@ -54,6 +65,9 @@ const siteUrl = 'https://nickm.dev';
     <meta name="twitter:image" content="/social-card.png" />
 
     <title>{title}</title>
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
     <ViewTransitions />
 
     <!-- Theme initialization script (runs before page render) -->
@@ -71,8 +85,11 @@ const siteUrl = 'https://nickm.dev';
       })();
     </script>
   </head>
-  <body class="flex justify-center bg-background scroll-smooth">
-    <main class="flex min-h-screen w-screen max-w-5xl flex-col items-center px-6 pb-10 pt-7 font-garamond text-[0.92rem] leading-relaxed sm:px-10 lg:px-16">
+  <body class="flex justify-center bg-background scroll-smooth overflow-x-hidden">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-gold focus:text-background focus:rounded">
+      Skip to main content
+    </a>
+    <main id="main-content" class="flex min-h-screen w-screen max-w-5xl flex-col items-center px-6 pb-10 pt-7 font-garamond text-[0.92rem] leading-relaxed sm:px-10 lg:px-16">
       <div class="flex w-full flex-col gap-y-8">
         <slot />
       </div>

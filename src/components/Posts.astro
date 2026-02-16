@@ -26,6 +26,8 @@ const blogPath = getLocalePath(lang, '/blog');
   data-mode={mode}
   style="display: none;"
 >
+  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{t('postsTitle')}</h2>
+
   <ul class="posts-list flex flex-col gap-y-3">
     {posts.map((post, index) => (
       <li class="flex items-baseline justify-between gap-4">
