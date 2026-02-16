@@ -97,6 +97,19 @@ const siteUrl = 'https://nickm.dev';
         const modeToggle = document.getElementById('mode-toggle');
         const html = document.documentElement;
 
+        function updateBlogLinks() {
+          const mode = new URLSearchParams(window.location.search).get('mode');
+          document.querySelectorAll<HTMLAnchorElement>('[data-blog-link]').forEach(link => {
+            const url = new URL(link.href, window.location.origin);
+            if (mode) {
+              url.searchParams.set('mode', mode);
+            } else {
+              url.searchParams.delete('mode');
+            }
+            link.href = url.pathname + url.search;
+          });
+        }
+
         function toggleMode() {
           html.classList.toggle('dark');
           flipContainer?.classList.toggle('flipped');
@@ -118,6 +131,9 @@ const siteUrl = 'https://nickm.dev';
           const url = new URL(window.location.href);
           url.searchParams.set('mode', newMode);
           window.history.replaceState({}, '', url);
+
+          // Update blog links with new mode
+          updateBlogLinks();
         }
 
         // Click handlers
@@ -147,6 +163,9 @@ const siteUrl = 'https://nickm.dev';
             (el as HTMLElement).style.display = 'none';
           }
         });
+
+        // Update blog links with current mode
+        updateBlogLinks();
       }
 
       // Run on initial load

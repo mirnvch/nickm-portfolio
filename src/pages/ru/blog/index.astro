@@ -25,7 +25,7 @@ const allPosts = getAllPosts(lang);
   <!-- Posts List -->
   <section class="flex flex-col gap-y-6">
     {allPosts.map((post) => (
-      <article class="flex flex-col gap-y-1">
+      <article class="flex flex-col gap-y-1" data-post-type={post.type || 'professional'}>
         <div class="flex items-baseline justify-between gap-4">
           <div class="flex items-center gap-2">
             {post.pinned && (
@@ -56,4 +56,19 @@ const allPosts = getAllPosts(lang);
       </article>
     ))}
   </section>
+
+  <script>
+    function filterPostsByMode() {
+      const mode = new URLSearchParams(window.location.search).get('mode');
+      document.querySelectorAll<HTMLElement>('[data-post-type]').forEach(el => {
+        const postType = el.getAttribute('data-post-type');
+        if (mode && postType !== mode) {
+          el.style.display = 'none';
+        } else {
+          el.style.display = '';
+        }
+      });
+    }
+    document.addEventListener('astro:page-load', filterPostsByMode);
+  </script>
 </Layout>

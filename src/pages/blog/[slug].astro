@@ -25,7 +25,7 @@ if (!post) {
 <Layout title={`${post.title} • Nick Miranovich`} description={post.description || post.title} lang={lang}>
   <!-- Header -->
   <header class="flex items-center justify-between w-full">
-    <a href="/blog" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+    <a href="/blog" data-blog-link class="text-muted-foreground hover:text-foreground transition-colors text-sm">
       {t('backToBlog')}
     </a>
     <LanguageSwitcher lang={lang} />
