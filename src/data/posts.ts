@@ -393,15 +393,22 @@ export function getAllPosts(lang: Locale): Array<{ slug: string } & Post> {
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
+const postsByTypeCache = new Map<string, Array<{ slug: string } & Post>>();
+
 export function getPostsByType(lang: Locale, type: 'professional' | 'personal'): Array<{ slug: string } & Post> {
-  return Object.entries(posts[lang])
+  const key = `${lang}:${type}`;
+  const cached = postsByTypeCache.get(key);
+  if (cached) return cached;
+
+  const result = Object.entries(posts[lang])
     .filter(([, post]) => (post.type || 'professional') === type)
     .map(([slug, post]) => ({ slug, ...post }))
     .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  postsByTypeCache.set(key, result);
+  return result;
 }
 
 export function getPostSlugsByType(lang: Locale, type: 'professional' | 'personal'): string[] {
-  return Object.entries(posts[lang])
-    .filter(([, post]) => (post.type || 'professional') === type)
-    .map(([slug]) => slug);
+  return getPostsByType(lang, type).map((post) => post.slug);
 }

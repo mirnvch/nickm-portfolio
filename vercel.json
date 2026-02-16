@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    { "source": "/blog/remote-life", "destination": "/notes/remote-life", "statusCode": 301 },
+    { "source": "/blog/learning-in-public", "destination": "/notes/learning-in-public", "statusCode": 301 },
+    { "source": "/blog/ai-tools-daily", "destination": "/notes/ai-tools-daily", "statusCode": 301 },
+    { "source": "/ru/blog/remote-life", "destination": "/ru/notes/remote-life", "statusCode": 301 },
+    { "source": "/ru/blog/learning-in-public", "destination": "/ru/notes/learning-in-public", "statusCode": 301 },
+    { "source": "/ru/blog/ai-tools-daily", "destination": "/ru/notes/ai-tools-daily", "statusCode": 301 }
+  ]
+}

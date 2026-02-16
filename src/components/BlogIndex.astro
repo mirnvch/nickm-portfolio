@@ -18,9 +18,28 @@ const basePath = getLocalePath(lang, type === 'professional' ? '/blog' : '/notes
 const pageTitle = type === 'professional' ? t('blogTitle') : t('notesTitle');
 const pageDescription = type === 'professional' ? t('blogDescription') : t('notesDescription');
 const heading = type === 'professional' ? t('blog') : t('notes');
+const siteUrl = 'https://nickm.dev';
+const pageUrl = `${siteUrl}${basePath}/`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": pageUrl,
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": posts.map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `${siteUrl}${basePath}/${post.slug}/`,
+      "name": post.title,
+    })),
+  },
+};
 ---
 
-<Layout title={pageTitle} description={pageDescription} lang={lang}>
+<Layout title={pageTitle} description={pageDescription} lang={lang} jsonLd={jsonLd}>
   <!-- Header -->
   <header class="flex items-center justify-between w-full">
     <a href={homePath} class="text-muted-foreground hover:text-foreground transition-colors text-sm">
