@@ -11,8 +11,8 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{
     font-family:'Inter',system-ui,-apple-system,sans-serif;
-    background:#0F172A;
-    color:#E2E8F0;
+    background:#faf8f5;
+    color:#1a1a1a;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -23,7 +23,7 @@
   }
   /* Compact mode when embedded in iframe */
   @media(max-height:700px){
-    body{min-height:auto;padding:1rem .75rem}
+    body{min-height:auto;padding:1rem .75rem;background:transparent}
     h1,.subtitle{display:none}
   }
 
@@ -35,10 +35,10 @@
     text-align:center;
     animation:titleIn .8s ease-out both;
   }
-  h1 span{color:#10B981}
+  h1 span{color:#059669}
   .subtitle{
     font-size:clamp(.75rem,1.5vw,.95rem);
-    color:#64748B;
+    color:#6B7280;
     font-weight:400;
     text-align:center;
     margin-bottom:1.5rem;
@@ -73,8 +73,8 @@
 
   /* ── Pulse on API Gateway ── */
   @keyframes pulse{
-    0%,100%{opacity:.15;r:58}
-    50%{opacity:.35;r:68}
+    0%,100%{opacity:.1;r:58}
+    50%{opacity:.25;r:68}
   }
   .gw-pulse{animation:pulse 2.5s ease-in-out infinite}
 
@@ -95,13 +95,7 @@
   .dot{
     offset-rotate:0deg;
     animation:flowDot var(--dur,3s) var(--delay,0s) linear infinite;
-    opacity:.9;
-  }
-
-  /* ── Glow filter animation ── */
-  @keyframes glowPulse{
-    0%,100%{flood-opacity:.4}
-    50%{flood-opacity:.7}
+    opacity:.85;
   }
 
   /* ── Badge label ── */
@@ -110,12 +104,20 @@
     font-weight:600;
     letter-spacing:.04em;
     text-transform:uppercase;
-    fill:#94A3B8;
+    fill:#9CA3AF;
   }
 
   /* ── Responsive ── */
   @media(max-width:640px){
     body{padding:1rem .5rem}
+  }
+
+  /* ── Reduced motion ── */
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms!important;
+      animation-iteration-count:1!important;
+    }
   }
 </style>
 </head>
@@ -127,11 +129,11 @@
 <div class="diagram-wrap">
 <svg viewBox="0 0 1100 760" xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <!-- Glow filter -->
+  <!-- Glow filter (light mode) -->
   <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur"/>
-    <feFlood flood-color="#10B981" flood-opacity=".5">
-      <animate attributeName="flood-opacity" values=".4;.7;.4" dur="2.5s" repeatCount="indefinite"/>
+    <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur"/>
+    <feFlood flood-color="#10B981" flood-opacity=".25">
+      <animate attributeName="flood-opacity" values=".2;.4;.2" dur="2.5s" repeatCount="indefinite"/>
     </feFlood>
     <feComposite in2="blur" operator="in" result="glow"/>
     <feMerge>
@@ -140,195 +142,153 @@
     </feMerge>
   </filter>
 
-  <!-- Soft shadow -->
+  <!-- Soft shadow (light mode) -->
   <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
-    <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity=".25"/>
+    <feDropShadow dx="0" dy="2" stdDeviation="5" flood-color="#8B6914" flood-opacity=".08"/>
   </filter>
 
-  <!-- Arrow marker -->
+  <!-- Arrow markers -->
   <marker id="arrow" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
-    <path d="M0,0 L10,4 L0,8 Z" fill="#475569"/>
+    <path d="M0,0 L10,4 L0,8 Z" fill="#94A3B8"/>
   </marker>
   <marker id="arrowGreen" viewBox="0 0 10 8" refX="9" refY="4" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
-    <path d="M0,0 L10,4 L0,8 Z" fill="#10B981"/>
+    <path d="M0,0 L10,4 L0,8 Z" fill="#059669"/>
   </marker>
 </defs>
 
-<!-- ════════════════════════════════════════════ -->
-<!-- CONNECTIONS (behind everything) -->
-<!-- ════════════════════════════════════════════ -->
-<g class="connections" opacity=".7">
-
-  <!-- Patient → Frontend -->
-  <path id="pathPF" d="M340,135 C340,170 420,180 460,210" fill="none" stroke="#475569" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
-  <!-- Doctor → Frontend -->
-  <path id="pathDF" d="M760,135 C760,170 680,180 640,210" fill="none" stroke="#475569" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
-
-  <!-- Frontend → Gateway -->
-  <path id="pathFG" d="M550,278 L550,330" fill="none" stroke="#10B981" stroke-width="2.5" class="conn" marker-end="url(#arrowGreen)"/>
-
-  <!-- Gateway → Scheduling -->
-  <path id="pathGS" d="M440,420 C370,445 310,460 280,490" fill="none" stroke="#475569" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
-  <!-- Gateway → Profiles -->
-  <path id="pathGP" d="M550,420 L550,490" fill="none" stroke="#475569" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
-  <!-- Gateway → Payments -->
-  <path id="pathGPay" d="M660,420 C730,445 790,460 820,490" fill="none" stroke="#475569" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
-
-  <!-- Scheduling → PostgreSQL -->
-  <path id="pathSDB" d="M230,578 L230,640" fill="none" stroke="#475569" stroke-width="1.5" class="conn" marker-end="url(#arrow)"/>
-  <!-- Profiles → Redis -->
-  <path id="pathPR" d="M550,578 L550,640" fill="none" stroke="#475569" stroke-width="1.5" class="conn" marker-end="url(#arrow)"/>
-  <!-- Payments → Stripe -->
-  <path id="pathPayS" d="M870,578 L870,640" fill="none" stroke="#475569" stroke-width="1.5" class="conn" marker-end="url(#arrow)"/>
+<!-- ═══ CONNECTIONS ═══ -->
+<g class="connections" opacity=".6">
+  <path d="M340,135 C340,170 420,180 460,210" fill="none" stroke="#CBD5E1" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
+  <path d="M760,135 C760,170 680,180 640,210" fill="none" stroke="#CBD5E1" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
+  <path d="M550,278 L550,330" fill="none" stroke="#059669" stroke-width="2.5" class="conn" marker-end="url(#arrowGreen)"/>
+  <path d="M440,420 C370,445 310,460 280,490" fill="none" stroke="#CBD5E1" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
+  <path d="M550,420 L550,490" fill="none" stroke="#CBD5E1" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
+  <path d="M660,420 C730,445 790,460 820,490" fill="none" stroke="#CBD5E1" stroke-width="2" class="conn" marker-end="url(#arrow)"/>
+  <path d="M230,578 L230,640" fill="none" stroke="#CBD5E1" stroke-width="1.5" class="conn" marker-end="url(#arrow)"/>
+  <path d="M550,578 L550,640" fill="none" stroke="#CBD5E1" stroke-width="1.5" class="conn" marker-end="url(#arrow)"/>
+  <path d="M870,578 L870,640" fill="none" stroke="#CBD5E1" stroke-width="1.5" class="conn" marker-end="url(#arrow)"/>
 </g>
 
-<!-- ── Flowing dots ── -->
+<!-- ═══ Flowing dots ═══ -->
 <g>
   <circle r="4" fill="#3B82F6" class="dot" style="offset-path:path('M340,135 C340,170 420,180 460,210');--dur:2.5s;--delay:0s"/>
   <circle r="4" fill="#3B82F6" class="dot" style="offset-path:path('M760,135 C760,170 680,180 640,210');--dur:2.5s;--delay:.8s"/>
-  <circle r="4.5" fill="#10B981" class="dot" style="offset-path:path('M550,278 L550,330');--dur:1.2s;--delay:0s"/>
-  <circle r="4.5" fill="#10B981" class="dot" style="offset-path:path('M550,278 L550,330');--dur:1.2s;--delay:.6s"/>
-  <circle r="3.5" fill="#F59E0B" class="dot" style="offset-path:path('M440,420 C370,445 310,460 280,490');--dur:2s;--delay:.2s"/>
-  <circle r="3.5" fill="#F59E0B" class="dot" style="offset-path:path('M550,420 L550,490');--dur:1.5s;--delay:.4s"/>
-  <circle r="3.5" fill="#F59E0B" class="dot" style="offset-path:path('M660,420 C730,445 790,460 820,490');--dur:2s;--delay:.7s"/>
-  <circle r="3" fill="#8B5CF6" class="dot" style="offset-path:path('M230,578 L230,640');--dur:1.5s;--delay:.3s"/>
-  <circle r="3" fill="#8B5CF6" class="dot" style="offset-path:path('M550,578 L550,640');--dur:1.5s;--delay:.6s"/>
-  <circle r="3" fill="#EC4899" class="dot" style="offset-path:path('M870,578 L870,640');--dur:1.5s;--delay:.1s"/>
+  <circle r="4.5" fill="#059669" class="dot" style="offset-path:path('M550,278 L550,330');--dur:1.2s;--delay:0s"/>
+  <circle r="4.5" fill="#059669" class="dot" style="offset-path:path('M550,278 L550,330');--dur:1.2s;--delay:.6s"/>
+  <circle r="3.5" fill="#D97706" class="dot" style="offset-path:path('M440,420 C370,445 310,460 280,490');--dur:2s;--delay:.2s"/>
+  <circle r="3.5" fill="#D97706" class="dot" style="offset-path:path('M550,420 L550,490');--dur:1.5s;--delay:.4s"/>
+  <circle r="3.5" fill="#D97706" class="dot" style="offset-path:path('M660,420 C730,445 790,460 820,490');--dur:2s;--delay:.7s"/>
+  <circle r="3" fill="#7C3AED" class="dot" style="offset-path:path('M230,578 L230,640');--dur:1.5s;--delay:.3s"/>
+  <circle r="3" fill="#7C3AED" class="dot" style="offset-path:path('M550,578 L550,640');--dur:1.5s;--delay:.6s"/>
+  <circle r="3" fill="#DB2777" class="dot" style="offset-path:path('M870,578 L870,640');--dur:1.5s;--delay:.1s"/>
 </g>
 
-
-<!-- ════════════════════════════════════════════ -->
-<!-- LAYER: CLIENTS -->
-<!-- ════════════════════════════════════════════ -->
+<!-- ═══ CLIENTS ═══ -->
 <g class="layer-clients">
   <text class="badge" x="24" y="48">Clients</text>
 
-  <!-- Patient -->
   <g filter="url(#shadow)">
-    <rect x="260" y="60" width="160" height="68" rx="14" fill="#1E293B" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="260" y="60" width="160" height="68" rx="14" fill="#fff" stroke="#3B82F6" stroke-width="1.5"/>
     <text x="340" y="86" text-anchor="middle" font-size="20" fill="#3B82F6">&#128100;</text>
-    <text x="340" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">Patient App</text>
+    <text x="340" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">Patient App</text>
   </g>
 
-  <!-- Doctor -->
   <g filter="url(#shadow)">
-    <rect x="680" y="60" width="160" height="68" rx="14" fill="#1E293B" stroke="#3B82F6" stroke-width="2"/>
+    <rect x="680" y="60" width="160" height="68" rx="14" fill="#fff" stroke="#3B82F6" stroke-width="1.5"/>
     <text x="760" y="86" text-anchor="middle" font-size="20" fill="#3B82F6">&#129657;</text>
-    <text x="760" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">Doctor Portal</text>
+    <text x="760" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">Doctor Portal</text>
   </g>
 </g>
 
-
-<!-- ════════════════════════════════════════════ -->
-<!-- LAYER: FRONTEND -->
-<!-- ════════════════════════════════════════════ -->
+<!-- ═══ FRONTEND ═══ -->
 <g class="layer-frontend">
   <text class="badge" x="24" y="232">Frontend</text>
 
   <g filter="url(#shadow)">
-    <rect x="390" y="198" width="320" height="76" rx="16" fill="#1E293B" stroke="#6B7280" stroke-width="2"/>
-    <!-- Next.js icon area -->
-    <circle cx="430" cy="236" r="18" fill="#000" stroke="#fff" stroke-width="1.5"/>
+    <rect x="390" y="198" width="320" height="76" rx="16" fill="#fff" stroke="#D1D5DB" stroke-width="1.5"/>
+    <circle cx="430" cy="236" r="18" fill="#000" stroke="#E5E7EB" stroke-width="1"/>
     <text x="430" y="241" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">N</text>
-    <text x="530" y="228" text-anchor="middle" font-size="14" font-weight="700" fill="#E2E8F0">Next.js 14</text>
-    <text x="530" y="248" text-anchor="middle" font-size="11" fill="#94A3B8">React &middot; TypeScript &middot; Tailwind</text>
-    <!-- Vercel badge -->
-    <rect x="618" y="218" width="72" height="24" rx="6" fill="#000" stroke="#333" stroke-width="1"/>
+    <text x="530" y="228" text-anchor="middle" font-size="14" font-weight="700" fill="#1E293B">Next.js 14</text>
+    <text x="530" y="248" text-anchor="middle" font-size="11" fill="#6B7280">React &middot; TypeScript &middot; Tailwind</text>
+    <rect x="618" y="218" width="72" height="24" rx="6" fill="#111" stroke="#333" stroke-width="1"/>
     <text x="654" y="234" text-anchor="middle" font-size="9.5" font-weight="600" fill="#fff">&#9652; Vercel</text>
   </g>
 </g>
 
-
-<!-- ════════════════════════════════════════════ -->
-<!-- LAYER: API GATEWAY -->
-<!-- ════════════════════════════════════════════ -->
+<!-- ═══ API GATEWAY ═══ -->
 <g class="layer-gateway">
   <text class="badge" x="24" y="355">API Gateway</text>
 
-  <!-- Pulse ring -->
-  <circle cx="550" cy="378" class="gw-pulse" fill="#10B981" opacity=".15" r="58"/>
+  <circle cx="550" cy="378" class="gw-pulse" fill="#10B981" opacity=".1" r="58"/>
 
   <g filter="url(#glow)">
-    <rect x="400" y="335" width="300" height="86" rx="16" fill="#064E3B" stroke="#10B981" stroke-width="2.5"/>
-    <text x="550" y="365" text-anchor="middle" font-size="15" font-weight="700" fill="#A7F3D0">API Gateway</text>
-    <!-- Sub-labels -->
-    <g font-size="10.5" fill="#6EE7B7" text-anchor="middle">
-      <rect x="425" y="377" width="56" height="22" rx="6" fill="#10B981" opacity=".15"/>
+    <rect x="400" y="335" width="300" height="86" rx="16" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+    <text x="550" y="365" text-anchor="middle" font-size="15" font-weight="700" fill="#065F46">API Gateway</text>
+    <g font-size="10.5" fill="#047857" text-anchor="middle">
+      <rect x="425" y="377" width="56" height="22" rx="6" fill="#D1FAE5"/>
       <text x="453" y="392">Auth</text>
-      <rect x="493" y="377" width="75" height="22" rx="6" fill="#10B981" opacity=".15"/>
+      <rect x="493" y="377" width="75" height="22" rx="6" fill="#D1FAE5"/>
       <text x="530" y="392">Rate Limit</text>
-      <rect x="580" y="377" width="56" height="22" rx="6" fill="#10B981" opacity=".15"/>
+      <rect x="580" y="377" width="56" height="22" rx="6" fill="#D1FAE5"/>
       <text x="608" y="392">CORS</text>
-      <rect x="648" y="377" width="36" height="22" rx="6" fill="#10B981" opacity=".15"/>
+      <rect x="648" y="377" width="36" height="22" rx="6" fill="#D1FAE5"/>
       <text x="666" y="392">Log</text>
     </g>
   </g>
 </g>
 
-
-<!-- ════════════════════════════════════════════ -->
-<!-- LAYER: SERVICES -->
-<!-- ════════════════════════════════════════════ -->
+<!-- ═══ SERVICES ═══ -->
 <g class="layer-services">
   <text class="badge" x="24" y="510">Services</text>
 
-  <!-- Scheduling -->
   <g filter="url(#shadow)">
-    <rect x="130" y="496" width="200" height="76" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
-    <text x="230" y="524" text-anchor="middle" font-size="18" fill="#F59E0B">&#128197;</text>
-    <text x="230" y="546" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">Scheduling</text>
-    <text x="230" y="562" text-anchor="middle" font-size="10" fill="#94A3B8">Appointments &middot; Calendar</text>
+    <rect x="130" y="496" width="200" height="76" rx="14" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+    <text x="230" y="524" text-anchor="middle" font-size="18" fill="#D97706">&#128197;</text>
+    <text x="230" y="546" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">Scheduling</text>
+    <text x="230" y="562" text-anchor="middle" font-size="10" fill="#6B7280">Appointments &middot; Calendar</text>
   </g>
 
-  <!-- Profiles -->
   <g filter="url(#shadow)">
-    <rect x="450" y="496" width="200" height="76" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
-    <text x="550" y="524" text-anchor="middle" font-size="18" fill="#F59E0B">&#128101;</text>
-    <text x="550" y="546" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">Profiles</text>
-    <text x="550" y="562" text-anchor="middle" font-size="10" fill="#94A3B8">Doctors &middot; Patients &middot; Reviews</text>
+    <rect x="450" y="496" width="200" height="76" rx="14" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+    <text x="550" y="524" text-anchor="middle" font-size="18" fill="#D97706">&#128101;</text>
+    <text x="550" y="546" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">Profiles</text>
+    <text x="550" y="562" text-anchor="middle" font-size="10" fill="#6B7280">Doctors &middot; Patients &middot; Reviews</text>
   </g>
 
-  <!-- Payments -->
   <g filter="url(#shadow)">
-    <rect x="770" y="496" width="200" height="76" rx="14" fill="#1E293B" stroke="#F59E0B" stroke-width="2"/>
-    <text x="870" y="524" text-anchor="middle" font-size="18" fill="#F59E0B">&#128179;</text>
-    <text x="870" y="546" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">Payments</text>
-    <text x="870" y="562" text-anchor="middle" font-size="10" fill="#94A3B8">Invoices &middot; Refunds</text>
+    <rect x="770" y="496" width="200" height="76" rx="14" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+    <text x="870" y="524" text-anchor="middle" font-size="18" fill="#D97706">&#128179;</text>
+    <text x="870" y="546" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">Payments</text>
+    <text x="870" y="562" text-anchor="middle" font-size="10" fill="#6B7280">Invoices &middot; Refunds</text>
   </g>
 </g>
 
-
-<!-- ════════════════════════════════════════════ -->
-<!-- LAYER: DATA & EXTERNAL -->
-<!-- ════════════════════════════════════════════ -->
+<!-- ═══ DATA LAYER ═══ -->
 <g class="layer-data">
   <text class="badge" x="24" y="665">Data Layer</text>
 
-  <!-- PostgreSQL -->
   <g filter="url(#shadow)">
-    <rect x="130" y="646" width="200" height="68" rx="14" fill="#1E293B" stroke="#8B5CF6" stroke-width="2"/>
-    <text x="230" y="672" text-anchor="middle" font-size="17" fill="#8B5CF6">&#128451;</text>
-    <text x="230" y="697" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">PostgreSQL</text>
+    <rect x="130" y="646" width="200" height="68" rx="14" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+    <text x="230" y="672" text-anchor="middle" font-size="17" fill="#7C3AED">&#128451;</text>
+    <text x="230" y="697" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">PostgreSQL</text>
   </g>
 
-  <!-- Redis -->
   <g filter="url(#shadow)">
-    <rect x="450" y="646" width="200" height="68" rx="14" fill="#1E293B" stroke="#8B5CF6" stroke-width="2"/>
-    <text x="550" y="672" text-anchor="middle" font-size="17" fill="#EF4444">&#9889;</text>
-    <text x="550" y="697" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">Redis Cache</text>
+    <rect x="450" y="646" width="200" height="68" rx="14" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+    <text x="550" y="672" text-anchor="middle" font-size="17" fill="#DC2626">&#9889;</text>
+    <text x="550" y="697" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">Redis Cache</text>
   </g>
 
-  <!-- Stripe -->
   <g filter="url(#shadow)">
-    <rect x="770" y="646" width="200" height="68" rx="14" fill="#1E293B" stroke="#EC4899" stroke-width="2"/>
-    <text x="870" y="672" text-anchor="middle" font-size="17" fill="#EC4899">&#128176;</text>
-    <text x="870" y="697" text-anchor="middle" font-size="13" font-weight="600" fill="#E2E8F0">Stripe</text>
-    <text x="870" y="656" text-anchor="middle" font-size="8" fill="#94A3B8" text-transform="uppercase">EXTERNAL</text>
+    <rect x="770" y="646" width="200" height="68" rx="14" fill="#FDF2F8" stroke="#DB2777" stroke-width="1.5"/>
+    <text x="870" y="656" text-anchor="middle" font-size="8" fill="#9CA3AF" text-transform="uppercase">EXTERNAL</text>
+    <text x="870" y="678" text-anchor="middle" font-size="17" fill="#DB2777">&#128176;</text>
+    <text x="870" y="700" text-anchor="middle" font-size="13" font-weight="600" fill="#1E293B">Stripe</text>
   </g>
 </g>
 
-<!-- ── Layer separators (subtle) ── -->
-<g opacity=".08" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4 6">
+<!-- ── Layer separators ── -->
+<g opacity=".12" stroke="#94A3B8" stroke-width="1" stroke-dasharray="4 6">
   <line x1="60" y1="155" x2="1040" y2="155"/>
   <line x1="60" y1="295" x2="1040" y2="295"/>
   <line x1="60" y1="435" x2="1040" y2="435"/>

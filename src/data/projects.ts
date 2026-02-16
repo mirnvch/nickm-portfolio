@@ -17,32 +17,42 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'StemLab',
       slug: 'stemlab',
-      description: 'Building an interactive STEM learning platform. Full-stack development, Rive animations, content system.',
+      description: 'Interactive STEM platform where students explore math and science through animated lessons, visual explorers, and hands-on quizzes.',
       content: `
         <h2>About the Project</h2>
-        <p>StemLab is an interactive STEM learning platform designed to make science and technology education engaging and accessible. The platform combines interactive lessons, animations, and a structured content system to deliver an immersive learning experience.</p>
+        <p>StemLab is a learning platform where abstract STEM concepts become something you can see, touch, and play with. A student drags a slider and watches a pizza split into fractions. They pull the corner of a triangle and see the Pythagorean theorem prove itself in real time. They trace a quadratic curve and feel how coefficients shape the parabola.</p>
+        <p>The goal isn't to replace a textbook — it's to build the intuition that textbooks assume you already have.</p>
+
+        <p><em>StemLab is in active development. The lesson engine and interactive components are built. Course catalog, student progress tracking, and a teacher dashboard are the next milestones.</em></p>
 
         <h2>My Role</h2>
-        <p>Full-stack development from concept to prototype, working with AI (Claude) as a development partner. I define the product, design the architecture, and make all creative and technical decisions. AI accelerates implementation — together we move from idea to working prototype at a pace that wasn't possible before.</p>
+        <p>I'm the sole developer and product owner. Every architectural decision, every UX choice, and every pedagogical approach is mine. I work with AI (Claude) as a development partner — it accelerates implementation, but the product vision, system design, and quality bar are set by me.</p>
 
-        <h2>Key Features</h2>
+        <h2>Platform Architecture</h2>
+        <p>At the core is a lesson engine that takes MDX content paired with JSON metadata and dynamically resolves it into interactive React components. Each lesson is a composition of text, animations, explorers, and quizzes — assembled at render time based on the content definition.</p>
+
+        <figure>
+          <iframe src="/diagrams/stemlab.html" height="640" loading="lazy" title="StemLab platform architecture diagram"></iframe>
+          <figcaption>Platform architecture — data flow from student interaction through the lesson engine to content layer</figcaption>
+        </figure>
+        <a href="/diagrams/stemlab.html" target="_blank" class="diagram-link">Open full screen &#8599;</a>
+
+        <h2>How It's Built</h2>
         <ul>
-          <li><strong>Interactive lessons</strong> with Rive animations that respond to user actions</li>
-          <li><strong>Content management system</strong> for creating and organizing STEM curriculum</li>
-          <li><strong>Progress tracking</strong> to monitor learning outcomes</li>
-          <li><strong>Responsive design</strong> optimized for tablets and desktops</li>
+          <li><strong>Frontend:</strong> Next.js 16 with React 19 Server Components, deployed on Vercel. RSC for fast initial loads with client interactivity only where the lesson demands it.</li>
+          <li><strong>Lesson Engine:</strong> A content parser reads MDX + JSON definitions and a component resolver maps them to interactive React components. A state machine tracks lesson progression, unlocking sections as the student completes each step.</li>
+          <li><strong>Interactive Explorers:</strong> Custom React components where students manipulate mathematical objects directly — dragging points, adjusting parameters, and seeing results update in real time.</li>
+          <li><strong>Rive Animations:</strong> GPU-accelerated animations built in Rive that respond to student input. Used for visual explanations that static diagrams can't deliver.</li>
+          <li><strong>Security:</strong> Content sanitization pipeline, strict CSP headers, and input validation on all interactive components. No user-generated content reaches the DOM without sanitization.</li>
         </ul>
 
-        <h2>Technical Highlights</h2>
-        <p>The platform uses Rive for hardware-accelerated animations that run smoothly across devices. The content system is built to be flexible enough for different STEM disciplines while maintaining a consistent learning flow.</p>
-
         <h2>How AI Fits In</h2>
-        <p>Built with AI-augmented development — I own every product and architecture decision, while Claude accelerates the implementation. This approach lets a solo developer build and iterate on a full-stack platform at startup speed.</p>
+        <p>Claude serves as a development partner that accelerates implementation — writing component code, generating test cases, and helping iterate on interactive prototypes. The architecture, product decisions, and pedagogical design are mine. AI makes it possible for one developer to build what would otherwise require a team.</p>
       `,
-      tech: ['React', 'TypeScript', 'Node.js', 'Rive', 'PostgreSQL', 'Tailwind CSS'],
+      tech: ['Next.js', 'React', 'TypeScript', 'Rive', 'MDX', 'Tailwind CSS'],
       image: '/images/projects/stemlab-logo.svg',
       link: '',
-      status: 'prototype',
+      status: 'development',
       mode: 'personal',
     },
     {
@@ -81,7 +91,7 @@ const projectsData: Record<Locale, Project[]> = {
 
         <h2>How AI Fits In</h2>
         <p>This project is built using AI-augmented development with Claude as a coding partner. I handle architecture, product decisions, and code review. Claude helps with implementation speed — writing code, generating tests, creating technical documentation, and even this architecture diagram.</p>
-        <p>The result: one developer shipping a production-grade platform that would traditionally require a full engineering team. Every line of code is reviewed and understood by me — AI is the accelerator, not the autopilot.</p>
+        <p>The result: one developer shipping a production-grade platform that would traditionally require a full engineering team. AI is the accelerator, not the autopilot.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
       image: '/images/projects/docconnect-logo.svg',
@@ -206,32 +216,42 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'StemLab',
       slug: 'stemlab',
-      description: 'Строю интерактивную STEM-платформу. Фулстек-разработка, Rive-анимации, система контента.',
+      description: 'Интерактивная STEM-платформа, где ученики исследуют математику и науку через анимированные уроки, визуальные эксплореры и практические квизы.',
       content: `
         <h2>О проекте</h2>
-        <p>StemLab — интерактивная платформа для изучения STEM-дисциплин, разработанная для того, чтобы сделать образование в сфере науки и технологий увлекательным и доступным. Платформа сочетает интерактивные уроки, анимации и структурированную систему контента.</p>
+        <p>StemLab — учебная платформа, где абстрактные STEM-концепции становятся чем-то, что можно увидеть, потрогать и с чем можно поиграть. Ученик двигает слайдер и смотрит, как пицца делится на дроби. Тянет за угол треугольника и видит, как теорема Пифагора доказывает себя в реальном времени. Проводит по квадратичной кривой и чувствует, как коэффициенты формируют параболу.</p>
+        <p>Цель — не заменить учебник, а построить интуицию, которую учебники предполагают уже готовой.</p>
+
+        <p><em>StemLab находится в активной разработке. Движок уроков и интерактивные компоненты построены. Каталог курсов, отслеживание прогресса учеников и панель преподавателя — следующие этапы.</em></p>
 
         <h2>Моя роль</h2>
-        <p>Фулстек-разработка от концепции до прототипа в паре с AI (Claude). Я определяю продукт, проектирую архитектуру и принимаю все креативные и технические решения. AI ускоряет реализацию — вместе мы двигаемся от идеи к рабочему прототипу со скоростью, которая раньше была невозможна.</p>
+        <p>Я единственный разработчик и владелец продукта. Каждое архитектурное решение, каждый UX-выбор и каждый педагогический подход — мой. Я работаю с AI (Claude) как с партнёром по разработке — он ускоряет реализацию, но продуктовое видение, системный дизайн и планка качества задаются мной.</p>
 
-        <h2>Ключевые функции</h2>
+        <h2>Архитектура платформы</h2>
+        <p>В основе — движок уроков, который берёт MDX-контент в паре с JSON-метаданными и динамически преобразует их в интерактивные React-компоненты. Каждый урок — это композиция из текста, анимаций, эксплореров и квизов, собранная в момент рендеринга на основе определения контента.</p>
+
+        <figure>
+          <iframe src="/diagrams/stemlab.html" height="640" loading="lazy" title="Диаграмма архитектуры StemLab"></iframe>
+          <figcaption>Архитектура платформы — поток данных от взаимодействия ученика через движок уроков к слою контента</figcaption>
+        </figure>
+        <a href="/diagrams/stemlab.html" target="_blank" class="diagram-link">Открыть на весь экран &#8599;</a>
+
+        <h2>Как это реализовано</h2>
         <ul>
-          <li><strong>Интерактивные уроки</strong> с Rive-анимациями, реагирующими на действия пользователя</li>
-          <li><strong>Система управления контентом</strong> для создания и организации учебных программ</li>
-          <li><strong>Отслеживание прогресса</strong> для мониторинга результатов обучения</li>
-          <li><strong>Адаптивный дизайн</strong> оптимизированный для планшетов и десктопов</li>
+          <li><strong>Фронтенд:</strong> Next.js 16 с React 19 Server Components, деплой на Vercel. RSC для быстрой первичной загрузки, клиентская интерактивность только там, где этого требует урок.</li>
+          <li><strong>Движок уроков:</strong> Парсер контента читает MDX + JSON-определения, резолвер компонентов маппит их на интерактивные React-компоненты. State machine отслеживает прогресс урока, открывая секции по мере прохождения каждого шага.</li>
+          <li><strong>Интерактивные эксплореры:</strong> Кастомные React-компоненты, где ученики напрямую манипулируют математическими объектами — перетаскивают точки, настраивают параметры и видят результаты в реальном времени.</li>
+          <li><strong>Rive-анимации:</strong> GPU-ускоренные анимации, построенные в Rive, которые реагируют на действия ученика. Используются для визуальных объяснений, которые статичные диаграммы передать не могут.</li>
+          <li><strong>Безопасность:</strong> Пайплайн санитизации контента, строгие CSP-заголовки и валидация ввода на всех интерактивных компонентах. Никакой пользовательский контент не попадает в DOM без санитизации.</li>
         </ul>
 
-        <h2>Технические особенности</h2>
-        <p>Платформа использует Rive для аппаратно-ускоренных анимаций, работающих плавно на всех устройствах. Система контента достаточно гибкая для разных STEM-дисциплин, при этом сохраняет единый учебный поток.</p>
-
         <h2>Роль AI в разработке</h2>
-        <p>Проект создаётся с AI-augmented development — я принимаю все продуктовые и архитектурные решения, а Claude ускоряет реализацию. Такой подход позволяет одному разработчику создавать и итерировать фулстек-платформу со скоростью стартапа.</p>
+        <p>Claude выступает партнёром по разработке, ускоряя реализацию — пишет код компонентов, генерирует тест-кейсы и помогает итерировать интерактивные прототипы. Архитектура, продуктовые решения и педагогический дизайн — мои. AI позволяет одному разработчику строить то, на что иначе потребовалась бы команда.</p>
       `,
-      tech: ['React', 'TypeScript', 'Node.js', 'Rive', 'PostgreSQL', 'Tailwind CSS'],
+      tech: ['Next.js', 'React', 'TypeScript', 'Rive', 'MDX', 'Tailwind CSS'],
       image: '/images/projects/stemlab-logo.svg',
       link: '',
-      status: 'prototype',
+      status: 'development',
       mode: 'personal',
     },
     {
@@ -270,7 +290,7 @@ const projectsData: Record<Locale, Project[]> = {
 
         <h2>Роль AI в разработке</h2>
         <p>Этот проект создаётся с использованием AI-augmented development — Claude выступает партнёром по написанию кода. Я отвечаю за архитектуру, продуктовые решения и код-ревью. Claude помогает со скоростью реализации — пишет код, генерирует тесты, создаёт техническую документацию и даже эту архитектурную диаграмму.</p>
-        <p>Результат: один разработчик выпускает платформу продакшн-уровня, на которую обычно нужна целая инженерная команда. Каждая строка кода проверена и понята мной — AI это ускоритель, а не автопилот.</p>
+        <p>Результат: один разработчик выпускает платформу продакшн-уровня, на которую обычно нужна целая инженерная команда. AI — это ускоритель, а не автопилот.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
       image: '/images/projects/docconnect-logo.svg',

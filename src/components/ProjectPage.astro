@@ -23,7 +23,7 @@ const statusLabels: Record<string, string> = {
 const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich';
 ---
 
-<Layout title={`${project.title} • ${siteName}`} description={project.description} lang={lang}>
+<Layout title={`${project.title} • ${siteName}`} description={project.description} lang={lang} pageMode={project.mode}>
   <!-- Header -->
   <header class="flex items-center justify-between w-full">
     <a href={homePath} class="text-muted-foreground hover:text-foreground transition-colors text-sm">

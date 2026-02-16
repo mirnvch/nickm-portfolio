@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StemLab — Platform Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:transparent;
+    color:#e2e8f0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100dvh;
+    padding:1.5rem 1rem;
+    overflow-x:hidden;
+  }
+  @media(max-height:700px){
+    body{min-height:auto;padding:.75rem .5rem}
+    h1,.subtitle{display:none}
+  }
+  h1{
+    font-size:clamp(1.4rem,3vw,2rem);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin-bottom:.25rem;
+    text-align:center;
+    animation:fadeIn .8s ease-out both;
+  }
+  h1 span{color:#2dd4bf}
+  .subtitle{
+    font-size:clamp(.75rem,1.5vw,.95rem);
+    color:#64748b;
+    font-weight:400;
+    text-align:center;
+    margin-bottom:1.5rem;
+    animation:fadeIn .8s .15s ease-out both;
+  }
+  .diagram-wrap{
+    width:100%;
+    max-width:1100px;
+    animation:fadeIn .6s .3s ease-out both;
+  }
+  svg{width:100%;height:auto;display:block}
+
+  @keyframes fadeIn{
+    from{opacity:0;transform:translateY(10px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes flowIn{
+    from{opacity:0;transform:translateY(14px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .f1{animation:flowIn .5s .4s ease-out both}
+  .f2{animation:flowIn .5s .55s ease-out both}
+  .f3{animation:flowIn .5s .7s ease-out both}
+  .f4{animation:flowIn .5s .85s ease-out both}
+  .f5{animation:flowIn .5s 1s ease-out both}
+
+  @keyframes march{to{stroke-dashoffset:-16}}
+  .dash{stroke-dasharray:5 3;animation:march .6s linear infinite}
+
+  @keyframes flowDot{0%{offset-distance:0%}100%{offset-distance:100%}}
+  .dot{offset-rotate:0deg;animation:flowDot var(--dur,2s) var(--delay,0s) linear infinite;opacity:.85}
+
+  @keyframes softPulse{
+    0%,100%{opacity:.6}
+    50%{opacity:1}
+  }
+  .glow-pill{animation:softPulse 2.5s ease-in-out infinite}
+
+  @media(max-width:640px){body{padding:1rem .5rem}}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}
+  }
+</style>
+</head>
+<body>
+
+<h1>Stem<span>Lab</span> Architecture</h1>
+<p class="subtitle">Interactive STEM Platform &middot; System Overview</p>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arr" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="7" markerHeight="5" orient="auto-start-reverse">
+    <path d="M0,0 L8,3 L0,6 Z" fill="#3a3f4b"/>
+  </marker>
+  <marker id="arrTeal" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="7" markerHeight="5" orient="auto-start-reverse">
+    <path d="M0,0 L8,3 L0,6 Z" fill="#2dd4bf"/>
+  </marker>
+</defs>
+
+<!-- ═══ ROW 1: Student + Frontend ═══ -->
+<g class="f1">
+  <!-- Student icon (person silhouette) -->
+  <circle cx="160" cy="42" r="10" fill="#2dd4bf"/>
+  <path d="M145,68 Q160,50 175,68" fill="#2dd4bf"/>
+  <text x="160" y="86" text-anchor="middle" font-size="10" fill="#94a3b8">Student</text>
+
+  <!-- Dashed arrow Student → Frontend -->
+  <path d="M195,58 L280,58" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+
+  <!-- Frontend card -->
+  <rect x="295" y="30" width="280" height="56" rx="10" fill="#1a1d23" stroke="#2a2e38" stroke-width="1.2"/>
+  <circle cx="330" cy="52" r="12" fill="#fff"/>
+  <text x="330" y="56" text-anchor="middle" font-size="10" font-weight="700" fill="#000">N</text>
+  <text x="405" y="50" text-anchor="middle" font-size="12" font-weight="600" fill="#e2e8f0">Next.js 16</text>
+  <text x="405" y="68" text-anchor="middle" font-size="9" fill="#64748b">React 19 &middot; RSC &middot; TypeScript</text>
+  <!-- Vercel -->
+  <rect x="505" y="44" width="52" height="18" rx="4" fill="#fff"/>
+  <text x="531" y="57" text-anchor="middle" font-size="7.5" font-weight="600" fill="#000">&#9652; Vercel</text>
+
+  <!-- Arrow down from Frontend -->
+  <path d="M435,86 L435,120" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+</g>
+
+<!-- ═══ ROW 2: Content inputs (MDX + JSON) ═══ -->
+<g class="f2">
+  <!-- MDX card -->
+  <rect x="270" y="130" width="140" height="44" rx="10" fill="#1a1d23" stroke="#2dd4bf" stroke-width="1"/>
+  <text x="310" y="149" text-anchor="middle" font-size="13" fill="#2dd4bf">&#128196;</text>
+  <text x="360" y="149" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0">MDX Content</text>
+  <text x="340" y="165" text-anchor="middle" font-size="8" fill="#64748b">Lesson markup</text>
+
+  <!-- JSON card -->
+  <rect x="440" y="130" width="140" height="44" rx="10" fill="#1a1d23" stroke="#2dd4bf" stroke-width="1"/>
+  <text x="478" y="149" text-anchor="middle" font-size="13" fill="#2dd4bf">&#128203;</text>
+  <text x="530" y="149" text-anchor="middle" font-size="10.5" font-weight="600" fill="#e2e8f0">JSON Metadata</text>
+  <text x="510" y="165" text-anchor="middle" font-size="8" fill="#64748b">Lesson config</text>
+
+  <!-- Arrows down merging -->
+  <path d="M340,174 L340,195 L435,210" fill="none" stroke="#2dd4bf" stroke-width="1.2" class="dash" marker-end="url(#arrTeal)"/>
+  <path d="M510,174 L510,195 L435,210" fill="none" stroke="#2dd4bf" stroke-width="1.2" class="dash" marker-end="url(#arrTeal)"/>
+
+  <!-- Flowing dots on merge paths -->
+  <circle r="3" fill="#2dd4bf" class="dot" style="offset-path:path('M340,174 L340,195 L435,210');--dur:2s;--delay:0s"/>
+  <circle r="3" fill="#2dd4bf" class="dot" style="offset-path:path('M510,174 L510,195 L435,210');--dur:2s;--delay:.5s"/>
+</g>
+
+<!-- ═══ ROW 3: Lesson Engine (green pill — the orchestrator) ═══ -->
+<g class="f3">
+  <rect x="340" y="215" width="190" height="38" rx="19" fill="#16a34a" stroke="#22c55e" stroke-width="1.5" class="glow-pill"/>
+  <text x="435" y="239" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Lesson Engine</text>
+
+  <!-- Three arrows fanning down -->
+  <path d="M385,253 L250,290" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+  <path d="M435,253 L435,290" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+  <path d="M485,253 L620,290" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+</g>
+
+<!-- ═══ ROW 4: Processing components ═══ -->
+<g class="f4">
+  <!-- Content Parser -->
+  <rect x="155" y="298" width="130" height="40" rx="8" fill="#1a1d23" stroke="#2dd4bf" stroke-width="1"/>
+  <text x="192" y="316" text-anchor="middle" font-size="10" fill="#2dd4bf">&#9881;</text>
+  <text x="240" y="316" text-anchor="middle" font-size="9.5" font-weight="600" fill="#e2e8f0">Content Parser</text>
+  <text x="220" y="330" text-anchor="middle" font-size="7.5" fill="#64748b">MDX → AST</text>
+
+  <!-- Component Resolver -->
+  <rect x="360" y="298" width="150" height="40" rx="8" fill="#1a1d23" stroke="#2dd4bf" stroke-width="1"/>
+  <text x="400" y="316" text-anchor="middle" font-size="10" fill="#2dd4bf">&#128268;</text>
+  <text x="455" y="316" text-anchor="middle" font-size="9.5" font-weight="600" fill="#e2e8f0">Component Resolver</text>
+  <text x="435" y="330" text-anchor="middle" font-size="7.5" fill="#64748b">AST → React</text>
+
+  <!-- State Machine -->
+  <rect x="580" y="298" width="130" height="40" rx="8" fill="#1a1d23" stroke="#2dd4bf" stroke-width="1"/>
+  <text x="615" y="316" text-anchor="middle" font-size="10" fill="#2dd4bf">&#9209;</text>
+  <text x="665" y="316" text-anchor="middle" font-size="9.5" font-weight="600" fill="#e2e8f0">State Machine</text>
+  <text x="645" y="330" text-anchor="middle" font-size="7.5" fill="#64748b">Progression</text>
+
+  <!-- Arrows down -->
+  <path d="M220,338 L220,380" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+  <path d="M435,338 L435,380" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+  <path d="M645,338 L645,380" fill="none" stroke="#3a3f4b" stroke-width="1.5" class="dash" marker-end="url(#arr)"/>
+</g>
+
+<!-- ═══ ROW 5: Interactive outputs ═══ -->
+<g class="f4">
+  <!-- Rive Animations -->
+  <rect x="130" y="390" width="180" height="56" rx="10" fill="#1a1d23" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="175" y="415" text-anchor="middle" font-size="16" fill="#f59e0b">&#127912;</text>
+  <text x="245" y="412" text-anchor="middle" font-size="11" font-weight="600" fill="#e2e8f0">Rive Animations</text>
+  <text x="245" y="430" text-anchor="middle" font-size="8" fill="#64748b">GPU-accelerated &middot; Interactive</text>
+
+  <!-- Math Explorers -->
+  <rect x="345" y="390" width="180" height="56" rx="10" fill="#1a1d23" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="390" y="415" text-anchor="middle" font-size="16" fill="#f59e0b">&#128208;</text>
+  <text x="460" y="412" text-anchor="middle" font-size="11" font-weight="600" fill="#e2e8f0">Math Explorers</text>
+  <text x="460" y="430" text-anchor="middle" font-size="8" fill="#64748b">Drag &middot; Visualize &middot; Learn</text>
+
+  <!-- Quiz Engine -->
+  <rect x="560" y="390" width="180" height="56" rx="10" fill="#1a1d23" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="605" y="415" text-anchor="middle" font-size="16" fill="#f59e0b">&#9989;</text>
+  <text x="675" y="412" text-anchor="middle" font-size="11" font-weight="600" fill="#e2e8f0">Quiz Engine</text>
+  <text x="675" y="430" text-anchor="middle" font-size="8" fill="#64748b">Assessments &middot; Feedback</text>
+</g>
+
+<!-- ═══ SEPARATOR ═══ -->
+<g class="f5" opacity=".15">
+  <line x1="80" y1="480" x2="790" y2="480" stroke="#64748b" stroke-width="1" stroke-dasharray="3 5"/>
+</g>
+
+<!-- ═══ ROW 6: Data layer ═══ -->
+<g class="f5">
+  <!-- Database icon helper style -->
+
+  <!-- MDX Store -->
+  <g>
+    <ellipse cx="200" cy="510" rx="22" ry="8" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+    <line x1="178" y1="510" x2="178" y2="530" stroke="#a78bfa" stroke-width="1.2"/>
+    <line x1="222" y1="510" x2="222" y2="530" stroke="#a78bfa" stroke-width="1.2"/>
+    <ellipse cx="200" cy="530" rx="22" ry="8" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+    <text x="200" y="555" text-anchor="middle" font-size="9.5" font-weight="600" fill="#c4b5fd">MDX Store</text>
+    <text x="200" y="568" text-anchor="middle" font-size="7.5" fill="#64748b">Lesson files</text>
+  </g>
+
+  <!-- Lesson Metadata -->
+  <g>
+    <ellipse cx="435" cy="510" rx="22" ry="8" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+    <line x1="413" y1="510" x2="413" y2="530" stroke="#a78bfa" stroke-width="1.2"/>
+    <line x1="457" y1="510" x2="457" y2="530" stroke="#a78bfa" stroke-width="1.2"/>
+    <ellipse cx="435" cy="530" rx="22" ry="8" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
+    <text x="435" y="555" text-anchor="middle" font-size="9.5" font-weight="600" fill="#c4b5fd">Lesson Metadata</text>
+    <text x="435" y="568" text-anchor="middle" font-size="7.5" fill="#64748b">JSON config</text>
+  </g>
+
+  <!-- PostgreSQL (PLANNED) -->
+  <g opacity=".45">
+    <ellipse cx="670" cy="510" rx="22" ry="8" fill="none" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3 2"/>
+    <line x1="648" y1="510" x2="648" y2="530" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3 2"/>
+    <line x1="692" y1="510" x2="692" y2="530" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3 2"/>
+    <ellipse cx="670" cy="530" rx="22" ry="8" fill="none" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="670" y="555" text-anchor="middle" font-size="9.5" font-weight="600" fill="#8b949e">PostgreSQL</text>
+    <text x="670" y="568" text-anchor="middle" font-size="7" font-weight="500" fill="#484f58" letter-spacing=".04em">PLANNED</text>
+  </g>
+
+  <!-- Dashed connections from outputs to data -->
+  <path d="M220,446 L200,500" fill="none" stroke="#3a3f4b" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M435,446 L435,500" fill="none" stroke="#3a3f4b" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M650,446 L670,500" fill="none" stroke="#3a3f4b" stroke-width="1" stroke-dasharray="3 3" opacity=".4"/>
+</g>
+
+<!-- ═══ Flow dots on key paths ═══ -->
+<g>
+  <circle r="3" fill="#2dd4bf" class="dot" style="offset-path:path('M435,86 L435,120');--dur:1s;--delay:0s"/>
+  <circle r="3.5" fill="#22c55e" class="dot" style="offset-path:path('M435,253 L435,290');--dur:1.2s;--delay:0s"/>
+  <circle r="3" fill="#f59e0b" class="dot" style="offset-path:path('M220,338 L220,380');--dur:1.2s;--delay:.1s"/>
+  <circle r="3" fill="#f59e0b" class="dot" style="offset-path:path('M435,338 L435,380');--dur:1.2s;--delay:.3s"/>
+  <circle r="3" fill="#f59e0b" class="dot" style="offset-path:path('M645,338 L645,380');--dur:1.2s;--delay:.5s"/>
+</g>
+
+</svg>
+</div>
+
+</body>
+</html>

@@ -340,7 +340,7 @@ noscript + [data-mode],
 
 .prose iframe {
   width: 100%;
-  border: 1px solid var(--color-border);
+  border: none;
   border-radius: 12px;
   display: block;
 }

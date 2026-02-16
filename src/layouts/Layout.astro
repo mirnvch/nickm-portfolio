@@ -9,6 +9,7 @@ interface Props {
   description?: string;
   lang?: Locale;
   jsonLd?: Record<string, unknown>;
+  pageMode?: 'professional' | 'personal';
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   description = "Developer & AI Specialist",
   lang = 'en',
   jsonLd,
+  pageMode,
 } = Astro.props;
 
 const htmlLang = lang === 'ru' ? 'ru' : 'en-GB';
@@ -26,7 +28,7 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
 ---
 
 <!doctype html>
-<html lang={htmlLang} class="dark">
+<html lang={htmlLang} class="dark" {...(pageMode ? { 'data-page-mode': pageMode } : {})}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
@@ -76,10 +78,11 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
       (function() {
         var path = window.location.pathname;
         var html = document.documentElement;
+        var pageMode = html.getAttribute('data-page-mode');
 
-        if (/^\/(ru\/)?notes(\/|$)/.test(path)) {
+        if (pageMode === 'personal' || /^\/(ru\/)?notes(\/|$)/.test(path)) {
           html.classList.remove('dark');
-        } else if (/^\/(ru\/)?blog(\/|$)/.test(path)) {
+        } else if (pageMode === 'professional' || /^\/(ru\/)?blog(\/|$)/.test(path)) {
           html.classList.add('dark');
         } else {
           var mode = new URLSearchParams(window.location.search).get('mode');
@@ -148,15 +151,16 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
         flipContainer?.addEventListener('click', toggleMode);
         modeToggle?.addEventListener('click', toggleMode);
 
-        // Initialize based on URL path or query parameter
+        // Initialize based on URL path, page mode, or query parameter
         const path = window.location.pathname;
         const urlParams = new URLSearchParams(window.location.search);
         const mode = urlParams.get('mode');
+        const pageMode = html.getAttribute('data-page-mode');
 
-        if (/^\/(ru\/)?notes(\/|$)/.test(path)) {
+        if (pageMode === 'personal' || /^\/(ru\/)?notes(\/|$)/.test(path)) {
           html.classList.remove('dark');
           flipContainer?.classList.add('flipped');
-        } else if (/^\/(ru\/)?blog(\/|$)/.test(path)) {
+        } else if (pageMode === 'professional' || /^\/(ru\/)?blog(\/|$)/.test(path)) {
           html.classList.add('dark');
           flipContainer?.classList.remove('flipped');
         } else if (mode === 'personal') {
@@ -187,10 +191,11 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
       document.addEventListener('astro:after-swap', () => {
         const path = window.location.pathname;
         const html = document.documentElement;
+        const pageMode = html.getAttribute('data-page-mode');
 
-        if (/^\/(ru\/)?notes(\/|$)/.test(path)) {
+        if (pageMode === 'personal' || /^\/(ru\/)?notes(\/|$)/.test(path)) {
           html.classList.remove('dark');
-        } else if (/^\/(ru\/)?blog(\/|$)/.test(path)) {
+        } else if (pageMode === 'professional' || /^\/(ru\/)?blog(\/|$)/.test(path)) {
           html.classList.add('dark');
         } else {
           const mode = new URLSearchParams(window.location.search).get('mode');
