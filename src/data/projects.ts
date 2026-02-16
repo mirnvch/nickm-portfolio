@@ -13,7 +13,7 @@ const projectsData: Record<Locale, Project[]> = {
   en: [
     {
       title: 'StemLab',
-      description: 'Interactive STEM learning platform for Russian speakers. Brilliant.org-level interactivity with Rive animations.',
+      description: 'Building an interactive STEM learning platform. Full-stack development, Rive animations, content system.',
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'prototype',
@@ -21,7 +21,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'DocConnect',
-      description: 'Healthcare SaaS marketplace connecting patients with doctors. Appointments, messaging, payments.',
+      description: 'Building a healthcare marketplace from scratch. Architecture, frontend, backend, payment integration.',
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
@@ -29,7 +29,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'Bake by Angie',
-      description: 'Online baking education platform with video courses, recipes, and dual payment system.',
+      description: 'Web development and QA for an online baking education platform. Testing, deployment, maintenance.',
       image: '/images/projects/bake-by-angie-logo.png',
       link: 'https://bakebyangie.com',
       status: 'active',
@@ -37,7 +37,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'Casa Rica Estate',
-      description: 'Luxury real estate website for Costa Blanca with AI-powered SEO content generation.',
+      description: 'Web development and SEO automation for a real estate site. AI content generation, testing, analytics.',
       image: '/images/projects/casa-rica-logo.png',
       link: 'https://casaricaestate.com',
       status: 'active',
@@ -45,7 +45,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'QA Camp',
-      description: 'QA consulting firm website. 20+ experts, 70+ projects. Clients: iHerb, Fisker, SprintRay.',
+      description: 'QA lead and web development for a consulting firm. Test strategy, automation, team coordination.',
       image: '/images/projects/qacamp-logo.svg',
       link: 'https://qacamp.com',
       status: 'active',
@@ -53,7 +53,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'Octoddler School',
-      description: 'Montessori school website redesign for California locations (Irvine & Ladera Ranch).',
+      description: 'Website redesign and QA for a Montessori school. Frontend development, testing, accessibility.',
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
@@ -63,7 +63,7 @@ const projectsData: Record<Locale, Project[]> = {
   ru: [
     {
       title: 'StemLab',
-      description: 'Интерактивная STEM-платформа для русскоязычных. Интерактивность уровня Brilliant.org с Rive-анимациями.',
+      description: 'Строю интерактивную STEM-платформу. Фулстек-разработка, Rive-анимации, система контента.',
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'prototype',
@@ -71,7 +71,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'DocConnect',
-      description: 'Медицинский SaaS-маркетплейс, соединяющий пациентов с врачами. Записи, сообщения, оплата.',
+      description: 'Строю медицинский маркетплейс с нуля. Архитектура, фронтенд, бэкенд, интеграция платежей.',
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
@@ -79,7 +79,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'Bake by Angie',
-      description: 'Онлайн-платформа обучения выпечке с видеокурсами, рецептами и двойной системой оплаты.',
+      description: 'Веб-разработка и QA для платформы обучения выпечке. Тестирование, деплой, поддержка.',
       image: '/images/projects/bake-by-angie-logo.png',
       link: 'https://bakebyangie.com',
       status: 'active',
@@ -87,7 +87,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'Casa Rica Estate',
-      description: 'Сайт элитной недвижимости для Коста-Бланки с AI-генерацией SEO-контента.',
+      description: 'Веб-разработка и SEO-автоматизация для сайта недвижимости. AI-контент, тестирование, аналитика.',
       image: '/images/projects/casa-rica-logo.png',
       link: 'https://casaricaestate.com',
       status: 'active',
@@ -95,7 +95,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'QA Camp',
-      description: 'Сайт QA-консалтинговой компании. 20+ экспертов, 70+ проектов. Клиенты: iHerb, Fisker, SprintRay.',
+      description: 'QA-лид и веб-разработка для консалтинговой компании. Стратегия тестирования, автоматизация, координация.',
       image: '/images/projects/qacamp-logo.svg',
       link: 'https://qacamp.com',
       status: 'active',
@@ -103,7 +103,7 @@ const projectsData: Record<Locale, Project[]> = {
     },
     {
       title: 'Octoddler School',
-      description: 'Редизайн сайта Монтессори-школы для локаций в Калифорнии (Ирвайн и Ладера Ранч).',
+      description: 'Редизайн сайта и QA для Монтессори-школы. Фронтенд-разработка, тестирование, доступность.',
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
