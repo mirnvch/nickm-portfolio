@@ -1,0 +1,44 @@
+---
+import type { Locale } from '../i18n/utils';
+import { getAlternatePath } from '../i18n/utils';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const alternate = getAlternatePath(Astro.url.pathname);
+const otherLang = lang === 'en' ? 'ru' : 'en';
+const otherLabel = lang === 'en' ? 'RU' : 'EN';
+const currentLabel = lang === 'en' ? 'EN' : 'RU';
+const otherPath = lang === 'en' ? alternate.ru : alternate.en;
+---
+
+<div class="lang-switcher flex items-center gap-1 text-sm">
+  <span class="text-foreground font-medium">{currentLabel}</span>
+  <span class="text-muted-foreground">/</span>
+  <a
+    href={otherPath}
+    class="text-muted-foreground hover:text-foreground transition-colors"
+    data-lang-switch
+  >
+    {otherLabel}
+  </a>
+</div>
+
+<script>
+  function initLangSwitcher() {
+    const currentMode = new URLSearchParams(window.location.search).get('mode');
+    if (!currentMode) return;
+
+    document.querySelectorAll('[data-lang-switch]').forEach(link => {
+      const anchor = link as HTMLAnchorElement;
+      const url = new URL(anchor.href);
+      url.searchParams.set('mode', currentMode);
+      anchor.href = url.toString();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initLangSwitcher);
+  document.addEventListener('astro:after-swap', initLangSwitcher);
+</script>

@@ -1,11 +1,11 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
-import { getAllPosts } from '../../data/posts';
-import { useTranslations, formatDate } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
+import Layout from '../../../layouts/Layout.astro';
+import LanguageSwitcher from '../../../components/LanguageSwitcher.astro';
+import { getAllPosts } from '../../../data/posts';
+import { useTranslations, formatDate } from '../../../i18n/utils';
+import type { Locale } from '../../../i18n/utils';
 
-const lang: Locale = 'en';
+const lang: Locale = 'ru';
 const t = useTranslations(lang);
 const allPosts = getAllPosts(lang);
 ---
@@ -13,7 +13,7 @@ const allPosts = getAllPosts(lang);
 <Layout title={t('blogTitle')} description={t('blogDescription')} lang={lang}>
   <!-- Header -->
   <header class="flex items-center justify-between w-full">
-    <a href="/" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+    <a href="/ru/" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
       {t('backToHome')}
     </a>
     <LanguageSwitcher lang={lang} />
@@ -32,7 +32,7 @@ const allPosts = getAllPosts(lang);
               <span class="text-gold text-sm" title="Featured">✦</span>
             )}
             <a
-              href={`/blog/${post.slug}/`}
+              href={`/ru/blog/${post.slug}/`}
               class="font-cormorant text-xl font-semibold text-foreground hover:text-gold transition-colors"
             >
               {post.title}

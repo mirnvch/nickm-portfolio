@@ -1,15 +1,15 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
-import { getPostSlugs, getPost } from '../../data/posts';
-import { useTranslations, formatDateLong } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
+import Layout from '../../../layouts/Layout.astro';
+import LanguageSwitcher from '../../../components/LanguageSwitcher.astro';
+import { getPostSlugs, getPost } from '../../../data/posts';
+import { useTranslations, formatDateLong } from '../../../i18n/utils';
+import type { Locale } from '../../../i18n/utils';
 
-const lang: Locale = 'en';
+const lang: Locale = 'ru';
 const t = useTranslations(lang);
 
 export function getStaticPaths() {
-  return getPostSlugs('en').map(slug => ({
+  return getPostSlugs('ru').map(slug => ({
     params: { slug },
   }));
 }
@@ -22,10 +22,10 @@ if (!post) {
 }
 ---
 
-<Layout title={`${post.title} • Nick Miranovich`} description={post.description || post.title} lang={lang}>
+<Layout title={`${post.title} • Ник Миранович`} description={post.description || post.title} lang={lang}>
   <!-- Header -->
   <header class="flex items-center justify-between w-full">
-    <a href="/blog" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+    <a href="/ru/blog" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
       {t('backToBlog')}
     </a>
     <LanguageSwitcher lang={lang} />

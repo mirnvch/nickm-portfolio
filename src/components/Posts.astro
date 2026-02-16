@@ -1,4 +1,7 @@
 ---
+import type { Locale } from '../i18n/utils';
+import { useTranslations, formatDate, getLocalePath } from '../i18n/utils';
+
 interface Post {
   title: string;
   slug: string;
@@ -10,17 +13,12 @@ interface Post {
 interface Props {
   posts: Post[];
   mode: 'professional' | 'personal';
+  lang?: Locale;
 }
 
-const { posts, mode } = Astro.props;
-
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  }).format(date);
-}
+const { posts, mode, lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const blogPath = getLocalePath(lang, '/blog');
 ---
 
 <section
@@ -33,29 +31,29 @@ function formatDate(date: Date): string {
       <li class="flex items-baseline justify-between gap-4">
         <div class="flex items-center gap-2 min-w-0">
           <a
-            href={`/blog/${post.slug}/`}
+            href={`${blogPath}/${post.slug}/`}
             class:list={["post-link font-cormorant text-lg font-medium text-foreground", index === 0 && "active"]}
           >
             <span class="post-star">✦</span>
             <span class="post-title">{post.title}</span>
           </a>
-          <span class="text-xs text-muted-foreground shrink-0">· {post.readTime} min read</span>
+          <span class="text-xs text-muted-foreground shrink-0">· {post.readTime} {t('minRead')}</span>
         </div>
         <time
           datetime={post.date.toISOString()}
           class="shrink-0 text-sm text-muted-foreground hidden sm:block"
         >
-          {formatDate(post.date)}
+          {formatDate(post.date, lang)}
         </time>
       </li>
     ))}
   </ul>
 
   <a
-    href="/blog"
+    href={blogPath}
     class="text-sm text-muted-foreground hover:text-foreground transition-colors self-start"
   >
-    View all posts →
+    {t('viewAllPosts')}
   </a>
 </section>
 

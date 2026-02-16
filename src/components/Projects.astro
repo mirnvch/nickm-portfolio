@@ -1,24 +1,31 @@
 ---
+import type { Locale } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
 interface Project {
   title: string;
   description: string;
   image: string;
   link: string;
-  status?: 'prototype' | 'acquisition' | 'active';
+  status?: 'prototype' | 'development' | 'active';
 }
 
 interface Props {
   projects: Project[];
   mode?: 'professional' | 'personal' | 'all';
   title?: string;
+  lang?: Locale;
 }
 
-const { projects, mode = 'professional', title = "Stuff I've Made" } = Astro.props;
+const { projects, mode = 'professional', title, lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+
+const displayTitle = title ?? t('projectsTitle');
 
 const statusLabels = {
-  prototype: 'Prototype',
-  acquisition: 'Acquisition',
-  active: 'Active'
+  prototype: t('statusPrototype'),
+  development: t('statusDevelopment'),
+  active: t('statusActive'),
 };
 ---
 
@@ -27,7 +34,7 @@ const statusLabels = {
   data-mode={mode !== 'all' ? mode : undefined}
   style={mode !== 'all' ? 'display: none;' : undefined}
 >
-  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{title}</h2>
+  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{displayTitle}</h2>
 
   <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
     {projects.map((project) => (
