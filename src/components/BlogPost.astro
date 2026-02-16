@@ -9,13 +9,15 @@ interface Props {
   lang: Locale;
   post: Post;
   slug: string;
+  type: 'professional' | 'personal';
 }
 
-const { lang, post, slug } = Astro.props;
+const { lang, post, slug, type } = Astro.props;
 const t = useTranslations(lang);
-const blogPath = getLocalePath(lang, '/blog');
+const basePath = getLocalePath(lang, type === 'professional' ? '/blog' : '/notes');
+const backText = type === 'professional' ? t('backToBlog') : t('backToNotes');
 const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich';
-const postUrl = `https://nickm.dev${getLocalePath(lang, `/blog/${slug}/`)}`;
+const postUrl = `https://nickm.dev${basePath}/${slug}/`;
 ---
 
 <Layout title={`${post.title} • ${siteName}`} description={post.description || post.title} lang={lang} jsonLd={{
@@ -30,8 +32,8 @@ const postUrl = `https://nickm.dev${getLocalePath(lang, `/blog/${slug}/`)}`;
 }}>
   <!-- Header -->
   <header class="flex items-center justify-between w-full">
-    <a href={blogPath} data-blog-link class="text-muted-foreground hover:text-foreground transition-colors text-sm">
-      {t('backToBlog')}
+    <a href={basePath} class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+      {backText}
     </a>
     <LanguageSwitcher lang={lang} />
   </header>

@@ -18,7 +18,9 @@ interface Props {
 
 const { posts, mode, lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
-const blogPath = getLocalePath(lang, '/blog');
+const basePath = getLocalePath(lang, mode === 'professional' ? '/blog' : '/notes');
+const heading = mode === 'professional' ? t('postsTitle') : t('notesPostsTitle');
+const viewAllText = mode === 'professional' ? t('viewAllPosts') : t('viewAllNotes');
 ---
 
 <section
@@ -26,14 +28,14 @@ const blogPath = getLocalePath(lang, '/blog');
   data-mode={mode}
   style="display: none;"
 >
-  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{t('postsTitle')}</h2>
+  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{heading}</h2>
 
   <ul class="posts-list flex flex-col gap-y-3">
     {posts.map((post, index) => (
       <li class="flex items-baseline justify-between gap-4">
         <div class="flex items-center gap-2 min-w-0">
           <a
-            href={`${blogPath}/${post.slug}/`}
+            href={`${basePath}/${post.slug}/`}
             class:list={["post-link font-cormorant text-lg font-medium text-foreground", index === 0 && "active"]}
           >
             <span class="post-star">✦</span>
@@ -52,11 +54,10 @@ const blogPath = getLocalePath(lang, '/blog');
   </ul>
 
   <a
-    href={blogPath}
-    data-blog-link
+    href={basePath}
     class="text-sm text-muted-foreground hover:text-foreground transition-colors self-start"
   >
-    {t('viewAllPosts')}
+    {viewAllText}
   </a>
 </section>
 

@@ -73,14 +73,20 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
     <!-- Theme initialization script (runs before page render) -->
     <script is:inline>
       (function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const mode = urlParams.get('mode');
-        const html = document.documentElement;
+        var path = window.location.pathname;
+        var html = document.documentElement;
 
-        if (mode === 'personal') {
+        if (/^\/(ru\/)?notes(\/|$)/.test(path)) {
           html.classList.remove('dark');
-        } else {
+        } else if (/^\/(ru\/)?blog(\/|$)/.test(path)) {
           html.classList.add('dark');
+        } else {
+          var mode = new URLSearchParams(window.location.search).get('mode');
+          if (mode === 'personal') {
+            html.classList.remove('dark');
+          } else {
+            html.classList.add('dark');
+          }
         }
       })();
     </script>
@@ -114,19 +120,6 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
         const modeToggle = document.getElementById('mode-toggle');
         const html = document.documentElement;
 
-        function updateBlogLinks() {
-          const mode = new URLSearchParams(window.location.search).get('mode');
-          document.querySelectorAll<HTMLAnchorElement>('[data-blog-link]').forEach(link => {
-            const url = new URL(link.href, window.location.origin);
-            if (mode) {
-              url.searchParams.set('mode', mode);
-            } else {
-              url.searchParams.delete('mode');
-            }
-            link.href = url.pathname + url.search;
-          });
-        }
-
         function toggleMode() {
           html.classList.toggle('dark');
           flipContainer?.classList.toggle('flipped');
@@ -148,20 +141,24 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
           const url = new URL(window.location.href);
           url.searchParams.set('mode', newMode);
           window.history.replaceState({}, '', url);
-
-          // Update blog links with new mode
-          updateBlogLinks();
         }
 
         // Click handlers
         flipContainer?.addEventListener('click', toggleMode);
         modeToggle?.addEventListener('click', toggleMode);
 
-        // Initialize based on URL parameter
+        // Initialize based on URL path or query parameter
+        const path = window.location.pathname;
         const urlParams = new URLSearchParams(window.location.search);
         const mode = urlParams.get('mode');
 
-        if (mode === 'personal') {
+        if (/^\/(ru\/)?notes(\/|$)/.test(path)) {
+          html.classList.remove('dark');
+          flipContainer?.classList.add('flipped');
+        } else if (/^\/(ru\/)?blog(\/|$)/.test(path)) {
+          html.classList.add('dark');
+          flipContainer?.classList.remove('flipped');
+        } else if (mode === 'personal') {
           html.classList.remove('dark');
           flipContainer?.classList.add('flipped');
         } else {
@@ -180,9 +177,6 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
             (el as HTMLElement).style.display = 'none';
           }
         });
-
-        // Update blog links with current mode
-        updateBlogLinks();
       }
 
       // Run on initial load
@@ -190,15 +184,20 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
 
       // Re-run after Astro page transitions
       document.addEventListener('astro:after-swap', () => {
-        // Restore theme from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const mode = urlParams.get('mode');
+        const path = window.location.pathname;
         const html = document.documentElement;
 
-        if (mode === 'personal') {
+        if (/^\/(ru\/)?notes(\/|$)/.test(path)) {
           html.classList.remove('dark');
-        } else {
+        } else if (/^\/(ru\/)?blog(\/|$)/.test(path)) {
           html.classList.add('dark');
+        } else {
+          const mode = new URLSearchParams(window.location.search).get('mode');
+          if (mode === 'personal') {
+            html.classList.remove('dark');
+          } else {
+            html.classList.add('dark');
+          }
         }
 
         initModeToggle();

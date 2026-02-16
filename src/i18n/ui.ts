@@ -3,9 +3,12 @@ export const ui = {
     // Navigation
     home: 'Home',
     blog: 'Blog',
+    notes: 'Notes',
     backToHome: '← Home',
     backToBlog: '← Back to Blog',
+    backToNotes: '← Back to Notes',
     viewAllPosts: 'View all posts →',
+    viewAllNotes: 'View all notes →',
 
     // Mode toggle
     professional: 'Professional',
@@ -21,6 +24,7 @@ export const ui = {
 
     // Posts section
     postsTitle: 'Writing',
+    notesPostsTitle: 'Notes',
 
     // Projects section
     projectsTitle: "Stuff I've Made",
@@ -49,6 +53,8 @@ export const ui = {
     siteDescription: '7+ years in QA, passionate about AI-powered automation and building smarter workflows',
     blogTitle: 'Blog • Nick Miranovich',
     blogDescription: 'Thoughts on development, AI, automation, and life.',
+    notesTitle: 'Notes • Nick Miranovich',
+    notesDescription: 'Personal thoughts on remote life, learning, and daily tools.',
 
     // Config
     nameProfessional: 'Nick Miranovich',
@@ -59,9 +65,12 @@ export const ui = {
     // Navigation
     home: 'Главная',
     blog: 'Блог',
+    notes: 'Заметки',
     backToHome: '← Главная',
     backToBlog: '← Назад к блогу',
+    backToNotes: '← Назад к заметкам',
     viewAllPosts: 'Все записи →',
+    viewAllNotes: 'Все заметки →',
 
     // Mode toggle
     professional: 'Рабочий',
@@ -77,6 +86,7 @@ export const ui = {
 
     // Posts section
     postsTitle: 'Записи',
+    notesPostsTitle: 'Заметки',
 
     // Projects section
     projectsTitle: 'Мои проекты',
@@ -105,6 +115,8 @@ export const ui = {
     siteDescription: '7+ лет в QA, увлечён AI-автоматизацией и созданием умных рабочих процессов',
     blogTitle: 'Блог • Ник Миранович',
     blogDescription: 'Мысли о разработке, ИИ, автоматизации и жизни.',
+    notesTitle: 'Заметки • Ник Миранович',
+    notesDescription: 'Личные мысли об удалённой жизни, обучении и повседневных инструментах.',
 
     // Config
     nameProfessional: 'Ник Миранович',

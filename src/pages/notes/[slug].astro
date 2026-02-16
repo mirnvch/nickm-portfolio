@@ -3,7 +3,7 @@ import BlogPost from '../../components/BlogPost.astro';
 import { getPostSlugsByType, getPost } from '../../data/posts';
 
 export function getStaticPaths() {
-  return getPostSlugsByType('en', 'professional').map(slug => ({
+  return getPostSlugsByType('en', 'personal').map(slug => ({
     params: { slug },
   }));
 }
@@ -16,4 +16,4 @@ if (!post) {
 }
 ---
 
-<BlogPost lang="en" post={post} slug={slug!} type="professional" />
+<BlogPost lang="en" post={post} slug={slug!} type="personal" />

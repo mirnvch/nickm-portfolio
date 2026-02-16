@@ -392,3 +392,16 @@ export function getAllPosts(lang: Locale): Array<{ slug: string } & Post> {
     .map(([slug, post]) => ({ slug, ...post }))
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 }
+
+export function getPostsByType(lang: Locale, type: 'professional' | 'personal'): Array<{ slug: string } & Post> {
+  return Object.entries(posts[lang])
+    .filter(([, post]) => (post.type || 'professional') === type)
+    .map(([slug, post]) => ({ slug, ...post }))
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+}
+
+export function getPostSlugsByType(lang: Locale, type: 'professional' | 'personal'): string[] {
+  return Object.entries(posts[lang])
+    .filter(([, post]) => (post.type || 'professional') === type)
+    .map(([slug]) => slug);
+}
