@@ -1,12 +1,12 @@
 ---
 import type { Locale } from '../i18n/utils';
-import { useTranslations } from '../i18n/utils';
+import { useTranslations, getLocalePath } from '../i18n/utils';
 
 interface Project {
   title: string;
+  slug: string;
   description: string;
   image: string;
-  link: string;
   status?: 'prototype' | 'development' | 'active';
 }
 
@@ -40,9 +40,7 @@ const statusLabels = {
     {projects.map((project) => (
       <a
         class="project-card group flex flex-col gap-y-2 transition-all duration-200"
-        href={project.link}
-        target={project.link.startsWith('http') ? '_blank' : '_self'}
-        rel={project.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+        href={getLocalePath(lang, `/projects/${project.slug}/`)}
       >
         <!-- Image -->
         <div class="relative aspect-square overflow-hidden rounded-lg bg-card flex items-center justify-center p-6">

@@ -1,0 +1,121 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import LanguageSwitcher from '../../../components/LanguageSwitcher.astro';
+import { getProjectSlugs, getProject } from '../../../data/projects';
+import { useTranslations } from '../../../i18n/utils';
+import type { Locale } from '../../../i18n/utils';
+
+const lang: Locale = 'ru';
+const t = useTranslations(lang);
+
+export function getStaticPaths() {
+  return getProjectSlugs('ru').map(slug => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = getProject(lang, slug!);
+
+if (!project) {
+  return Astro.redirect('/404');
+}
+
+const statusLabels: Record<string, string> = {
+  prototype: t('statusPrototype'),
+  development: t('statusDevelopment'),
+  active: t('statusActive'),
+};
+---
+
+<Layout title={`${project.title} • Ник Миранович`} description={project.description} lang={lang}>
+  <!-- Header -->
+  <header class="flex items-center justify-between w-full">
+    <a href="/ru/" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+      {t('backToHome')}
+    </a>
+    <LanguageSwitcher lang={lang} />
+  </header>
+
+  <!-- Project -->
+  <article class="flex flex-col gap-y-6">
+    <header class="flex flex-col gap-y-3">
+      <h1 class="font-cormorant text-3xl font-semibold text-foreground">
+        {project.title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-card text-muted-foreground">
+          {statusLabels[project.status]}
+        </span>
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gold hover:text-bronze transition-colors"
+          >
+            {t('visitWebsite')}
+          </a>
+        )}
+      </div>
+    </header>
+
+    <!-- Tech Stack -->
+    <div class="flex flex-col gap-y-2">
+      <h2 class="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+        {t('techStack')}
+      </h2>
+      <div class="flex flex-wrap gap-2">
+        {project.tech.map((item) => (
+          <span class="px-2.5 py-1 rounded-md text-xs bg-card text-foreground">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="prose prose-lg" set:html={project.content} />
+  </article>
+</Layout>
+
+<style is:global>
+  .prose {
+    color: var(--color-foreground);
+  }
+
+  .prose h2 {
+    font-family: var(--font-cormorant);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-foreground);
+  }
+
+  .prose p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .prose ul {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .prose a {
+    color: var(--color-gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    color: var(--color-bronze);
+  }
+</style>

@@ -21,6 +21,8 @@ export const ui = {
 
     // Projects section
     projectsTitle: "Stuff I've Made",
+    visitWebsite: 'Visit website →',
+    techStack: 'Tech Stack',
 
     // About - Professional
     aboutProfessional: `
@@ -72,6 +74,8 @@ export const ui = {
 
     // Projects section
     projectsTitle: 'Мои проекты',
+    visitWebsite: 'Перейти на сайт →',
+    techStack: 'Технологии',
 
     // About - Professional
     aboutProfessional: `
