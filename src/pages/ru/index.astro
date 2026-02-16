@@ -22,7 +22,9 @@ const personalPosts = allPosts
   .filter(p => p.type === 'personal')
   .map(p => ({ title: p.title, slug: p.slug, date: p.date, readTime: p.readTime, pinned: p.pinned }));
 
-const projects = getProjects(lang);
+const allProjects = getProjects(lang);
+const professionalProjects = allProjects.filter(p => p.mode === 'professional');
+const personalProjects = allProjects.filter(p => p.mode === 'personal');
 ---
 
 <Layout title={t('siteTitle')} description={t('siteDescription')} lang={lang}>
@@ -76,6 +78,9 @@ const projects = getProjects(lang);
   <!-- Posts - Personal -->
   <Posts posts={personalPosts} mode="personal" lang={lang} />
 
-  <!-- Projects (Professional only) -->
-  <Projects projects={projects} mode="professional" lang={lang} />
+  <!-- Projects - Professional -->
+  <Projects projects={professionalProjects} mode="professional" lang={lang} />
+
+  <!-- Projects - Personal -->
+  <Projects projects={personalProjects} mode="personal" lang={lang} />
 </Layout>

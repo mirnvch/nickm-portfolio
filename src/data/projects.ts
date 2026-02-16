@@ -17,6 +17,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'prototype',
+      mode: 'personal',
     },
     {
       title: 'DocConnect',
@@ -24,6 +25,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
+      mode: 'personal',
     },
     {
       title: 'Bake by Angie',
@@ -31,6 +33,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/bake-by-angie-logo.png',
       link: 'https://bakebyangie.com',
       status: 'active',
+      mode: 'professional',
     },
     {
       title: 'Casa Rica Estate',
@@ -38,6 +41,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/casa-rica-logo.png',
       link: 'https://casaricaestate.com',
       status: 'active',
+      mode: 'professional',
     },
     {
       title: 'QA Camp',
@@ -45,6 +49,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/qacamp-logo.svg',
       link: 'https://qacamp.com',
       status: 'active',
+      mode: 'professional',
     },
     {
       title: 'Octoddler School',
@@ -52,6 +57,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
+      mode: 'professional',
     },
   ],
   ru: [
@@ -61,6 +67,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'prototype',
+      mode: 'personal',
     },
     {
       title: 'DocConnect',
@@ -68,6 +75,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
+      mode: 'personal',
     },
     {
       title: 'Bake by Angie',
@@ -75,6 +83,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/bake-by-angie-logo.png',
       link: 'https://bakebyangie.com',
       status: 'active',
+      mode: 'professional',
     },
     {
       title: 'Casa Rica Estate',
@@ -82,6 +91,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/casa-rica-logo.png',
       link: 'https://casaricaestate.com',
       status: 'active',
+      mode: 'professional',
     },
     {
       title: 'QA Camp',
@@ -89,6 +99,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/qacamp-logo.svg',
       link: 'https://qacamp.com',
       status: 'active',
+      mode: 'professional',
     },
     {
       title: 'Octoddler School',
@@ -96,6 +107,7 @@ const projectsData: Record<Locale, Project[]> = {
       image: '/images/projects/placeholder.svg',
       link: '#',
       status: 'active',
+      mode: 'professional',
     },
   ],
 };

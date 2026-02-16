@@ -56,7 +56,7 @@ export const posts: Record<Locale, Record<string, Post>> = {
           <li><strong>Lead processing:</strong> Form submission → Enrich data → CRM update</li>
         </ul>
 
-        <h2>n8n + AI = Magic</h2>
+        <h2>n8n + AI</h2>
         <p>The real power comes when you combine n8n with AI. I use it to automatically generate SEO content, translate articles, and even write test scenarios based on user stories.</p>
       `,
     },
@@ -97,8 +97,8 @@ export const posts: Record<Locale, Record<string, Post>> = {
 
         <h2>Cypress Pros</h2>
         <ul>
-          <li>Amazing developer experience</li>
-          <li>Time-travel debugging is incredible</li>
+          <li>Great developer experience</li>
+          <li>Time-travel debugging</li>
           <li>Great documentation and community</li>
           <li>Easy to set up and start</li>
         </ul>
@@ -146,7 +146,7 @@ export const posts: Record<Locale, Record<string, Post>> = {
       type: "personal",
       content: `
         <h2>The Concept</h2>
-        <p>Learning in public means sharing your journey – the wins, the failures, the confusion. It's vulnerable but incredibly valuable.</p>
+        <p>Learning in public means sharing your journey – the wins, the failures, the confusion. It's vulnerable but very valuable.</p>
 
         <h2>Why It Works</h2>
         <ul>
@@ -239,8 +239,8 @@ export const posts: Record<Locale, Record<string, Post>> = {
           <li><strong>Обработка лидов:</strong> Форма → Обогащение данных → Обновление CRM</li>
         </ul>
 
-        <h2>n8n + AI = Магия</h2>
-        <p>Настоящая сила проявляется при комбинации n8n с ИИ. Я использую его для автоматической генерации SEO-контента, перевода статей и даже написания тест-сценариев по пользовательским историям.</p>
+        <h2>n8n + AI</h2>
+        <p>Настоящая сила — в комбинации n8n с ИИ. Я использую его для автоматической генерации SEO-контента, перевода статей и даже написания тест-сценариев по пользовательским историям.</p>
       `,
     },
     "manual-to-automation": {
@@ -259,7 +259,7 @@ export const posts: Record<Locale, Record<string, Post>> = {
         <h2>Кривая обучения</h2>
         <ul>
           <li><strong>Selenium:</strong> Классика. На своих ошибках научился работать с ожиданиями и нестабильными тестами</li>
-          <li><strong>Cypress:</strong> Революция для фронтенд-тестирования</li>
+          <li><strong>Cypress:</strong> Прорыв для фронтенд-тестирования</li>
           <li><strong>Playwright:</strong> Мой нынешний фаворит. Лучшее от обоих миров</li>
           <li><strong>Appium:</strong> Для мобильного тестирования</li>
         </ul>
@@ -280,8 +280,8 @@ export const posts: Record<Locale, Record<string, Post>> = {
 
         <h2>Плюсы Cypress</h2>
         <ul>
-          <li>Потрясающий developer experience</li>
-          <li>Time-travel отладка — это невероятно</li>
+          <li>Отличный developer experience</li>
+          <li>Time-travel отладка</li>
           <li>Отличная документация и сообщество</li>
           <li>Легко настроить и начать</li>
         </ul>
@@ -329,7 +329,7 @@ export const posts: Record<Locale, Record<string, Post>> = {
       type: "personal",
       content: `
         <h2>Концепция</h2>
-        <p>Учиться на виду — значит делиться своим путём: победами, провалами, непониманием. Это уязвимо, но невероятно ценно.</p>
+        <p>Учиться на виду — значит делиться своим путём: победами, провалами, непониманием. Это уязвимо, но очень ценно.</p>
 
         <h2>Почему это работает</h2>
         <ul>
