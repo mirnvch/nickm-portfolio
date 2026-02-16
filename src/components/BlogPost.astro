@@ -17,7 +17,7 @@ const t = useTranslations(lang);
 const basePath = getLocalePath(lang, type === 'professional' ? '/blog' : '/notes');
 const backText = type === 'professional' ? t('backToBlog') : t('backToNotes');
 const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich';
-const postUrl = `https://nickm.dev${basePath}/${slug}/`;
+const postUrl = `https://nickm-portfolio.vercel.app${basePath}/${slug}/`;
 ---
 
 <Layout title={`${post.title} • ${siteName}`} description={post.description || post.title} lang={lang} jsonLd={{
@@ -26,7 +26,7 @@ const postUrl = `https://nickm.dev${basePath}/${slug}/`;
   "headline": post.title,
   "description": post.description || post.title,
   "datePublished": post.date.toISOString(),
-  "author": { "@type": "Person", "name": "Nick Miranovich", "url": "https://nickm.dev" },
+  "author": { "@type": "Person", "name": "Nick Miranovich", "url": "https://nickm-portfolio.vercel.app" },
   "publisher": { "@type": "Person", "name": "Nick Miranovich" },
   "mainEntityOfPage": postUrl
 }}>

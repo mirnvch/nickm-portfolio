@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nickm.dev',
+  site: 'https://nickm-portfolio.vercel.app',
 
   i18n: {
     defaultLocale: 'en',
