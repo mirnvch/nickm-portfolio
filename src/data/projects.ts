@@ -23,7 +23,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>StemLab is an interactive STEM learning platform designed to make science and technology education engaging and accessible. The platform combines interactive lessons, animations, and a structured content system to deliver an immersive learning experience.</p>
 
         <h2>My Role</h2>
-        <p>Full-stack development from concept to prototype. I'm responsible for the entire technical stack — from architecture and backend to frontend and animations.</p>
+        <p>Full-stack development from concept to prototype, working with AI (Claude) as a development partner. I define the product, design the architecture, and make all creative and technical decisions. AI accelerates implementation — together we move from idea to working prototype at a pace that wasn't possible before.</p>
 
         <h2>Key Features</h2>
         <ul>
@@ -35,6 +35,9 @@ const projectsData: Record<Locale, Project[]> = {
 
         <h2>Technical Highlights</h2>
         <p>The platform uses Rive for hardware-accelerated animations that run smoothly across devices. The content system is built to be flexible enough for different STEM disciplines while maintaining a consistent learning flow.</p>
+
+        <h2>How AI Fits In</h2>
+        <p>Built with AI-augmented development — I own every product and architecture decision, while Claude accelerates the implementation. This approach lets a solo developer build and iterate on a full-stack platform at startup speed.</p>
       `,
       tech: ['React', 'TypeScript', 'Node.js', 'Rive', 'PostgreSQL', 'Tailwind CSS'],
       image: '/images/projects/stemlab-logo.svg',
@@ -51,7 +54,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>DocConnect is a healthcare marketplace that connects patients with doctors. The idea is simple: a patient finds a specialist, books an appointment, and pays — all in one place. Under the hood, that means real-time scheduling, secure payments, role-based access, and a scalable service architecture.</p>
 
         <h2>My Role</h2>
-        <p>I'm building the entire platform solo — from system design and database schema to the frontend UI and third-party integrations. Every technical decision, from choosing the ORM to structuring the API layer, is mine.</p>
+        <p>I own the product vision, system architecture, and every technical decision — from database schema to API design to deployment strategy. For implementation, I work with AI (Claude) as a development partner: I design the systems, AI accelerates the coding, and together we ship what would normally take a team of engineers.</p>
 
         <h2>System Architecture</h2>
         <p>The platform follows a layered architecture with clear separation between the client layer, API gateway, domain services, and data stores. Requests flow from the Next.js frontend through a centralized API gateway that handles authentication, rate limiting, and CORS, then fan out to isolated domain services.</p>
@@ -75,6 +78,10 @@ const projectsData: Record<Locale, Project[]> = {
         <p><strong>PostgreSQL + Redis</strong> — Postgres for transactional data (appointments, payments, profiles) with strong consistency guarantees. Redis for session cache and read-heavy queries like doctor search results.</p>
         <p><strong>Stripe Webhooks</strong> — Instead of polling for payment status, the system listens to Stripe webhooks. This keeps the payment flow event-driven and resilient to network failures.</p>
         <p><strong>Timezone handling</strong> — All times stored in UTC. The frontend converts to the user's local timezone. This avoids the classic bug where a patient in one timezone books a slot that shows differently for the doctor.</p>
+
+        <h2>How AI Fits In</h2>
+        <p>This project is built using AI-augmented development with Claude as a coding partner. I handle architecture, product decisions, and code review. Claude helps with implementation speed — writing code, generating tests, creating technical documentation, and even this architecture diagram.</p>
+        <p>The result: one developer shipping a production-grade platform that would traditionally require a full engineering team. Every line of code is reviewed and understood by me — AI is the accelerator, not the autopilot.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
       image: '/images/projects/docconnect-logo.svg',
@@ -205,7 +212,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>StemLab — интерактивная платформа для изучения STEM-дисциплин, разработанная для того, чтобы сделать образование в сфере науки и технологий увлекательным и доступным. Платформа сочетает интерактивные уроки, анимации и структурированную систему контента.</p>
 
         <h2>Моя роль</h2>
-        <p>Фулстек-разработка от концепции до прототипа. Отвечаю за весь технический стек — от архитектуры и бэкенда до фронтенда и анимаций.</p>
+        <p>Фулстек-разработка от концепции до прототипа в паре с AI (Claude). Я определяю продукт, проектирую архитектуру и принимаю все креативные и технические решения. AI ускоряет реализацию — вместе мы двигаемся от идеи к рабочему прототипу со скоростью, которая раньше была невозможна.</p>
 
         <h2>Ключевые функции</h2>
         <ul>
@@ -217,6 +224,9 @@ const projectsData: Record<Locale, Project[]> = {
 
         <h2>Технические особенности</h2>
         <p>Платформа использует Rive для аппаратно-ускоренных анимаций, работающих плавно на всех устройствах. Система контента достаточно гибкая для разных STEM-дисциплин, при этом сохраняет единый учебный поток.</p>
+
+        <h2>Роль AI в разработке</h2>
+        <p>Проект создаётся с AI-augmented development — я принимаю все продуктовые и архитектурные решения, а Claude ускоряет реализацию. Такой подход позволяет одному разработчику создавать и итерировать фулстек-платформу со скоростью стартапа.</p>
       `,
       tech: ['React', 'TypeScript', 'Node.js', 'Rive', 'PostgreSQL', 'Tailwind CSS'],
       image: '/images/projects/stemlab-logo.svg',
@@ -233,7 +243,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>DocConnect — медицинский маркетплейс, соединяющий пациентов с врачами. Идея простая: пациент находит специалиста, записывается на приём и оплачивает — всё в одном месте. Под капотом это означает real-time расписание, безопасные платежи, ролевой доступ и масштабируемую сервисную архитектуру.</p>
 
         <h2>Моя роль</h2>
-        <p>Строю всю платформу в одиночку — от проектирования системы и схемы базы данных до фронтенд-интерфейса и интеграций. Каждое техническое решение, от выбора ORM до структуры API-слоя — моё.</p>
+        <p>Я отвечаю за продуктовое видение, системную архитектуру и каждое техническое решение — от схемы БД до дизайна API и стратегии деплоя. Для реализации я работаю с AI (Claude) как с партнёром по разработке: я проектирую системы, AI ускоряет написание кода, и вместе мы делаем то, на что обычно нужна целая команда инженеров.</p>
 
         <h2>Архитектура системы</h2>
         <p>Платформа построена по слоистой архитектуре с чётким разделением между клиентским слоем, API-шлюзом, доменными сервисами и хранилищами данных. Запросы идут от Next.js-фронтенда через централизованный API Gateway, который обрабатывает аутентификацию, rate limiting и CORS, а затем распределяются по изолированным доменным сервисам.</p>
@@ -257,6 +267,10 @@ const projectsData: Record<Locale, Project[]> = {
         <p><strong>PostgreSQL + Redis</strong> — Postgres для транзакционных данных (приёмы, платежи, профили) с гарантиями строгой консистентности. Redis для кэша сессий и read-heavy запросов вроде результатов поиска врачей.</p>
         <p><strong>Stripe Webhooks</strong> — Вместо поллинга статуса платежа система слушает Stripe-вебхуки. Это делает платёжный поток событийно-ориентированным и устойчивым к сетевым сбоям.</p>
         <p><strong>Работа с часовыми поясами</strong> — Всё время хранится в UTC. Фронтенд конвертирует в локальный часовой пояс пользователя. Это избавляет от классического бага, когда пациент в одном часовом поясе бронирует слот, который у врача отображается иначе.</p>
+
+        <h2>Роль AI в разработке</h2>
+        <p>Этот проект создаётся с использованием AI-augmented development — Claude выступает партнёром по написанию кода. Я отвечаю за архитектуру, продуктовые решения и код-ревью. Claude помогает со скоростью реализации — пишет код, генерирует тесты, создаёт техническую документацию и даже эту архитектурную диаграмму.</p>
+        <p>Результат: один разработчик выпускает платформу продакшн-уровня, на которую обычно нужна целая инженерная команда. Каждая строка кода проверена и понята мной — AI это ускоритель, а не автопилот.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
       image: '/images/projects/docconnect-logo.svg',
