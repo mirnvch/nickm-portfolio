@@ -48,21 +48,33 @@ const projectsData: Record<Locale, Project[]> = {
       description: 'Building a healthcare marketplace from scratch. Architecture, frontend, backend, payment integration.',
       content: `
         <h2>About the Project</h2>
-        <p>DocConnect is a healthcare marketplace that connects patients with medical professionals. The platform handles everything from doctor discovery and appointment booking to secure payments and medical record management.</p>
+        <p>DocConnect is a healthcare marketplace that connects patients with doctors. The idea is simple: a patient finds a specialist, books an appointment, and pays — all in one place. Under the hood, that means real-time scheduling, secure payments, role-based access, and a scalable service architecture.</p>
 
         <h2>My Role</h2>
-        <p>Building the entire platform from scratch — system architecture, frontend, backend, and third-party integrations. This is a solo full-stack project where I own every technical decision.</p>
+        <p>I'm building the entire platform solo — from system design and database schema to the frontend UI and third-party integrations. Every technical decision, from choosing the ORM to structuring the API layer, is mine.</p>
 
-        <h2>Key Features</h2>
+        <h2>System Architecture</h2>
+        <p>The platform follows a layered architecture with clear separation between the client layer, API gateway, domain services, and data stores. Requests flow from the Next.js frontend through a centralized API gateway that handles authentication, rate limiting, and CORS, then fan out to isolated domain services.</p>
+
+        <figure>
+          <iframe src="/diagrams/docconnect.html" height="640" loading="lazy" title="DocConnect system architecture diagram"></iframe>
+          <figcaption>System architecture — animated data flow from clients through services to data layer</figcaption>
+        </figure>
+        <a href="/diagrams/docconnect.html" target="_blank" class="diagram-link">Open full screen &#8599;</a>
+
+        <h2>How It's Built</h2>
         <ul>
-          <li><strong>Doctor profiles</strong> with specializations, availability, and patient reviews</li>
-          <li><strong>Appointment scheduling</strong> with real-time availability</li>
-          <li><strong>Payment integration</strong> for secure online transactions</li>
-          <li><strong>Patient dashboard</strong> for managing appointments and medical history</li>
+          <li><strong>Frontend:</strong> Next.js 14 with App Router, deployed on Vercel Edge. Server Components for fast initial loads, Client Components only where interactivity is needed.</li>
+          <li><strong>API Gateway:</strong> Centralized middleware layer handling JWT authentication, request validation, rate limiting, and structured logging. Every request is authenticated and sanitized before reaching the services.</li>
+          <li><strong>Scheduling Service:</strong> Manages doctor availability, appointment slots, and booking conflicts. Handles timezone normalization and prevents double-booking through database-level locks.</li>
+          <li><strong>Profiles Service:</strong> Doctor and patient profiles, specializations, reviews. Optimistic UI updates backed by Redis cache for fast reads.</li>
+          <li><strong>Payments Service:</strong> Stripe integration for appointment payments, refunds, and invoice generation. Webhook-driven architecture ensures payment state stays consistent.</li>
         </ul>
 
-        <h2>Technical Highlights</h2>
-        <p>The architecture is designed for scalability with a clean separation of concerns. Payment processing is handled through Stripe with proper security measures. The scheduling system handles timezone differences and concurrent booking conflicts.</p>
+        <h2>Key Decisions</h2>
+        <p><strong>PostgreSQL + Redis</strong> — Postgres for transactional data (appointments, payments, profiles) with strong consistency guarantees. Redis for session cache and read-heavy queries like doctor search results.</p>
+        <p><strong>Stripe Webhooks</strong> — Instead of polling for payment status, the system listens to Stripe webhooks. This keeps the payment flow event-driven and resilient to network failures.</p>
+        <p><strong>Timezone handling</strong> — All times stored in UTC. The frontend converts to the user's local timezone. This avoids the classic bug where a patient in one timezone books a slot that shows differently for the doctor.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
       image: '/images/projects/docconnect-logo.svg',
@@ -218,21 +230,33 @@ const projectsData: Record<Locale, Project[]> = {
       description: 'Строю медицинский маркетплейс с нуля. Архитектура, фронтенд, бэкенд, интеграция платежей.',
       content: `
         <h2>О проекте</h2>
-        <p>DocConnect — медицинский маркетплейс, который связывает пациентов с врачами. Платформа охватывает всё: от поиска врачей и записи на приём до безопасных платежей и управления медицинскими записями.</p>
+        <p>DocConnect — медицинский маркетплейс, соединяющий пациентов с врачами. Идея простая: пациент находит специалиста, записывается на приём и оплачивает — всё в одном месте. Под капотом это означает real-time расписание, безопасные платежи, ролевой доступ и масштабируемую сервисную архитектуру.</p>
 
         <h2>Моя роль</h2>
-        <p>Строю всю платформу с нуля — системная архитектура, фронтенд, бэкенд и интеграции с третьими сторонами. Это сольный фулстек-проект, где каждое техническое решение за мной.</p>
+        <p>Строю всю платформу в одиночку — от проектирования системы и схемы базы данных до фронтенд-интерфейса и интеграций. Каждое техническое решение, от выбора ORM до структуры API-слоя — моё.</p>
 
-        <h2>Ключевые функции</h2>
+        <h2>Архитектура системы</h2>
+        <p>Платформа построена по слоистой архитектуре с чётким разделением между клиентским слоем, API-шлюзом, доменными сервисами и хранилищами данных. Запросы идут от Next.js-фронтенда через централизованный API Gateway, который обрабатывает аутентификацию, rate limiting и CORS, а затем распределяются по изолированным доменным сервисам.</p>
+
+        <figure>
+          <iframe src="/diagrams/docconnect.html" height="640" loading="lazy" title="Диаграмма архитектуры DocConnect"></iframe>
+          <figcaption>Архитектура системы — анимированный поток данных от клиентов через сервисы к хранилищам</figcaption>
+        </figure>
+        <a href="/diagrams/docconnect.html" target="_blank" class="diagram-link">Открыть на весь экран &#8599;</a>
+
+        <h2>Как это реализовано</h2>
         <ul>
-          <li><strong>Профили врачей</strong> со специализациями, расписанием и отзывами пациентов</li>
-          <li><strong>Запись на приём</strong> с доступностью в реальном времени</li>
-          <li><strong>Интеграция платежей</strong> для безопасных онлайн-транзакций</li>
-          <li><strong>Личный кабинет пациента</strong> для управления записями и историей болезни</li>
+          <li><strong>Фронтенд:</strong> Next.js 14 с App Router, деплой на Vercel Edge. Server Components для быстрой первичной загрузки, Client Components только там, где нужна интерактивность.</li>
+          <li><strong>API Gateway:</strong> Централизованный middleware-слой: JWT-аутентификация, валидация запросов, rate limiting и структурированное логирование. Каждый запрос аутентифицируется и проверяется до попадания в сервисы.</li>
+          <li><strong>Scheduling Service:</strong> Управление расписанием врачей, слотами приёмов и конфликтами бронирований. Нормализация часовых поясов и предотвращение двойного бронирования через блокировки на уровне БД.</li>
+          <li><strong>Profiles Service:</strong> Профили врачей и пациентов, специализации, отзывы. Оптимистичные обновления UI с Redis-кэшем для быстрых чтений.</li>
+          <li><strong>Payments Service:</strong> Интеграция со Stripe — оплата приёмов, возвраты, генерация счетов. Webhook-driven архитектура обеспечивает консистентность состояния платежей.</li>
         </ul>
 
-        <h2>Технические особенности</h2>
-        <p>Архитектура спроектирована для масштабируемости с чётким разделением ответственности. Обработка платежей через Stripe с надлежащими мерами безопасности. Система расписания учитывает разницу часовых поясов и конкурентные бронирования.</p>
+        <h2>Ключевые решения</h2>
+        <p><strong>PostgreSQL + Redis</strong> — Postgres для транзакционных данных (приёмы, платежи, профили) с гарантиями строгой консистентности. Redis для кэша сессий и read-heavy запросов вроде результатов поиска врачей.</p>
+        <p><strong>Stripe Webhooks</strong> — Вместо поллинга статуса платежа система слушает Stripe-вебхуки. Это делает платёжный поток событийно-ориентированным и устойчивым к сетевым сбоям.</p>
+        <p><strong>Работа с часовыми поясами</strong> — Всё время хранится в UTC. Фронтенд конвертирует в локальный часовой пояс пользователя. Это избавляет от классического бага, когда пациент в одном часовом поясе бронирует слот, который у врача отображается иначе.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
       image: '/images/projects/docconnect-logo.svg',

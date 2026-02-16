@@ -326,3 +326,43 @@ noscript + [data-mode],
 .prose a:hover {
   color: var(--color-bronze);
 }
+
+.prose figure {
+  margin: 2rem 0;
+}
+
+.prose figcaption {
+  font-size: 0.85rem;
+  color: var(--color-muted-foreground);
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.prose iframe {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .prose iframe {
+    height: 360px !important;
+    border-radius: 8px;
+  }
+}
+
+.prose .diagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--color-muted-foreground);
+  text-decoration: none;
+  margin-top: 0.5rem;
+  transition: color 0.2s;
+}
+
+.prose .diagram-link:hover {
+  color: var(--color-gold);
+}
