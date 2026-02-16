@@ -37,7 +37,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>The platform uses Rive for hardware-accelerated animations that run smoothly across devices. The content system is built to be flexible enough for different STEM disciplines while maintaining a consistent learning flow.</p>
       `,
       tech: ['React', 'TypeScript', 'Node.js', 'Rive', 'PostgreSQL', 'Tailwind CSS'],
-      image: '/images/projects/placeholder.svg',
+      image: '/images/projects/stemlab-logo.svg',
       link: '',
       status: 'prototype',
       mode: 'personal',
@@ -65,7 +65,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>The architecture is designed for scalability with a clean separation of concerns. Payment processing is handled through Stripe with proper security measures. The scheduling system handles timezone differences and concurrent booking conflicts.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
-      image: '/images/projects/placeholder.svg',
+      image: '/images/projects/docconnect-logo.svg',
       link: '',
       status: 'active',
       mode: 'personal',
@@ -177,7 +177,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>Achieved WCAG 2.1 AA compliance, which is especially important for an educational institution. The redesign improved mobile usability scores and page load times significantly, leading to better engagement metrics.</p>
       `,
       tech: ['HTML', 'CSS', 'JavaScript', 'Accessibility', 'Playwright', 'Figma'],
-      image: '/images/projects/placeholder.svg',
+      image: '/images/projects/octoddler-logo.png',
       link: '',
       status: 'active',
       mode: 'professional',
@@ -207,7 +207,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>Платформа использует Rive для аппаратно-ускоренных анимаций, работающих плавно на всех устройствах. Система контента достаточно гибкая для разных STEM-дисциплин, при этом сохраняет единый учебный поток.</p>
       `,
       tech: ['React', 'TypeScript', 'Node.js', 'Rive', 'PostgreSQL', 'Tailwind CSS'],
-      image: '/images/projects/placeholder.svg',
+      image: '/images/projects/stemlab-logo.svg',
       link: '',
       status: 'prototype',
       mode: 'personal',
@@ -235,7 +235,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>Архитектура спроектирована для масштабируемости с чётким разделением ответственности. Обработка платежей через Stripe с надлежащими мерами безопасности. Система расписания учитывает разницу часовых поясов и конкурентные бронирования.</p>
       `,
       tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
-      image: '/images/projects/placeholder.svg',
+      image: '/images/projects/docconnect-logo.svg',
       link: '',
       status: 'active',
       mode: 'personal',
@@ -347,7 +347,7 @@ const projectsData: Record<Locale, Project[]> = {
         <p>Достигнуто соответствие WCAG 2.1 AA, что особенно важно для образовательного учреждения. Редизайн улучшил показатели мобильного удобства и время загрузки страниц, что привело к лучшим метрикам вовлечённости.</p>
       `,
       tech: ['HTML', 'CSS', 'JavaScript', 'Accessibility', 'Playwright', 'Figma'],
-      image: '/images/projects/placeholder.svg',
+      image: '/images/projects/octoddler-logo.png',
       link: '',
       status: 'active',
       mode: 'professional',
