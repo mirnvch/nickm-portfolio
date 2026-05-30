@@ -26,6 +26,11 @@ export const ui = {
     postsTitle: 'Writing',
     notesPostsTitle: 'Notes',
 
+    // Section labels
+    aboutLabel: 'About',
+    postsLabel: 'Posts',
+    stuffTitle: "Stuff I've Made",
+
     // Projects section
     projectsTitle: "Stuff I've Made",
     clientWorkTitle: 'Client Work',
@@ -59,8 +64,7 @@ export const ui = {
 
     // About - Personal
     aboutPersonal: `
-      <p>Building things. Learning in public. Enjoying the remote life.</p>
-      <p>QA by day, AI enthusiast always. Exploring how AI can transform the way we work and create.</p>
+      <p>Trying to pay attention.</p>
     `,
 
     // SEO
@@ -103,6 +107,11 @@ export const ui = {
     postsTitle: 'Записи',
     notesPostsTitle: 'Заметки',
 
+    // Section labels
+    aboutLabel: 'Обо мне',
+    postsLabel: 'Записи',
+    stuffTitle: 'Мои работы',
+
     // Projects section
     projectsTitle: 'Мои проекты',
     clientWorkTitle: 'Клиентские проекты',
@@ -136,8 +145,7 @@ export const ui = {
 
     // About - Personal
     aboutPersonal: `
-      <p>Строю. Учусь на виду. Наслаждаюсь удалённой жизнью.</p>
-      <p>Днём — QA, всегда — AI-энтузиаст. Исследую, как ИИ может изменить то, как мы работаем и творим.</p>
+      <p>Просто стараюсь быть внимательным.</p>
     `,
 
     // SEO

@@ -12,6 +12,7 @@ export interface Project {
   image: string;
   link: string;
   status: string;        // localized display label, e.g. "Maintaining", "In progress"
+  tone?: 'live' | 'prototype' | 'paused' | 'shipped'; // badge color (language-independent)
   featured?: boolean;    // true → promoted to a full Client Work card; false/undefined → Archive
   mode?: 'professional' | 'personal';
 }
@@ -21,6 +22,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'bogach.by',
       slug: 'bogach',
+      tone: 'live',
       description: 'Multilingual website for a countryside guesthouse near Kobrin, built end-to-end with Claude Code.',
       summary: 'A countryside guesthouse near Kobrin needed a multilingual site. I built it with Claude Code: a Next.js site in four languages (RU/EN/PL/DE) with image optimization and SEO. The business runs at 4.7 on Google across 145 reviews.',
       result: 'Multilingual site built end-to-end with Claude Code.',
@@ -51,6 +53,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'QA Camp',
       slug: 'qacamp',
+      tone: 'live',
       description: 'QA lead and web development for a consulting firm. Test strategy, automation, team coordination.',
       summary: 'QA Camp runs testing for client teams and needed automation that wouldn’t rot. As QA lead I set the test strategy, built a Playwright framework covering visual regression, API, and cross-browser, and mentored the engineers who run it day to day.',
       result: 'Standardized regression testing into a reliable Playwright suite.',
@@ -82,6 +85,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'Bake by Angie',
       slug: 'bake-by-angie',
+      tone: 'live',
       description: 'Web development and QA for an online baking education platform. Testing, deployment, maintenance.',
       summary: 'An online baking school was shipping a media-heavy site that loaded slowly and broke across devices. I owned both frontend and QA — built and tested the UI, set up CI/CD for clean releases, and rebuilt the media pipeline with lazy loading, compression, and CDN caching.',
       result: 'Kept a video- and image-heavy site fast across devices.',
@@ -113,6 +117,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'DocConnect',
       slug: 'docconnect',
+      tone: 'paused',
       description: 'Building a healthcare marketplace from scratch. Architecture, frontend, backend, payment integration.',
       archiveLine: 'A healthcare-marketplace concept I designed and built front-to-back with Claude Code as my architecture partner. Landing and product shell shipped; paused before launch.',
       content: `
@@ -158,6 +163,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'StemLab',
       slug: 'stemlab',
+      tone: 'prototype',
       description: 'Interactive STEM platform where students explore math and science through animated lessons, visual explorers, and hands-on quizzes.',
       archiveLine: 'Interactive STEM platform where abstract math and science become things you can drag, pull, and play with — built solo with Claude Code.',
       content: `
@@ -200,6 +206,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'Octoddler School',
       slug: 'octoddler-school',
+      tone: 'shipped',
       description: 'Website redesign and QA for a Montessori school. Frontend development, testing, accessibility.',
       archiveLine: 'Accessible website redesign for a Montessori preschool — WCAG 2.1 AA, rebuilt frontend, cross-device QA.',
       content: `
@@ -231,6 +238,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'bogach.by',
       slug: 'bogach',
+      tone: 'live',
       description: 'Многоязычный сайт для загородной усадьбы под Кобрином, собранный от и до с Claude Code.',
       summary: 'Загородной усадьбе под Кобрином нужен был многоязычный сайт. Я собрал его с Claude Code: сайт на Next.js на четырёх языках (RU/EN/PL/DE) с оптимизацией изображений и SEO. У бизнеса 4.7 на Google по 145 отзывам.',
       result: 'Многоязычный сайт, собранный от и до с Claude Code.',
@@ -261,6 +269,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'QA Camp',
       slug: 'qacamp',
+      tone: 'live',
       description: 'QA-лид и веб-разработка для консалтинговой компании. Стратегия тестирования, автоматизация, координация.',
       summary: 'QA Camp тестирует продукты клиентских команд, и автоматизация нужна была такая, которая не разваливается со временем. Как QA-лид я задал стратегию тестирования, построил фреймворк на Playwright (визуальная регрессия, API, кросс-браузерность) и менторил инженеров, которые с ним работают каждый день.',
       result: 'Привёл регрессионное тестирование к надёжному набору на Playwright.',
@@ -292,6 +301,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'Bake by Angie',
       slug: 'bake-by-angie',
+      tone: 'live',
       description: 'Веб-разработка и QA для платформы обучения выпечке. Тестирование, деплой, поддержка.',
       summary: 'Онлайн-школа выпечки запускала сайт с обилием медиа, который медленно грузился и ломался на разных устройствах. Я взял на себя и фронтенд, и QA — собрал и протестировал интерфейс, настроил CI/CD для чистых релизов и пересобрал медиа-пайплайн с ленивой загрузкой, сжатием и CDN-кэшированием.',
       result: 'Тяжёлый по медиа сайт остаётся быстрым на всех устройствах.',
@@ -323,6 +333,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'DocConnect',
       slug: 'docconnect',
+      tone: 'paused',
       description: 'Строю медицинский маркетплейс с нуля. Архитектура, фронтенд, бэкенд, интеграция платежей.',
       archiveLine: 'Концепт медицинского маркетплейса, который я спроектировал и собрал от и до с Claude Code как партнёром по архитектуре. Лендинг и оболочка продукта готовы; поставлен на паузу перед запуском.',
       content: `
@@ -368,6 +379,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'StemLab',
       slug: 'stemlab',
+      tone: 'prototype',
       description: 'Интерактивная STEM-платформа, где ученики исследуют математику и науку через анимированные уроки, визуальные эксплореры и практические квизы.',
       archiveLine: 'Интерактивная STEM-платформа, где абстрактная математика и наука становятся тем, что можно тянуть, двигать и трогать — собрана соло с Claude Code.',
       content: `
@@ -410,6 +422,7 @@ const projectsData: Record<Locale, Project[]> = {
     {
       title: 'Octoddler School',
       slug: 'octoddler-school',
+      tone: 'shipped',
       description: 'Редизайн сайта и QA для Монтессори-школы. Фронтенд-разработка, тестирование, доступность.',
       archiveLine: 'Доступный редизайн сайта Монтессори-школы — WCAG 2.1 AA, новый фронтенд, кросс-девайс QA.',
       content: `

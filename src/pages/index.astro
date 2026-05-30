@@ -2,16 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
 import ModeToggle from '../components/ModeToggle.astro';
-import Currently from '../components/Currently.astro';
-import AtlasTeaser from '../components/AtlasTeaser.astro';
+import Section from '../components/Section.astro';
+import OrnamentDivider from '../components/OrnamentDivider.astro';
+import Compass from '../components/Compass.astro';
 import Posts from '../components/Posts.astro';
-import ClientWork from '../components/ClientWork.astro';
-import Archive from '../components/Archive.astro';
-import Contact from '../components/Contact.astro';
+import StuffGrid from '../components/StuffGrid.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { useTranslations } from '../i18n/utils';
 import { getAllPosts } from '../data/posts';
-import { getFeaturedProjects, getArchivedProjects } from '../data/projects';
 import type { Locale } from '../i18n/utils';
 
 const lang: Locale = 'en';
@@ -20,13 +18,11 @@ const t = useTranslations(lang);
 const allPosts = getAllPosts(lang);
 const professionalPosts = allPosts
   .filter(p => p.type === 'professional')
-  .map(p => ({ title: p.title, slug: p.slug, date: p.date, readTime: p.readTime, pinned: p.pinned }));
+  .map(p => ({ title: p.title, slug: p.slug, date: p.date, readTime: p.readTime, pinned: p.pinned }))
+  .slice(0, 2);
 const personalPosts = allPosts
   .filter(p => p.type === 'personal')
   .map(p => ({ title: p.title, slug: p.slug, date: p.date, readTime: p.readTime, pinned: p.pinned }));
-
-const featuredProjects = getFeaturedProjects(lang);
-const archivedProjects = getArchivedProjects(lang);
 ---
 
 <Layout title={t('siteTitle')} description={t('siteDescription')} lang={lang} jsonLd={{
@@ -43,65 +39,53 @@ const archivedProjects = getArchivedProjects(lang);
   ]
 }}>
   <!-- Header Navigation -->
-  <header class="flex items-center w-full mb-8">
-    <a href="/" class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+  <header class="relative mb-6 flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-between">
+    <a href="/" class="font-cormorant text-[18px] font-semibold text-foreground opacity-85 transition-opacity hover:opacity-100">
       {t('home')}
     </a>
-    <div class="flex-1 flex justify-center">
+    <div class="order-last sm:order-none sm:absolute sm:left-1/2 sm:-translate-x-1/2">
       <ModeToggle lang={lang} />
     </div>
     <LanguageSwitcher lang={lang} />
   </header>
 
-  <!-- Hero Section -->
+  <!-- Profile -->
   <section class="flex flex-col items-center gap-y-4">
     <ProfilePhoto
       professionalImage="/images/profile-professional.jpg"
       personalImage="/images/profile-personal.jpg"
     />
-
-    <!-- Name -->
-    <h1
-      class="font-cormorant text-4xl font-semibold tracking-wide text-foreground"
-      data-mode="professional"
-    >
+    <h1 class="font-cormorant text-[48px] font-semibold leading-tight text-foreground" style="letter-spacing: 0.075em;" data-mode="professional">
       {t('nameProfessional')}
     </h1>
-    <h1
-      class="font-cormorant text-4xl font-semibold tracking-wide text-foreground"
-      data-mode="personal"
-      style="display: none;"
-    >
+    <h1 class="font-cormorant text-[48px] font-semibold leading-tight text-foreground" style="letter-spacing: 0.075em; display: none;" data-mode="personal">
       {t('namePersonal')}
     </h1>
   </section>
 
-  <!-- Hero copy (always visible) -->
-  <section class="flex flex-col items-center text-center">
-    <div
-      class="flex max-w-lg flex-col gap-y-2 font-garamond text-[1.25rem] leading-relaxed text-muted-foreground"
-      set:html={t('aboutProfessional')}
-    />
-  </section>
+  <!-- About (label + content; text swaps by mode) -->
+  <Section label={t('aboutLabel')}>
+    <div class="about-text" data-mode="professional" set:html={t('aboutProfessional')} />
+    <div class="about-text about-lg" data-mode="personal" style="display: none;" set:html={t('aboutPersonal')} />
+  </Section>
 
-  <!-- Currently (always visible) -->
-  <Currently lang={lang} />
+  <OrnamentDivider />
 
-  <!-- Coverage Atlas teaser (always visible) -->
-  <AtlasTeaser lang={lang} />
+  <!-- Posts (Professional) -->
+  <Section label={t('postsLabel')} mode="professional">
+    <Posts posts={professionalPosts} mode="professional" lang={lang} />
+  </Section>
 
-  <!-- Posts - Professional -->
-  <Posts posts={professionalPosts} mode="professional" lang={lang} />
+  <!-- Posts (Personal) -->
+  <Section label={t('postsLabel')} mode="personal">
+    <Posts posts={personalPosts} mode="personal" lang={lang} />
+  </Section>
 
-  <!-- Posts - Personal -->
-  <Posts posts={personalPosts} mode="personal" lang={lang} />
+  <!-- Compass ornament (Professional) -->
+  <Compass />
 
-  <!-- Client Work (always visible) -->
-  <ClientWork projects={featuredProjects} lang={lang} />
-
-  <!-- Archive (always visible) -->
-  <Archive projects={archivedProjects} lang={lang} />
-
-  <!-- Say hi (always visible) -->
-  <Contact lang={lang} />
+  <!-- Stuff I've Made (Professional) -->
+  <Section label={t('stuffTitle')} mode="professional">
+    <StuffGrid lang={lang} />
+  </Section>
 </Layout>

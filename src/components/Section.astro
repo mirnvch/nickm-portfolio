@@ -1,0 +1,25 @@
+---
+// Two-column section shell: label (~20%) on the left, content on the right.
+interface Props {
+  label: string;
+  id?: string;
+  mode?: 'professional' | 'personal' | 'all';
+}
+
+const { label, id, mode = 'all' } = Astro.props;
+const isModed = mode !== 'all';
+---
+
+<section
+  id={id}
+  class="section-row"
+  data-mode={isModed ? mode : undefined}
+  style={isModed ? 'display: none;' : undefined}
+>
+  <div class="section-label">
+    <h2>{label}</h2>
+  </div>
+  <div class="section-content">
+    <slot />
+  </div>
+</section>

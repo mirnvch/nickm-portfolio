@@ -19,33 +19,26 @@ interface Props {
 const { posts, mode, lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 const basePath = getLocalePath(lang, mode === 'professional' ? '/blog' : '/notes');
-const heading = mode === 'professional' ? t('postsTitle') : t('notesPostsTitle');
 const viewAllText = mode === 'professional' ? t('viewAllPosts') : t('viewAllNotes');
 ---
 
-<section
-  class="flex flex-col gap-y-4"
-  data-mode={mode}
-  style="display: none;"
->
-  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{heading}</h2>
-
-  <ul class="posts-list flex flex-col gap-y-3">
-    {posts.map((post, index) => (
+<div class="flex flex-col gap-y-4">
+  <ul class="flex flex-col gap-y-3">
+    {posts.map((post) => (
       <li class="flex items-baseline justify-between gap-4">
-        <div class="flex items-center gap-2 min-w-0">
+        <div class="flex min-w-0 items-baseline gap-2">
+          {mode === 'personal' && post.pinned && <span class="shrink-0 text-[11px] text-gold" aria-hidden="true">✦</span>}
           <a
             href={`${basePath}/${post.slug}/`}
-            class:list={["post-link font-cormorant text-lg font-medium text-foreground", index === 0 && "active"]}
+            class="post-underline font-cormorant text-lg font-semibold text-foreground"
           >
-            <span class="post-star">✦</span>
-            <span class="post-title">{post.title}</span>
+            {post.title}
           </a>
-          <span class="text-xs text-muted-foreground shrink-0">· {post.readTime} {t('minRead')}</span>
+          <span class="shrink-0 text-[12px] text-muted-foreground">· {post.readTime} {t('minRead')}</span>
         </div>
         <time
           datetime={post.date.toISOString()}
-          class="shrink-0 text-sm text-muted-foreground hidden sm:block"
+          class="hidden shrink-0 text-[13px] text-muted-foreground sm:block"
         >
           {formatDate(post.date, lang)}
         </time>
@@ -55,79 +48,8 @@ const viewAllText = mode === 'professional' ? t('viewAllPosts') : t('viewAllNote
 
   <a
     href={basePath}
-    class="text-sm text-muted-foreground hover:text-foreground transition-colors self-start"
+    class="self-start text-sm text-muted-foreground transition-colors hover:text-foreground"
   >
     {viewAllText}
   </a>
-</section>
-
-<script>
-  function initPostsHover() {
-    document.querySelectorAll('.posts-list').forEach(list => {
-      const links = list.querySelectorAll('.post-link');
-
-      list.addEventListener('mouseenter', () => {
-        // Remove active from first when hovering the list
-      });
-
-      links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-          // Remove active from all links in this list
-          links.forEach(l => l.classList.remove('active'));
-          // Add active to hovered link
-          link.classList.add('active');
-        });
-      });
-
-      list.addEventListener('mouseleave', () => {
-        // Reset: remove active from all, add to first
-        links.forEach(l => l.classList.remove('active'));
-        links[0]?.classList.add('active');
-      });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', initPostsHover);
-  document.addEventListener('astro:after-swap', initPostsHover);
-</script>
-
-<style>
-  .posts-list {
-    overflow: visible;
-  }
-
-  .posts-list li {
-    overflow: visible;
-  }
-
-  .post-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    overflow: visible;
-  }
-
-  .post-star {
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    color: var(--color-gold);
-    flex-shrink: 0;
-  }
-
-  .post-title {
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), text-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: left center;
-  }
-
-  /* Active state */
-  .post-link.active .post-star {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .post-link.active .post-title {
-    transform: scale(1.02);
-    text-shadow: 0 1px 2px rgba(212, 175, 55, 0.6), 0 0 8px rgba(212, 175, 55, 0.3);
-  }
-</style>
+</div>

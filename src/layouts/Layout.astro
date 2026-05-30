@@ -3,6 +3,7 @@ import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 import type { Locale } from '../i18n/utils';
 import { getAlternatePath } from '../i18n/utils';
+import SocialLinks from '../components/SocialLinks.astro';
 
 interface Props {
   title: string;
@@ -38,7 +39,7 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Nick M" />
 
@@ -117,102 +118,36 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
       </div>
 
       <!-- Footer -->
-      <footer class="mt-8 flex flex-col items-center">
+      <footer class="mt-8 flex flex-col items-center gap-y-3">
+        <SocialLinks lang={lang} variant="icons" />
         <p class="text-xs text-muted-foreground">© 2026 Nick Miranovich</p>
       </footer>
     </main>
 
     <script>
-      // Mode toggle functionality
-      function initModeToggle() {
-        const flipContainer = document.querySelector('.flip-container');
-        const modeToggle = document.getElementById('mode-toggle');
-        const html = document.documentElement;
-
-        function toggleMode() {
-          html.classList.toggle('dark');
-          flipContainer?.classList.toggle('flipped');
-
-          // Toggle visibility of mode-specific content
-          document.querySelectorAll('[data-mode]').forEach(el => {
-            const elMode = el.getAttribute('data-mode');
-            const isDark = html.classList.contains('dark');
-
-            if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
-              (el as HTMLElement).style.display = '';
-            } else {
-              (el as HTMLElement).style.display = 'none';
-            }
-          });
-
-          // Update URL
-          const newMode = html.classList.contains('dark') ? 'professional' : 'personal';
-          const url = new URL(window.location.href);
-          url.searchParams.set('mode', newMode);
-          window.history.replaceState({}, '', url);
-        }
-
-        // Click handlers
-        flipContainer?.addEventListener('click', toggleMode);
-        modeToggle?.addEventListener('click', toggleMode);
-
-        // Initialize based on URL path, page mode, or query parameter
+      // Theme selection only (mode toggling lives in ModeToggle.astro).
+      // Sets the .dark class per page on view transitions; first paint is handled
+      // by the inline <head> script above.
+      function applyTheme() {
         const path = window.location.pathname;
-        const urlParams = new URLSearchParams(window.location.search);
-        const mode = urlParams.get('mode');
+        const html = document.documentElement;
+        const flip = document.querySelector('.flip-container');
         const pageMode = html.getAttribute('data-page-mode');
 
+        let personal;
         if (pageMode === 'personal' || /^\/(ru\/)?notes(\/|$)/.test(path)) {
-          html.classList.remove('dark');
-          flipContainer?.classList.add('flipped');
+          personal = true;
         } else if (pageMode === 'professional' || /^\/(ru\/)?blog(\/|$)/.test(path)) {
-          html.classList.add('dark');
-          flipContainer?.classList.remove('flipped');
-        } else if (mode === 'personal') {
-          html.classList.remove('dark');
-          flipContainer?.classList.add('flipped');
+          personal = false;
         } else {
-          html.classList.add('dark');
-          flipContainer?.classList.remove('flipped');
+          personal = new URLSearchParams(window.location.search).get('mode') === 'personal';
         }
 
-        // Set initial visibility
-        document.querySelectorAll('[data-mode]').forEach(el => {
-          const elMode = el.getAttribute('data-mode');
-          const isDark = html.classList.contains('dark');
-
-          if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
-            (el as HTMLElement).style.display = '';
-          } else {
-            (el as HTMLElement).style.display = 'none';
-          }
-        });
+        html.classList.toggle('dark', !personal);
+        flip?.classList.toggle('flipped', personal);
       }
 
-      // Run on initial load
-      document.addEventListener('DOMContentLoaded', initModeToggle);
-
-      // Re-run after Astro page transitions
-      document.addEventListener('astro:after-swap', () => {
-        const path = window.location.pathname;
-        const html = document.documentElement;
-        const pageMode = html.getAttribute('data-page-mode');
-
-        if (pageMode === 'personal' || /^\/(ru\/)?notes(\/|$)/.test(path)) {
-          html.classList.remove('dark');
-        } else if (pageMode === 'professional' || /^\/(ru\/)?blog(\/|$)/.test(path)) {
-          html.classList.add('dark');
-        } else {
-          const mode = new URLSearchParams(window.location.search).get('mode');
-          if (mode === 'personal') {
-            html.classList.remove('dark');
-          } else {
-            html.classList.add('dark');
-          }
-        }
-
-        initModeToggle();
-      });
+      document.addEventListener('astro:after-swap', applyTheme);
     </script>
   </body>
 </html>

@@ -10,146 +10,160 @@ const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<div class="mode-toggle-wrapper flex items-center justify-center gap-2">
-  <!-- Left star -->
-  <span class="star left-star">✦</span>
+<div class="toggle-wrapper">
+  <!-- Left compass ornament -->
+  <span class="compass-orn" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+      <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.8"/>
+      <line x1="12" y1="4" x2="12" y2="7" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="12" y1="17" x2="12" y2="20" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="4" y1="12" x2="7" y2="12" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="17" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+  </span>
 
-  <!-- Pill container -->
-  <div class="mode-pill" id="mode-pill">
+  <!-- Toggle track -->
+  <div class="toggle-track" id="toggle-track">
+    <!-- Diamond pattern background -->
+    <svg class="diamond-bg" aria-hidden="true" preserveAspectRatio="none">
+      <defs>
+        <pattern id="dp" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M10 0 L20 10 L10 20 L0 10 Z" fill="none" stroke="rgb(180,160,120)" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dp)"/>
+    </svg>
+
     <!-- Sliding indicator -->
-    <div class="slide-indicator" id="slide-indicator"></div>
+    <div class="toggle-indicator" id="toggle-indicator"></div>
 
-    <button
-      id="mode-professional"
-      class="mode-btn"
-      data-mode-btn="professional"
-      aria-label={`${t('professional')} mode`}
-    >
+    <button id="mode-professional" class="toggle-btn" data-mode-btn="professional" aria-label={`${t('professional')} mode`}>
       <span class="icon" aria-hidden="true">⚙</span>
       <span>{t('professional')}</span>
     </button>
-
-    <button
-      id="mode-personal"
-      class="mode-btn"
-      data-mode-btn="personal"
-      aria-label={`${t('personal')} mode`}
-    >
+    <button id="mode-personal" class="toggle-btn" data-mode-btn="personal" aria-label={`${t('personal')} mode`}>
       <span class="icon" aria-hidden="true">✦</span>
       <span>{t('personal')}</span>
     </button>
   </div>
 
-  <!-- Right star -->
-  <span class="star right-star">✦</span>
+  <!-- Right compass ornament -->
+  <span class="compass-orn" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+      <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.8"/>
+      <line x1="12" y1="4" x2="12" y2="7" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="12" y1="17" x2="12" y2="20" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="4" y1="12" x2="7" y2="12" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="17" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+  </span>
 </div>
 
 <style>
-  .mode-toggle-wrapper {
-    font-family: var(--font-garamond);
-  }
-
-  .star {
-    font-size: 0.6rem;
-    color: var(--color-gold);
-    opacity: 0.5;
-    user-select: none;
-    transition: color 0.4s ease, opacity 0.4s ease;
-  }
-
-  .mode-pill {
-    position: relative;
+  .toggle-wrapper {
     display: flex;
     align-items: center;
-    border-radius: 9999px;
-    border: 1px solid rgba(200, 180, 160, 0.5);
-    background: rgba(240, 230, 220, 0.5);
-    padding: 0.2rem;
-    gap: 0;
-    transition: background-color 0.4s ease, border-color 0.4s ease;
+    gap: 10px;
   }
 
-  :global(.dark) .mode-pill {
-    border-color: rgba(212, 175, 55, 0.5);
-    background: rgba(212, 175, 55, 0.1);
+  .compass-orn {
+    width: 22px;
+    height: 22px;
+    opacity: 0.35;
+    color: var(--color-foreground);
+    flex-shrink: 0;
+  }
+  .compass-orn svg { width: 100%; height: 100%; display: block; }
+
+  .toggle-track {
+    position: relative;
+    width: 280px;
+    height: 48px;
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    background: var(--color-card);
   }
 
-  /* Sliding indicator */
-  .slide-indicator {
+  /* Professional (dark) */
+  :global(.dark) .toggle-track {
+    border: 1px solid rgba(202, 157, 43, 0.2);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1), 0 2px 12px rgba(202, 157, 43, 0.1);
+  }
+  /* Personal (light) */
+  :global(html:not(.dark)) .toggle-track {
+    border: 1px solid rgba(166, 115, 63, 0.3);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(166, 115, 63, 0.08);
+  }
+
+  .diamond-bg {
     position: absolute;
-    top: 0.2rem;
-    left: 0.2rem;
-    height: calc(100% - 0.4rem);
-    border-radius: 9999px;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                background-color 0.35s ease,
-                box-shadow 0.35s ease,
-                width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.07;
     z-index: 0;
+    pointer-events: none;
   }
 
-  .mode-btn {
+  .toggle-indicator {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 132px;
+    height: 40px;
+    border-radius: 32px;
+    z-index: 0;
+    backdrop-filter: blur(12px);
+    transition: left 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                background 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  :global(.dark) .toggle-indicator {
+    left: 4px;
+    background: linear-gradient(135deg, rgba(202, 157, 43, 0.5), rgba(202, 157, 43, 0.3));
+    box-shadow: 0 4px 16px rgba(202, 157, 43, 0.25), 0 2px 8px rgba(202, 157, 43, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  }
+  :global(html:not(.dark)) .toggle-indicator {
+    left: 144px;
+    background: linear-gradient(135deg, rgba(184, 80, 46, 0.5), rgba(184, 80, 46, 0.3));
+    box-shadow: 0 4px 16px rgba(184, 80, 46, 0.2), 0 2px 8px rgba(184, 80, 46, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  }
+
+  .toggle-btn {
     position: relative;
     z-index: 1;
+    flex: 1;
+    height: 100%;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    padding: 0.4rem 0.9rem;
-    border-radius: 9999px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    background: transparent;
+    justify-content: center;
+    gap: 0.4rem;
     border: none;
-    color: var(--color-muted-foreground);
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-garamond);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(128, 128, 128, 0.55);
     transition: color 0.3s ease;
-    font-family: inherit;
   }
+  .toggle-btn .icon { font-size: 0.75rem; }
 
-  .mode-btn:hover {
-    color: var(--color-foreground);
-  }
-
-  .mode-btn:focus-visible {
+  .toggle-btn:focus-visible {
     outline: 2px solid var(--color-gold);
     outline-offset: 2px;
-    border-radius: 9999px;
+    border-radius: 32px;
   }
 
-  .mode-btn .icon {
-    font-size: 0.7rem;
-  }
-
-  /* Dark mode styles */
-  :global(.dark) .slide-indicator {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.6) 0%, rgba(184, 134, 11, 0.5) 100%);
-  }
-
-  :global(.dark) .mode-btn[data-mode-btn="professional"] {
+  :global(.dark) #mode-professional,
+  :global(html:not(.dark)) #mode-personal {
     color: var(--color-foreground);
-  }
-
-  :global(.dark) .mode-btn[data-mode-btn="personal"] {
-    color: var(--color-muted-foreground);
-  }
-
-  /* Light mode styles */
-  :global(html:not(.dark)) .slide-indicator {
-    background: linear-gradient(135deg, rgba(232, 180, 184, 0.7) 0%, rgba(210, 160, 150, 0.6) 100%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  }
-
-  :global(html:not(.dark)) .mode-btn[data-mode-btn="personal"] {
-    color: var(--color-foreground);
-  }
-
-  :global(html:not(.dark)) .mode-btn[data-mode-btn="professional"] {
-    color: var(--color-muted-foreground);
-  }
-
-  :global(html:not(.dark)) .star {
-    color: #e8b4b8;
-    opacity: 0.7;
+    font-weight: 600;
   }
 </style>
 
@@ -160,101 +174,65 @@ const t = useTranslations(lang);
     }
   }
 
+  function applyVisibility() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('[data-mode]').forEach((el) => {
+      if (el.hasAttribute('data-mode-btn')) return;
+      const elMode = el.getAttribute('data-mode');
+      const htmlEl = el as HTMLElement;
+      if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
+        htmlEl.style.display = '';
+        htmlEl.classList.remove('animate-out');
+        void htmlEl.offsetWidth;
+        htmlEl.classList.add('animate-in');
+      } else {
+        htmlEl.style.display = 'none';
+        htmlEl.classList.remove('animate-in', 'animate-out');
+      }
+    });
+  }
+
   function initModeToggle() {
     const professionalBtn = document.getElementById('mode-professional');
     const personalBtn = document.getElementById('mode-personal');
-    const slideIndicator = document.getElementById('slide-indicator');
-
-    function updateSlideIndicator(mode: 'professional' | 'personal') {
-      if (!slideIndicator || !professionalBtn || !personalBtn) return;
-
-      const targetBtn = mode === 'professional' ? professionalBtn : personalBtn;
-      const btnRect = targetBtn.getBoundingClientRect();
-      const pillRect = targetBtn.parentElement!.getBoundingClientRect();
-
-      const offsetX = targetBtn.offsetLeft - 3; // 0.2rem padding adjustment
-      slideIndicator.style.width = `${btnRect.width}px`;
-      slideIndicator.style.transform = `translateX(${offsetX}px)`;
-    }
 
     function setMode(mode: 'professional' | 'personal') {
       const html = document.documentElement;
       const flipContainer = document.querySelector('.flip-container');
 
-      // Update slide indicator immediately for smooth animation
-      updateSlideIndicator(mode);
+      if (mode === 'professional') {
+        html.classList.add('dark');
+        flipContainer?.classList.remove('flipped');
+      } else {
+        html.classList.remove('dark');
+        flipContainer?.classList.add('flipped');
+      }
 
-      // Animate content out
-      const modeElements = document.querySelectorAll('[data-mode]:not([data-mode-btn])');
-      modeElements.forEach(el => {
-        const htmlEl = el as HTMLElement;
-        htmlEl.classList.remove('animate-in');
-        htmlEl.classList.add('animate-out');
-      });
+      applyVisibility();
 
-      // Wait for fade out, then switch theme
-      setTimeout(() => {
-        if (mode === 'professional') {
-          html.classList.add('dark');
-          flipContainer?.classList.remove('flipped');
-        } else {
-          html.classList.remove('dark');
-          flipContainer?.classList.add('flipped');
-        }
-
-        // Toggle visibility of mode-specific content
-        document.querySelectorAll('[data-mode]').forEach(el => {
-          const elMode = el.getAttribute('data-mode');
-          if (el.hasAttribute('data-mode-btn')) return;
-
-          const isDark = html.classList.contains('dark');
-          const htmlEl = el as HTMLElement;
-
-          if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
-            htmlEl.style.display = '';
-            htmlEl.classList.remove('animate-out');
-            // Trigger reflow to restart animation
-            void htmlEl.offsetWidth;
-            htmlEl.classList.add('animate-in');
-          } else {
-            htmlEl.style.display = 'none';
-            htmlEl.classList.remove('animate-in', 'animate-out');
-          }
-        });
-      }, 300);
-
-      // Update URL
       const url = new URL(window.location.href);
       url.searchParams.set('mode', mode);
       window.history.replaceState({}, '', url);
     }
 
-    // Make setMode globally available for ProfilePhoto
     window.setMode = setMode;
-
-    // Initialize indicator position and animate initial content
-    const isDark = document.documentElement.classList.contains('dark');
-    const initialMode = isDark ? 'professional' : 'personal';
-    setTimeout(() => {
-      updateSlideIndicator(initialMode);
-
-      // Animate initial content in
-      document.querySelectorAll('[data-mode]').forEach(el => {
-        const elMode = el.getAttribute('data-mode');
-        if (el.hasAttribute('data-mode-btn')) return;
-
-        const htmlEl = el as HTMLElement;
-        if ((elMode === 'professional' && isDark) || (elMode === 'personal' && !isDark)) {
-          htmlEl.style.display = '';
-          htmlEl.classList.add('animate-in');
-        } else {
-          htmlEl.style.display = 'none';
-        }
-      });
-    }, 50);
 
     professionalBtn?.addEventListener('click', () => setMode('professional'));
     personalBtn?.addEventListener('click', () => setMode('personal'));
+
+    // Set theme from URL (homepage defaults to professional), then sync content
+    const initialMode = new URLSearchParams(window.location.search).get('mode') === 'personal'
+      ? 'personal' : 'professional';
+    const html = document.documentElement;
+    const flip = document.querySelector('.flip-container');
+    if (initialMode === 'personal') {
+      html.classList.remove('dark');
+      flip?.classList.add('flipped');
+    } else {
+      html.classList.add('dark');
+      flip?.classList.remove('flipped');
+    }
+    applyVisibility();
   }
 
   document.addEventListener('DOMContentLoaded', initModeToggle);
