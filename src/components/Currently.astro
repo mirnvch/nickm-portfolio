@@ -17,7 +17,7 @@ const items = currently[lang];
 
   <ul class="currently-list flex flex-col gap-y-2.5">
     {items.map((item) => (
-      <li class="flex gap-x-3 text-[0.95rem] leading-relaxed text-muted-foreground">
+      <li class="flex gap-x-3 text-[1.25rem] leading-relaxed text-muted-foreground">
         <span class="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-gold/70" aria-hidden="true"></span>
         <span set:html={item} />
       </li>

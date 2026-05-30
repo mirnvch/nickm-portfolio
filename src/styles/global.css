@@ -305,6 +305,7 @@ noscript + [data-mode],
 .prose p {
   margin-bottom: 1rem;
   line-height: 1.7;
+  font-size: 1.25rem;
 }
 
 .prose ul {
@@ -315,6 +316,7 @@ noscript + [data-mode],
 .prose li {
   margin-bottom: 0.5rem;
   line-height: 1.6;
+  font-size: 1.25rem;
 }
 
 .prose a {

@@ -36,7 +36,7 @@ const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich'
       <h1 class="font-cormorant text-3xl font-semibold text-foreground">{c.title}</h1>
       <div class="flex max-w-2xl flex-col gap-y-3">
         {c.intro.map((p) => (
-          <p class="text-[0.95rem] leading-relaxed text-muted-foreground">{p}</p>
+          <p class="text-[1.25rem] leading-relaxed text-muted-foreground">{p}</p>
         ))}
       </div>
     </header>
@@ -64,10 +64,10 @@ const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich'
       <h2 class="font-cormorant text-2xl font-semibold text-foreground">{c.howTitle}</h2>
 
       <div class="flex flex-col gap-y-3">
-        <p class="text-[0.95rem] leading-relaxed text-muted-foreground">{c.statesIntro}</p>
+        <p class="text-[1.25rem] leading-relaxed text-muted-foreground">{c.statesIntro}</p>
         <ul class="flex flex-col gap-y-2">
           {c.states.map((s) => (
-            <li class="flex items-baseline gap-3 text-[0.95rem] leading-relaxed text-muted-foreground">
+            <li class="flex items-baseline gap-3 text-[1.25rem] leading-relaxed text-muted-foreground">
               <span class="mt-1 h-3 w-3 shrink-0 rounded-sm" style={`background:${s.color}`} aria-hidden="true"></span>
               <span><strong class="text-foreground">{s.label}</strong> — {s.desc}</span>
             </li>
@@ -77,12 +77,12 @@ const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich'
 
       <div class="flex flex-col gap-y-2">
         <h3 class="font-cormorant text-lg font-semibold text-foreground">{c.heatmapTitle}</h3>
-        <p class="max-w-2xl text-[0.95rem] leading-relaxed text-muted-foreground">{c.heatmapBody}</p>
+        <p class="max-w-2xl text-[1.25rem] leading-relaxed text-muted-foreground">{c.heatmapBody}</p>
       </div>
 
       <div class="flex flex-col gap-y-2">
         <h3 class="font-cormorant text-lg font-semibold text-foreground">{c.drawerTitle}</h3>
-        <p class="max-w-2xl text-[0.95rem] leading-relaxed text-muted-foreground">{c.drawerBody}</p>
+        <p class="max-w-2xl text-[1.25rem] leading-relaxed text-muted-foreground">{c.drawerBody}</p>
       </div>
     </section>
 
