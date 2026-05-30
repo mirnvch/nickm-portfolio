@@ -1,0 +1,53 @@
+---
+import type { Locale } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+const demoSrc = '/coverage-atlas-demo.html';
+---
+
+<section id="atlas" class="flex scroll-mt-8 flex-col gap-y-4">
+  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{t('atlasTitle')}</h2>
+
+  <p class="max-w-2xl text-[0.95rem] leading-relaxed text-muted-foreground">
+    {t('atlasIntro')}
+  </p>
+
+  <div class="atlas-frame-wrap overflow-hidden rounded-xl border border-border bg-card">
+    <iframe
+      src={demoSrc}
+      class="atlas-frame"
+      title="Coverage Atlas — interactive demo"
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  <a
+    href={demoSrc}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="self-start text-sm text-muted-foreground transition-colors hover:text-gold"
+  >
+    {t('atlasOpenFull')}
+  </a>
+</section>
+
+<style>
+  .atlas-frame {
+    display: block;
+    width: 100%;
+    height: 920px;
+    border: 0;
+  }
+
+  @media (max-width: 640px) {
+    .atlas-frame {
+      height: 720px;
+    }
+  }
+</style>

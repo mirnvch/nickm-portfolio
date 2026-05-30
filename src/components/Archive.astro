@@ -1,0 +1,50 @@
+---
+import type { Locale } from '../i18n/utils';
+import { useTranslations, getLocalePath } from '../i18n/utils';
+import type { Project } from '../data/projects';
+
+interface Props {
+  projects: Project[];
+  lang?: Locale;
+}
+
+const { projects, lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="flex flex-col gap-y-4">
+  <h2 class="font-cormorant text-2xl font-semibold text-foreground">{t('archiveTitle')}</h2>
+
+  <ul class="flex flex-col divide-y divide-border border-y border-border">
+    {projects.map((project) => (
+      <li class="flex flex-col gap-y-1 py-3">
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <a
+            href={getLocalePath(lang, `/projects/${project.slug}/`)}
+            class="font-cormorant text-lg font-medium text-foreground transition-colors hover:text-gold"
+          >
+            {project.title}
+          </a>
+          {project.status && (
+            <span class="text-xxs font-medium uppercase tracking-wide text-muted-foreground">
+              {project.status}
+            </span>
+          )}
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {t('visitSite')}
+            </a>
+          )}
+        </div>
+        <p class="text-sm leading-relaxed text-muted-foreground">
+          {project.archiveLine ?? project.description}
+        </p>
+      </li>
+    ))}
+  </ul>
+</section>

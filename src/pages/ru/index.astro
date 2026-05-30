@@ -3,12 +3,16 @@ import Layout from '../../layouts/Layout.astro';
 import ProfilePhoto from '../../components/ProfilePhoto.astro';
 import ModeToggle from '../../components/ModeToggle.astro';
 import About from '../../components/About.astro';
+import Currently from '../../components/Currently.astro';
+import CoverageAtlas from '../../components/CoverageAtlas.astro';
 import Posts from '../../components/Posts.astro';
-import Projects from '../../components/Projects.astro';
+import ClientWork from '../../components/ClientWork.astro';
+import Archive from '../../components/Archive.astro';
+import Contact from '../../components/Contact.astro';
 import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import { useTranslations } from '../../i18n/utils';
 import { getAllPosts } from '../../data/posts';
-import { getProjects } from '../../data/projects';
+import { getFeaturedProjects, getArchivedProjects } from '../../data/projects';
 import type { Locale } from '../../i18n/utils';
 
 const lang: Locale = 'ru';
@@ -22,9 +26,8 @@ const personalPosts = allPosts
   .filter(p => p.type === 'personal')
   .map(p => ({ title: p.title, slug: p.slug, date: p.date, readTime: p.readTime, pinned: p.pinned }));
 
-const allProjects = getProjects(lang);
-const professionalProjects = allProjects.filter(p => p.mode === 'professional');
-const personalProjects = allProjects.filter(p => p.mode === 'personal');
+const featuredProjects = getFeaturedProjects(lang);
+const archivedProjects = getArchivedProjects(lang);
 ---
 
 <Layout title={t('siteTitle')} description={t('siteDescription')} lang={lang} jsonLd={{
@@ -32,9 +35,13 @@ const personalProjects = allProjects.filter(p => p.mode === 'personal');
   "@type": "Person",
   "name": "Nick Miranovich",
   "url": "https://nickm-portfolio.vercel.app",
-  "jobTitle": "QA Engineer & AI Specialist",
-  "knowsAbout": ["QA Testing", "Test Automation", "AI", "Playwright", "n8n"],
-  "sameAs": []
+  "jobTitle": "QA Engineer",
+  "knowsAbout": ["QA Testing", "Test Automation", "Test Coverage", "AI", "Playwright", "n8n"],
+  "sameAs": [
+    "https://www.linkedin.com/in/mirnvch/",
+    "https://github.com/mirnvch",
+    "https://t.me/qa_mirnvch"
+  ]
 }}>
   <!-- Header Navigation -->
   <header class="flex items-center w-full mb-8">
@@ -70,7 +77,7 @@ const personalProjects = allProjects.filter(p => p.mode === 'personal');
     </h1>
   </section>
 
-  <!-- About - Professional -->
+  <!-- About - Professional (hero copy) -->
   <About mode="professional">
     <Fragment set:html={t('aboutProfessional')} />
   </About>
@@ -80,15 +87,24 @@ const personalProjects = allProjects.filter(p => p.mode === 'personal');
     <Fragment set:html={t('aboutPersonal')} />
   </About>
 
+  <!-- Currently (always visible) -->
+  <Currently lang={lang} />
+
+  <!-- Coverage Atlas — centerpiece (always visible) -->
+  <CoverageAtlas lang={lang} />
+
   <!-- Posts - Professional -->
   <Posts posts={professionalPosts} mode="professional" lang={lang} />
 
   <!-- Posts - Personal -->
   <Posts posts={personalPosts} mode="personal" lang={lang} />
 
-  <!-- Projects - Professional -->
-  <Projects projects={professionalProjects} mode="professional" lang={lang} />
+  <!-- Client Work (always visible) -->
+  <ClientWork projects={featuredProjects} lang={lang} />
 
-  <!-- Projects - Personal -->
-  <Projects projects={personalProjects} mode="personal" lang={lang} />
+  <!-- Archive (always visible) -->
+  <Archive projects={archivedProjects} lang={lang} />
+
+  <!-- Say hi (always visible) -->
+  <Contact lang={lang} />
 </Layout>

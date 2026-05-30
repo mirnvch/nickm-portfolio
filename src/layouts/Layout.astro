@@ -3,6 +3,7 @@ import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 import type { Locale } from '../i18n/utils';
 import { getAlternatePath } from '../i18n/utils';
+import SocialLinks from '../components/SocialLinks.astro';
 
 interface Props {
   title: string;
@@ -115,6 +116,12 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
           <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold opacity-50"></div>
         </div>
       </div>
+
+      <!-- Footer socials -->
+      <footer class="mt-8 flex flex-col items-center gap-y-3">
+        <SocialLinks lang={lang} variant="icons" />
+        <p class="text-xs text-muted-foreground">© 2026 Nick Miranovich</p>
+      </footer>
     </main>
 
     <script>

@@ -28,17 +28,32 @@ export const ui = {
 
     // Projects section
     projectsTitle: "Stuff I've Made",
+    clientWorkTitle: 'Client Work',
+    archiveTitle: 'Archive',
     visitWebsite: 'Visit website →',
+    viewProject: 'Read more →',
+    visitSite: 'Live site ↗',
     techStack: 'Tech Stack',
+
+    // Currently section
+    currentlyTitle: 'Currently',
+
+    // Coverage Atlas section
+    atlasTitle: 'Coverage Atlas — a live demo',
+    atlasIntro: `I care about test coverage being legible — not a number buried in a CI log, but a map anyone on the team can read. So I build a coverage atlas for the products I work on: a live view of what's tested, what's planned, what's blocked, and where the data drifts. It's an approach I picked up and adapted, then rebuilt with Claude Code. Below is a fully fictional demo so you can see how it thinks — click any cell.`,
+    atlasOpenFull: 'Open the demo full screen ↗',
+
+    // Contact / Say hi section
+    sayHiTitle: 'Say hi',
+    sayHiIntro: 'Happy to talk QA tooling, AI in testing, freelancing, or the remote life. Reach me here:',
 
     // About - Professional
     aboutProfessional: `
-      <p>QA Engineer with 7+ years of experience in software testing and quality assurance.</p>
+      <p><strong class="text-foreground">Hi, I'm Nick.</strong> I'm a QA engineer who builds the tools that make testing legible.</p>
       <p>
-        Working at <a class="illuminated-link font-medium text-foreground" href="https://qacamp.com">QACamp</a> with
-        manual and automated testing (Selenium, Playwright, Cypress), API testing, and mobile apps.
-        Passionate about <a class="illuminated-link font-medium text-foreground" href="#">AI-powered automation</a> and
-        building tools that make work smarter.
+        Seven years in software testing — these days I spend most of it working with AI as an
+        architecture partner: planning coverage, building internal tooling, and turning messy test
+        suites into maps a whole team can read.
       </p>
     `,
 
@@ -50,7 +65,7 @@ export const ui = {
 
     // SEO
     siteTitle: 'Nick Miranovich',
-    siteDescription: '7+ years in QA, passionate about AI-powered automation and building smarter workflows',
+    siteDescription: 'Nick — QA engineer who builds tools that make testing legible. I work with AI as an architecture partner. QA tooling, test coverage, automation, freelance web + QA.',
     blogTitle: 'Blog • Nick Miranovich',
     blogDescription: 'Thoughts on development, AI, automation, and life.',
     notesTitle: 'Notes • Nick Miranovich',
@@ -90,17 +105,32 @@ export const ui = {
 
     // Projects section
     projectsTitle: 'Мои проекты',
+    clientWorkTitle: 'Клиентские проекты',
+    archiveTitle: 'Архив',
     visitWebsite: 'Перейти на сайт →',
+    viewProject: 'Подробнее →',
+    visitSite: 'Сайт ↗',
     techStack: 'Технологии',
+
+    // Currently section
+    currentlyTitle: 'Сейчас',
+
+    // Coverage Atlas section
+    atlasTitle: 'Coverage Atlas — живое демо',
+    atlasIntro: `Мне важно, чтобы покрытие тестами было наглядным — не числом, погребённым в логах CI, а картой, понятной любому в команде. Поэтому для продуктов, над которыми работаю, я строю coverage atlas: живой обзор того, что протестировано, что запланировано, что заблокировано и где расходятся данные. Этот подход я подсмотрел, адаптировал, а потом пересобрал с Claude Code. Ниже — полностью вымышленное демо, чтобы вы увидели, как он мыслит. Кликните на любую ячейку.`,
+    atlasOpenFull: 'Открыть демо на весь экран ↗',
+
+    // Contact / Say hi section
+    sayHiTitle: 'Напишите мне',
+    sayHiIntro: 'С радостью обсужу QA-инструменты, ИИ в тестировании, фриланс или удалённую жизнь. Вот где меня найти:',
 
     // About - Professional
     aboutProfessional: `
-      <p>QA-инженер с опытом более 7 лет в тестировании и обеспечении качества ПО.</p>
+      <p><strong class="text-foreground">Привет, я Ник.</strong> QA-инженер, который создаёт инструменты, делающие тестирование наглядным.</p>
       <p>
-        Работаю в <a class="illuminated-link font-medium text-foreground" href="https://qacamp.com">QACamp</a> —
-        ручное и автоматизированное тестирование (Selenium, Playwright, Cypress), API-тестирование и мобильные приложения.
-        Увлекаюсь <a class="illuminated-link font-medium text-foreground" href="#">AI-автоматизацией</a> и
-        создаю инструменты, которые делают работу умнее.
+        Семь лет в тестировании ПО — и сейчас бóльшую часть времени я работаю с ИИ как с партнёром
+        по архитектуре: планирую покрытие, строю внутренние инструменты и превращаю запутанные
+        наборы тестов в карты, понятные всей команде.
       </p>
     `,
 
@@ -112,7 +142,7 @@ export const ui = {
 
     // SEO
     siteTitle: 'Ник Миранович',
-    siteDescription: '7+ лет в QA, увлечён AI-автоматизацией и созданием умных рабочих процессов',
+    siteDescription: 'Ник — QA-инженер, который создаёт инструменты, делающие тестирование наглядным. Работаю с ИИ как с партнёром по архитектуре. QA-инструменты, покрытие тестами, автоматизация, фриланс веб + QA.',
     blogTitle: 'Блог • Ник Миранович',
     blogDescription: 'Мысли о разработке, ИИ, автоматизации и жизни.',
     notesTitle: 'Заметки • Ник Миранович',
