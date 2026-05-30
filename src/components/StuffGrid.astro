@@ -7,75 +7,105 @@ interface Props {
 }
 
 const { lang = 'en' } = Astro.props;
-const items = stuff[lang];
+const groups = stuff[lang];
 const cornerClasses = ['corner-tl', 'corner-tr', 'corner-bl', 'corner-br'];
 ---
 
-<div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
-  {items.map((item) => {
-    const Tag = item.href ? 'a' : 'div';
-    const attrs = item.href
-      ? { href: item.href, ...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
-      : {};
-    return (
-      <Tag class="stuff-card group relative flex flex-col overflow-hidden rounded-lg" {...attrs}>
-        {cornerClasses.map((c) => (
-          <span class={`corner-orn ${c}`} aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M2 2 L9 2 L2 9 Z" fill="currentColor" />
-              <circle cx="5.5" cy="5.5" r="1.2" fill="currentColor" />
-            </svg>
-          </span>
-        ))}
+<div class="flex flex-col gap-y-6">
+  {groups.map((group) => (
+    <div class="flex flex-col gap-y-2.5">
+      <span class="stuff-group-label">{group.label}</span>
+      <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+        {group.items.map((item) => {
+          const Tag = item.href ? 'a' : 'div';
+          const attrs = item.href
+            ? { href: item.href, ...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
+            : {};
+          return (
+            <Tag class="stuff-card group relative flex flex-col overflow-hidden rounded-lg" {...attrs}>
+              {cornerClasses.map((c) => (
+                <span class={`corner-orn ${c}`} aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M2 2 L9 2 L2 9 Z" fill="currentColor" />
+                    <circle cx="5.5" cy="5.5" r="1.2" fill="currentColor" />
+                  </svg>
+                </span>
+              ))}
 
-        <!-- Thumb with line-art icon -->
-        <div class="card-thumb flex aspect-video items-center justify-center overflow-hidden">
-          <span class="thumb-icon" aria-hidden="true">
-            {item.icon === 'grid' && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <line x1="3" y1="9" x2="21" y2="9" />
-                <line x1="3" y1="15" x2="21" y2="15" />
-                <line x1="9" y1="3" x2="9" y2="21" />
-                <line x1="15" y1="3" x2="15" y2="21" />
-              </svg>
-            )}
-            {item.icon === 'list' && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                <line x1="8" y1="6" x2="21" y2="6" />
-                <line x1="8" y1="12" x2="21" y2="12" />
-                <line x1="8" y1="18" x2="21" y2="18" />
-                <circle cx="3.5" cy="6" r="1" fill="currentColor" stroke="none" />
-                <circle cx="3.5" cy="12" r="1" fill="currentColor" stroke="none" />
-                <circle cx="3.5" cy="18" r="1" fill="currentColor" stroke="none" />
-              </svg>
-            )}
-            {item.icon === 'house' && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                <path d="M3 11 L12 4 L21 11" />
-                <path d="M5 10 V20 H19 V10" />
-                <rect x="10" y="14" width="4" height="6" />
-              </svg>
-            )}
-          </span>
-        </div>
+              <!-- Thumb with line-art icon -->
+              <div class="card-thumb flex aspect-video items-center justify-center overflow-hidden">
+                <span class="thumb-icon" aria-hidden="true">
+                  {item.icon === 'grid' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <line x1="3" y1="9" x2="21" y2="9" />
+                      <line x1="3" y1="15" x2="21" y2="15" />
+                      <line x1="9" y1="3" x2="9" y2="21" />
+                      <line x1="15" y1="3" x2="15" y2="21" />
+                    </svg>
+                  )}
+                  {item.icon === 'list' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                      <line x1="8" y1="6" x2="21" y2="6" />
+                      <line x1="8" y1="12" x2="21" y2="12" />
+                      <line x1="8" y1="18" x2="21" y2="18" />
+                      <circle cx="3.5" cy="6" r="1" fill="currentColor" stroke="none" />
+                      <circle cx="3.5" cy="12" r="1" fill="currentColor" stroke="none" />
+                      <circle cx="3.5" cy="18" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                  )}
+                  {item.icon === 'house' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                      <path d="M3 11 L12 4 L21 11" />
+                      <path d="M5 10 V20 H19 V10" />
+                      <rect x="10" y="14" width="4" height="6" />
+                    </svg>
+                  )}
+                  {item.icon === 'check' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M8 12 l2.5 2.5 L16 9" />
+                    </svg>
+                  )}
+                  {item.icon === 'cake' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                      <path d="M4 21 V13 a8 3.2 0 0 1 16 0 V21 Z" />
+                      <line x1="4" y1="17" x2="20" y2="17" />
+                      <line x1="12" y1="9.8" x2="12" y2="5" />
+                      <circle cx="12" cy="4" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                  )}
+                </span>
+              </div>
 
-        <!-- Body -->
-        <div class="flex flex-1 flex-col gap-y-1.5 p-3.5">
-          <h3 class="font-cormorant text-[17px] font-semibold leading-tight text-foreground transition-colors group-hover:text-gold">
-            {item.title}
-          </h3>
-          <p class="text-[13px] leading-snug text-muted-foreground line-clamp-3">
-            {item.desc}
-          </p>
-          <span class={`badge badge-${item.tone} mt-1.5`}>{item.badgeLabel}</span>
-        </div>
-      </Tag>
-    );
-  })}
+              <!-- Body -->
+              <div class="flex flex-1 flex-col gap-y-1.5 p-3.5">
+                <h3 class="font-cormorant text-[17px] font-semibold leading-tight text-foreground transition-colors group-hover:text-gold">
+                  {item.title}
+                </h3>
+                <p class="text-[13px] leading-snug text-muted-foreground line-clamp-3">
+                  {item.desc}
+                </p>
+                <span class={`badge badge-${item.tone} mt-1.5`}>{item.badgeLabel}</span>
+              </div>
+            </Tag>
+          );
+        })}
+      </div>
+    </div>
+  ))}
 </div>
 
 <style>
+  .stuff-group-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+    opacity: 0.7;
+  }
+
   .stuff-card {
     border: 2px solid rgba(136, 97, 58, 0.2);
     background: var(--color-card);
@@ -123,6 +153,8 @@ const cornerClasses = ['corner-tl', 'corner-tr', 'corner-bl', 'corner-br'];
     letter-spacing: 0.02em;
   }
   .badge-live { background: rgb(59, 130, 246); }
+  .badge-demo { background: rgb(13, 148, 136); }
+  .badge-inprogress { background: rgb(217, 119, 6); }
   .badge-prototype { background: rgb(239, 68, 68); }
   .badge-shipped { background: rgb(34, 197, 94); }
   .badge-paused { background: rgb(120, 120, 128); }

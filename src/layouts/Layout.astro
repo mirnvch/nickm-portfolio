@@ -100,7 +100,7 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2 focus:bg-gold focus:text-background focus:rounded">
       Skip to main content
     </a>
-    <main id="main-content" class="flex min-h-screen w-screen max-w-5xl flex-col items-center px-6 pb-10 pt-7 font-garamond text-[0.92rem] leading-relaxed sm:px-10 lg:px-16">
+    <main id="main-content" class="flex min-h-screen w-screen max-w-6xl flex-col items-center px-6 pb-10 pt-7 font-garamond text-[0.92rem] leading-relaxed sm:px-10 lg:px-16">
       <div class="flex w-full flex-col gap-y-8">
         <slot />
       </div>
@@ -109,10 +109,7 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
       <div class="flex items-center justify-center mt-20">
         <div class="flex items-center gap-4">
           <div class="h-px w-16 bg-gradient-to-r from-transparent to-gold opacity-50"></div>
-          <svg width="20" height="20" viewBox="0 0 20 20" class="text-gold opacity-60">
-            <circle cx="10" cy="10" r="2" fill="currentColor"></circle>
-            <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="0.5"></circle>
-          </svg>
+          <span class="h-1 w-1 rounded-full bg-gold opacity-60"></span>
           <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold opacity-50"></div>
         </div>
       </div>

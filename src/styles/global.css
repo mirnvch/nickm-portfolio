@@ -116,47 +116,6 @@ body {
   transform: rotateY(180deg);
 }
 
-/* Whirling Circles Animation */
-@keyframes whirl-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes whirl-medium {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-360deg); }
-}
-
-@keyframes whirl-fast {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.whirl-slow {
-  animation: whirl-slow 30s linear infinite;
-  transform-origin: center;
-}
-
-.whirl-medium {
-  animation: whirl-medium 20s linear infinite;
-  transform-origin: center;
-}
-
-.whirl-fast {
-  animation: whirl-fast 15s linear infinite;
-  transform-origin: center;
-}
-
-/* Gentle Rotation */
-@keyframes rotate-gentle {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.animate-rotate-gentle {
-  animation: rotate-gentle 60s linear infinite;
-}
-
 /* Text Colors */
 .text-gold {
   color: var(--color-gold);
@@ -430,12 +389,6 @@ noscript + [data-mode],
 }
 .post-underline:hover::after { width: 100%; }
 
-/* Slowly rotating compass ornament (spec: 20s) */
-.animate-compass {
-  animation: rotate-gentle 20s linear infinite;
-  transform-origin: center;
-}
-
 /* Project card corner ornaments */
 .corner-orn {
   position: absolute;
@@ -450,7 +403,3 @@ noscript + [data-mode],
 .corner-tr { top: 8px; right: 8px; transform: rotate(90deg); }
 .corner-bl { bottom: 8px; left: 8px; transform: rotate(-90deg); }
 .corner-br { bottom: 8px; right: 8px; transform: rotate(180deg); }
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-compass { animation: none; }
-}

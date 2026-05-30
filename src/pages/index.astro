@@ -4,7 +4,6 @@ import ProfilePhoto from '../components/ProfilePhoto.astro';
 import ModeToggle from '../components/ModeToggle.astro';
 import Section from '../components/Section.astro';
 import OrnamentDivider from '../components/OrnamentDivider.astro';
-import Compass from '../components/Compass.astro';
 import Posts from '../components/Posts.astro';
 import StuffGrid from '../components/StuffGrid.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
@@ -71,18 +70,15 @@ const personalPosts = allPosts
 
   <OrnamentDivider />
 
-  <!-- Posts (Professional) -->
-  <Section label={t('postsLabel')} mode="professional">
+  <!-- Writing (Professional) -->
+  <Section label={t('postsTitle')} mode="professional">
     <Posts posts={professionalPosts} mode="professional" lang={lang} />
   </Section>
 
-  <!-- Posts (Personal) -->
-  <Section label={t('postsLabel')} mode="personal">
+  <!-- Notes (Personal) -->
+  <Section label={t('notesPostsTitle')} mode="personal">
     <Posts posts={personalPosts} mode="personal" lang={lang} />
   </Section>
-
-  <!-- Compass ornament (Professional) -->
-  <Compass />
 
   <!-- Stuff I've Made (Professional) -->
   <Section label={t('stuffTitle')} mode="professional">
