@@ -19,33 +19,32 @@ export interface Project {
 const projectsData: Record<Locale, Project[]> = {
   en: [
     {
-      title: 'Casa Rica Estate',
-      slug: 'casa-rica-estate',
-      description: 'Web development and SEO automation for a real estate site. AI content generation, testing, analytics.',
-      summary: 'A Costa Rica real-estate agency needed to rank for international buyers but couldn’t hand-write localized content fast enough. I built the listing pages and search, then wired up an n8n + AI pipeline that generates unique, localized property descriptions and area guides — so new inventory ships with SEO content already attached.',
-      result: 'SEO content production automated end-to-end with n8n + AI.',
+      title: 'bogach.by',
+      slug: 'bogach',
+      description: 'Multilingual website for a countryside guesthouse near Kobrin, built end-to-end with Claude Code.',
+      summary: 'A countryside guesthouse near Kobrin needed a multilingual site. I built it with Claude Code: a Next.js site in four languages (RU/EN/PL/DE) with image optimization and SEO. The business runs at 4.7 on Google across 145 reviews.',
+      result: 'Multilingual site built end-to-end with Claude Code.',
       featured: true,
       content: `
         <h2>About the Project</h2>
-        <p>Casa Rica Estate is a real estate website focused on property listings in Costa Rica. The site combines property search functionality with SEO-optimized content to attract international buyers.</p>
+        <p>bogach.by is the website for a countryside guesthouse near Kobrin, Belarus. The owners host guests from several countries and needed a site that speaks to each of them in their own language — Russian, English, Polish, and German.</p>
 
         <h2>My Role</h2>
-        <p>Web development and SEO automation. I build the site features, create automated content generation pipelines, and ensure the platform ranks well in search engines.</p>
+        <p>I designed and built the site end-to-end with Claude Code as my development partner — structure, layout, the multilingual setup, image optimization, and SEO.</p>
 
         <h2>Key Contributions</h2>
         <ul>
-          <li><strong>SEO automation</strong> — AI-powered content generation for property descriptions and area guides</li>
-          <li><strong>Web development</strong> — building property listing pages and search functionality</li>
-          <li><strong>Analytics setup</strong> — tracking user behavior and conversion funnels</li>
-          <li><strong>Testing</strong> — cross-browser and mobile testing for the property search experience</li>
+          <li><strong>Multilingual build</strong> — a Next.js site in four languages (RU / EN / PL / DE)</li>
+          <li><strong>Performance</strong> — image optimization for fast loads on a photo-heavy site</li>
+          <li><strong>SEO</strong> — search-friendly structure and metadata across every locale</li>
         </ul>
 
-        <h2>Technical Highlights</h2>
-        <p>Built automated SEO content pipelines using n8n and AI APIs. The system generates unique, localized property descriptions and area guides, significantly reducing manual content creation time while improving search rankings.</p>
+        <h2>Outcome</h2>
+        <p>The guesthouse runs at 4.7 on Google across 145 reviews.</p>
       `,
-      tech: ['WordPress', 'n8n', 'OpenAI API', 'Google Analytics', 'Playwright', 'SEO'],
-      image: '/images/projects/casa-rica-logo.png',
-      link: 'https://casaricaestate.com',
+      tech: ['Next.js', 'i18n', 'Image Optimization', 'SEO', 'Claude Code'],
+      image: '',
+      link: 'https://bogach.by',
       status: 'Maintaining',
       mode: 'professional',
     },
@@ -54,7 +53,7 @@ const projectsData: Record<Locale, Project[]> = {
       slug: 'qacamp',
       description: 'QA lead and web development for a consulting firm. Test strategy, automation, team coordination.',
       summary: 'QA Camp runs testing for client teams and needed automation that wouldn’t rot. As QA lead I set the test strategy, built a Playwright framework covering visual regression, API, and cross-browser, and mentored the engineers who run it day to day.',
-      result: 'Cut regression testing time by ~70%.',
+      result: 'Standardized regression testing into a reliable Playwright suite.',
       featured: true,
       content: `
         <h2>About the Project</h2>
@@ -72,7 +71,7 @@ const projectsData: Record<Locale, Project[]> = {
         </ul>
 
         <h2>Technical Highlights</h2>
-        <p>Established a comprehensive test automation framework using Playwright that reduced regression testing time by 70%. The framework includes visual regression testing, API testing, and cross-browser compatibility checks.</p>
+        <p>Established a comprehensive test automation framework using Playwright, covering visual regression testing, API testing, and cross-browser compatibility checks.</p>
       `,
       tech: ['Playwright', 'Selenium', 'Cypress', 'JavaScript', 'WordPress', 'Jira'],
       image: '/images/projects/qacamp-logo.svg',
@@ -230,33 +229,32 @@ const projectsData: Record<Locale, Project[]> = {
   ],
   ru: [
     {
-      title: 'Casa Rica Estate',
-      slug: 'casa-rica-estate',
-      description: 'Веб-разработка и SEO-автоматизация для сайта недвижимости. AI-контент, тестирование, аналитика.',
-      summary: 'Агентству недвижимости в Коста-Рике нужно было ранжироваться по запросам международных покупателей, но писать локализованный контент вручную не успевали. Я сделал страницы объектов и поиск, а затем собрал пайплайн на n8n + AI, который генерирует уникальные локализованные описания объектов и гиды по районам — новые объекты выходят сразу с SEO-контентом.',
-      result: 'SEO-контент генерируется полностью автоматически через n8n + AI.',
+      title: 'bogach.by',
+      slug: 'bogach',
+      description: 'Многоязычный сайт для загородной усадьбы под Кобрином, собранный от и до с Claude Code.',
+      summary: 'Загородной усадьбе под Кобрином нужен был многоязычный сайт. Я собрал его с Claude Code: сайт на Next.js на четырёх языках (RU/EN/PL/DE) с оптимизацией изображений и SEO. У бизнеса 4.7 на Google по 145 отзывам.',
+      result: 'Многоязычный сайт, собранный от и до с Claude Code.',
       featured: true,
       content: `
         <h2>О проекте</h2>
-        <p>Casa Rica Estate — сайт недвижимости с фокусом на объекты в Коста-Рике. Сайт сочетает функционал поиска объектов с SEO-оптимизированным контентом для привлечения международных покупателей.</p>
+        <p>bogach.by — сайт загородной усадьбы под Кобрином. Хозяева принимают гостей из разных стран, и сайт должен был говорить с каждым на его языке — русском, английском, польском и немецком.</p>
 
         <h2>Моя роль</h2>
-        <p>Веб-разработка и SEO-автоматизация. Строю функционал сайта, создаю автоматизированные пайплайны генерации контента и обеспечиваю высокие позиции в поисковых системах.</p>
+        <p>Я спроектировал и собрал сайт от и до с Claude Code как партнёром по разработке — структура, вёрстка, многоязычность, оптимизация изображений и SEO.</p>
 
         <h2>Ключевой вклад</h2>
         <ul>
-          <li><strong>SEO-автоматизация</strong> — AI-генерация контента для описаний объектов и гидов по районам</li>
-          <li><strong>Веб-разработка</strong> — страницы объектов и функционал поиска</li>
-          <li><strong>Настройка аналитики</strong> — отслеживание поведения пользователей и воронок конверсии</li>
-          <li><strong>Тестирование</strong> — кросс-браузерное и мобильное тестирование поиска объектов</li>
+          <li><strong>Многоязычность</strong> — сайт на Next.js на четырёх языках (RU / EN / PL / DE)</li>
+          <li><strong>Производительность</strong> — оптимизация изображений для быстрой загрузки сайта с обилием фото</li>
+          <li><strong>SEO</strong> — поисковая структура и метаданные для каждой локали</li>
         </ul>
 
-        <h2>Технические особенности</h2>
-        <p>Построены автоматизированные SEO-пайплайны с использованием n8n и AI API. Система генерирует уникальные локализованные описания объектов и гиды по районам, значительно сокращая время ручного создания контента и улучшая позиции в поиске.</p>
+        <h2>Результат</h2>
+        <p>У усадьбы 4.7 на Google по 145 отзывам.</p>
       `,
-      tech: ['WordPress', 'n8n', 'OpenAI API', 'Google Analytics', 'Playwright', 'SEO'],
-      image: '/images/projects/casa-rica-logo.png',
-      link: 'https://casaricaestate.com',
+      tech: ['Next.js', 'i18n', 'Image Optimization', 'SEO', 'Claude Code'],
+      image: '',
+      link: 'https://bogach.by',
       status: 'В поддержке',
       mode: 'professional',
     },
@@ -265,7 +263,7 @@ const projectsData: Record<Locale, Project[]> = {
       slug: 'qacamp',
       description: 'QA-лид и веб-разработка для консалтинговой компании. Стратегия тестирования, автоматизация, координация.',
       summary: 'QA Camp тестирует продукты клиентских команд, и автоматизация нужна была такая, которая не разваливается со временем. Как QA-лид я задал стратегию тестирования, построил фреймворк на Playwright (визуальная регрессия, API, кросс-браузерность) и менторил инженеров, которые с ним работают каждый день.',
-      result: 'Сократил время регрессионного тестирования примерно на 70%.',
+      result: 'Привёл регрессионное тестирование к надёжному набору на Playwright.',
       featured: true,
       content: `
         <h2>О проекте</h2>
@@ -283,7 +281,7 @@ const projectsData: Record<Locale, Project[]> = {
         </ul>
 
         <h2>Технические особенности</h2>
-        <p>Создал комплексный фреймворк автоматизации тестирования на Playwright, который сократил время регрессионного тестирования на 70%. Фреймворк включает визуальное регрессионное тестирование, API-тестирование и проверку кросс-браузерной совместимости.</p>
+        <p>Создал комплексный фреймворк автоматизации тестирования на Playwright, охватывающий визуальное регрессионное тестирование, API-тестирование и проверку кросс-браузерной совместимости.</p>
       `,
       tech: ['Playwright', 'Selenium', 'Cypress', 'JavaScript', 'WordPress', 'Jira'],
       image: '/images/projects/qacamp-logo.svg',

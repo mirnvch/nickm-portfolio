@@ -2,9 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
 import ModeToggle from '../components/ModeToggle.astro';
-import About from '../components/About.astro';
 import Currently from '../components/Currently.astro';
-import CoverageAtlas from '../components/CoverageAtlas.astro';
+import AtlasTeaser from '../components/AtlasTeaser.astro';
 import Posts from '../components/Posts.astro';
 import ClientWork from '../components/ClientWork.astro';
 import Archive from '../components/Archive.astro';
@@ -77,21 +76,19 @@ const archivedProjects = getArchivedProjects(lang);
     </h1>
   </section>
 
-  <!-- About - Professional (hero copy) -->
-  <About mode="professional">
-    <Fragment set:html={t('aboutProfessional')} />
-  </About>
-
-  <!-- About - Personal -->
-  <About mode="personal">
-    <Fragment set:html={t('aboutPersonal')} />
-  </About>
+  <!-- Hero copy (always visible) -->
+  <section class="flex flex-col items-center text-center">
+    <div
+      class="flex max-w-lg flex-col gap-y-2 font-garamond text-lg leading-relaxed text-muted-foreground"
+      set:html={t('aboutProfessional')}
+    />
+  </section>
 
   <!-- Currently (always visible) -->
   <Currently lang={lang} />
 
-  <!-- Coverage Atlas — centerpiece (always visible) -->
-  <CoverageAtlas lang={lang} />
+  <!-- Coverage Atlas teaser (always visible) -->
+  <AtlasTeaser lang={lang} />
 
   <!-- Posts - Professional -->
   <Posts posts={professionalPosts} mode="professional" lang={lang} />
