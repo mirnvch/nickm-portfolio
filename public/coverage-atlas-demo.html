@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brewline · Coverage Atlas (Demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f7;
+    --surface: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #555;
+    --ink-faint: #8a8a8a;
+    --line: #e6e3de;
+    --line-soft: #efece7;
+    --full: #2e7d4f;
+    --full-bg: #eef6f0;
+    --partly: #c08a1e;
+    --partly-bg: #fbf3e2;
+    --tests: #2563c9;
+    --tests-bg: #eaf0fb;
+    --page: #9a9a9a;
+    --blocked: #c0531e;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'Fraunces', Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding: 48px 32px 96px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  /* Header */
+  .demo-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 3px 8px;
+    margin-bottom: 20px;
+  }
+  h1.title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 38px;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  h1.title b { font-weight: 600; color: var(--tests); }
+  .meta {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-top: 12px;
+  }
+  .meta .dot { color: var(--line); margin: 0 8px; }
+  .subnote {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    margin-top: 6px;
+  }
+  hr { border: none; border-top: 1px solid var(--line); margin: 28px 0; }
+
+  /* Legend */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px 28px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 32px;
+  }
+  .legend .item { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: var(--ink-soft); }
+  .swatch { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+  .swatch.full { background: var(--full); }
+  .swatch.partly { background: var(--partly); }
+  .swatch.tests { background: var(--tests); }
+  .swatch.page { background: transparent; border: 1.5px solid var(--page); }
+  .swatch.none { background: transparent; border: 1.5px dashed var(--ink-faint); }
+  .legend .item b { color: var(--ink); font-weight: 500; }
+  .legend code { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+
+  /* Phase sections */
+  .phase-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 28px 0 14px;
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--line);
+    border-radius: 7px;
+    padding: 15px 16px;
+    cursor: default;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .card.full   { border-left-color: var(--full); }
+  .card.partly { border-left-color: var(--partly); }
+  .card.tests  { border-left-color: var(--tests); }
+  .card.page   { border-left-color: var(--page); border-left-style: solid; }
+  .card.none   { border-left-color: var(--ink-faint); border-left-style: dashed; background: #fbfaf8; }
+  .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 8px; }
+  .card-name { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; }
+  .card-state {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .card.full .card-state   { color: var(--full); }
+  .card.partly .card-state { color: var(--partly); }
+  .card.tests .card-state  { color: var(--tests); }
+  .card.page .card-state   { color: var(--page); }
+  .card.none .card-state   { color: var(--ink-faint); }
+  .card-stats { font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); line-height: 1.7; }
+  .card-stats b { color: var(--ink); font-weight: 600; }
+
+  /* Radar / heatmap */
+  .section-title { font-family: var(--serif); font-weight: 600; font-size: 22px; margin-bottom: 6px; }
+  .section-desc { font-size: 13px; color: var(--ink-soft); max-width: 640px; margin-bottom: 18px; }
+  .radar-box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px; overflow-x: auto; }
+  table.heat { border-collapse: collapse; width: 100%; min-width: 760px; }
+  table.heat th, table.heat td { text-align: center; padding: 0; }
+  table.heat thead th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 500; padding: 12px 4px 10px; vertical-align: bottom;
+  }
+  table.heat tbody th {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500; text-align: right; padding-right: 14px; white-space: nowrap;
+  }
+  .cell {
+    width: 64px; height: 46px; margin: 3px auto; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; position: relative;
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    border: 1px solid transparent; transition: transform .1s ease;
+  }
+  .cell.na { color: var(--line); font-weight: 400; font-size: 11px; }
+  .cell.has { background: var(--full-bg); color: var(--full); border-color: #cfe6d6; cursor: pointer; }
+  .cell.has:hover { transform: scale(1.06); border-color: var(--full); }
+  .cell .badge {
+    position: absolute; top: -7px; right: -7px;
+    background: var(--blocked); color: #fff; font-size: 9.5px; font-weight: 600;
+    min-width: 17px; height: 17px; border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    padding: 0 4px; font-family: var(--mono); box-shadow: 0 0 0 2px var(--surface);
+  }
+  .heat-legend { display: flex; gap: 22px; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin-top: 14px; flex-wrap: wrap; }
+  .heat-legend .k { display: inline-flex; align-items: center; gap: 7px; }
+  .heat-legend .box { width: 22px; height: 16px; border-radius: 4px; }
+  .heat-legend .box.has { background: var(--full-bg); border: 1px solid #cfe6d6; }
+  .heat-legend .box.na { border: 1px solid var(--line); }
+  .heat-legend .box.bl { background: var(--blocked); }
+
+  /* Priority bars */
+  .pri-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .pri {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px;
+  }
+  .pri-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .pri-name { font-weight: 600; font-size: 15px; }
+  .pri-count { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+  .bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--line-soft); margin-bottom: 12px; }
+  .bar span { height: 100%; }
+  .bar .b-auto { background: var(--full); }
+  .bar .b-todo { background: var(--tests); }
+  .bar .b-block { background: var(--partly); }
+  .pri-nums { display: flex; gap: 16px; font-family: var(--mono); font-size: 11.5px; color: var(--ink-faint); flex-wrap: wrap; }
+  .pri-nums b { font-family: var(--serif); font-size: 17px; font-weight: 600; margin-right: 4px; }
+  .pri-nums .n-auto b { color: var(--full); }
+  .pri-nums .n-todo b { color: var(--tests); }
+  .pri-nums .n-block b { color: var(--partly); }
+  .pri-nums .n-hp b { color: var(--full); }
+
+  /* Drawer */
+  .scrim { position: fixed; inset: 0; background: rgba(20,20,20,0.28); opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 40; }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; right: 0; height: 100%; width: 440px; max-width: 90vw;
+    background: var(--surface); border-left: 1px solid var(--line); z-index: 50;
+    transform: translateX(100%); transition: transform .25s cubic-bezier(.4,0,.2,1);
+    padding: 28px 28px 40px; overflow-y: auto; box-shadow: -12px 0 40px rgba(0,0,0,0.06);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer .close { position: absolute; top: 20px; right: 22px; background: none; border: none; font-size: 22px; color: var(--ink-faint); cursor: pointer; line-height: 1; }
+  .drawer .close:hover { color: var(--ink); }
+  .drawer-eyebrow { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+  .drawer h3 { font-family: var(--serif); font-weight: 600; font-size: 24px; margin-bottom: 4px; }
+  .drawer .lead { font-size: 13px; color: var(--ink-soft); margin: 14px 0 20px; }
+  .drawer .lead b { color: var(--ink); }
+  .drawer-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin: 22px 0 10px; }
+  .file-list { list-style: none; }
+  .file-list li { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); padding: 5px 0; border-bottom: 1px solid var(--line-soft); display: flex; gap: 8px; align-items: baseline; }
+  .file-list li::before { content: "›"; color: var(--ink-faint); }
+  .tag { font-family: var(--mono); font-size: 9.5px; padding: 1px 6px; border-radius: 3px; margin-left: 4px; }
+  .tag.crit { background: #fbe9e4; color: var(--blocked); }
+  .tag.daily { background: var(--tests-bg); color: var(--tests); }
+  .blocked-list { list-style: none; }
+  .blocked-list li { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); padding: 7px 0; border-bottom: 1px solid var(--line-soft); }
+  .blocked-list li .bid { color: var(--blocked); font-weight: 600; }
+  .footer-note { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin-top: 40px; line-height: 1.7; }
+  .footer-note code { background: var(--line-soft); padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="demo-tag">Portfolio demo · fictional product · no client data</span>
+  <h1 class="title">Brewline <b>Coverage Atlas</b></h1>
+  <div class="meta" id="meta"></div>
+  <div class="subnote">A live map of what's tested, what's planned, what's blocked, and where the data drifts. Click any heatmap cell to inspect its evidence.</div>
+
+  <hr>
+
+  <div class="legend">
+    <div class="item"><span class="swatch full"></span><b>Fully documented</b> <code>full</code> — rules tested &amp; documented</div>
+    <div class="item"><span class="swatch partly"></span><b>Partly documented</b> <code>partial</code> — some rules need tests</div>
+    <div class="item"><span class="swatch tests"></span><b>Tests exist</b> <code>tests-only</code> — written, not yet documented</div>
+    <div class="item"><span class="swatch page"></span><b>Page exists</b> <code>route-only</code> — UI present, no automated tests</div>
+    <div class="item"><span class="swatch none"></span><b>Not modeled yet</b> <code>unmodeled</code> — known, nothing built</div>
+  </div>
+
+  <div id="phases"></div>
+
+  <hr>
+
+  <div class="section-title">Coverage Radar</div>
+  <div class="section-desc">Domain × test tier. Green cells carry test files; numbers are file counts. A red badge marks blocked tests in that pair. Empty cells aren't broken — they just aren't modeled yet.</div>
+  <div class="radar-box">
+    <table class="heat" id="heat"></table>
+  </div>
+  <div class="heat-legend">
+    <span class="k"><span class="box has"></span> N test files in this tier × domain</span>
+    <span class="k"><span class="box na"></span> none in this pair</span>
+    <span class="k"><span class="box bl"></span> blocked test count</span>
+  </div>
+
+  <hr>
+
+  <div class="section-title">Priority &amp; TODO Overlay</div>
+  <div class="section-desc">Per-domain planned items by status — automated, still to-do, and blocked — so the gap between "exists" and "covered" stays visible.</div>
+  <div class="pri-grid" id="pri"></div>
+
+  <div class="footer-note">
+    Demo data only · all counts hand-authored for illustration · in production these trace to a generated
+    <code>atlas/*.json</code> built from the test manifest + route map at build time.
+  </div>
+
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <button class="close" id="close">×</button>
+  <div class="drawer-eyebrow" id="d-eyebrow"></div>
+  <h3 id="d-title"></h3>
+  <div class="lead" id="d-lead"></div>
+  <div class="drawer-sub">Files</div>
+  <ul class="file-list" id="d-files"></ul>
+  <div id="d-blocked-wrap" style="display:none">
+    <div class="drawer-sub">Blocked · top items</div>
+    <ul class="blocked-list" id="d-blocked"></ul>
+  </div>
+</aside>
+
+<script>
+// ---- DEMO DATA (fictional Brewline product) ----
+const PHASES = [
+  { label: "Pre-purchase · Discovery", domains: [
+    { name: "Catalog", state: "full",   feats: 12, rules: "31/31", ui: 6, api: 9, po: 3, routes: 4 },
+    { name: "Search",  state: "tests",  feats: 4,  rules: "0/0",   ui: 1, api: 3, po: 1, routes: 2 },
+    { name: "Reviews", state: "partly", feats: 7,  rules: "18/22", ui: 3, api: 4, po: 2, routes: 2 },
+  ]},
+  { label: "Core · Purchase flow", domains: [
+    { name: "Cart",          state: "full",   feats: 9,  rules: "24/24", ui: 5, api: 7, po: 2, routes: 3 },
+    { name: "Subscriptions", state: "partly", feats: 15, rules: "41/48", ui: 8, api: 12, po: 3, routes: 6 },
+    { name: "Orders",        state: "full",   feats: 11, rules: "33/33", ui: 6, api: 9, po: 2, routes: 4 },
+  ]},
+  { label: "Post-purchase · Fulfilment", domains: [
+    { name: "Billing",       state: "full",   feats: 6, rules: "14/14", ui: 2, api: 8, po: 1, routes: 3 },
+    { name: "Shipping",      state: "partly", feats: 5, rules: "9/13",   ui: 3, api: 5, po: 2, routes: 3 },
+    { name: "Notifications", state: "tests",  feats: 3, rules: "0/0",    ui: 1, api: 4, po: 1, routes: 1 },
+  ]},
+  { label: "Supporting · Cross-cutting", domains: [
+    { name: "Admin", state: "full", feats: 8, rules: "19/19", ui: 7, api: 6, po: 4, routes: 5 },
+    { name: "Auth / SSO", state: "page", feats: 0, rules: "0/0", ui: 4, api: 0, po: 3, routes: 3 },
+  ]},
+];
+
+const TIERS = ["UNIT","API-INTEGRATION","API-FUNCTIONAL","UI-SMOKE","UI-FUNCTIONAL","E2E"];
+const HEAT_DOMAINS = ["Catalog","Search","Reviews","Cart","Subscriptions","Orders","Billing","Shipping","Admin"];
+// counts[tier][domain] = {n, blocked}
+const HEAT = {
+  "UNIT":            { Catalog:8, Billing:6, Orders:5, Subscriptions:7 },
+  "API-INTEGRATION": { Catalog:2, Orders:2, Subscriptions:{n:4,blocked:1}, Billing:3, Shipping:2 },
+  "API-FUNCTIONAL":  { Catalog:6, Reviews:3, Cart:5, Subscriptions:{n:9,blocked:2}, Orders:7, Billing:4, Shipping:{n:3,blocked:1} },
+  "UI-SMOKE":        { Catalog:1, Cart:1, Orders:1, Subscriptions:1, Admin:2 },
+  "UI-FUNCTIONAL":   { Catalog:4, Reviews:{n:5,blocked:1}, Cart:3, Subscriptions:{n:8,blocked:1}, Orders:6, Admin:3 },
+  "E2E":             { Cart:2, Orders:3, Subscriptions:2 },
+};
+
+const FILES = {
+  "API-FUNCTIONAL|Subscriptions": ["spec/api/subscriptions/plan-switch.api.spec.ts","spec/api/subscriptions/pause-resume.api.spec.ts","spec/api/subscriptions/billing-cycle.api.spec.ts","spec/api/subscriptions/proration.api.spec.ts|crit","spec/api/subscriptions/cancel-flow.api.spec.ts","spec/api/subscriptions/trial-convert.api.spec.ts|daily","spec/api/subscriptions/gift-redeem.api.spec.ts","spec/api/subscriptions/dunning.api.spec.ts|crit","spec/api/subscriptions/seat-limits.api.spec.ts"],
+  "UI-FUNCTIONAL|Reviews": ["spec/ui/reviews/submit-review.ui.spec.ts","spec/ui/reviews/star-rating.ui.spec.ts","spec/ui/reviews/photo-upload.ui.spec.ts|crit","spec/ui/reviews/moderation-queue.ui.spec.ts","spec/ui/reviews/helpful-vote.ui.spec.ts"],
+};
+const BLOCKED = {
+  "API-FUNCTIONAL|Subscriptions": ["B-204 · Proration math mismatch on mid-cycle plan switch · BREW-512","B-207 · Dunning retry not firing in sandbox · BREW-512"],
+  "UI-FUNCTIONAL|Reviews": ["B-118 · Photo upload rejects HEIC on Safari · BREW-490"],
+  "API-INTEGRATION|Subscriptions": ["B-201 · Webhook signature drift after gateway upgrade · BREW-477"],
+  "API-FUNCTIONAL|Shipping": ["B-150 · Rate quote times out for APAC zone · BREW-503"],
+};
+
+const PRIORITY = [
+  { name:"Catalog",       items:48, files:14, auto:38, todo:8,  block:0,  hp:11 },
+  { name:"Subscriptions", items:96, files:22, auto:54, todo:30, block:4,  hp:28 },
+  { name:"Orders",        items:61, files:18, auto:49, todo:12, block:0,  hp:15 },
+  { name:"Reviews",       items:33, files:9,  auto:14, todo:18, block:1,  hp:6  },
+  { name:"Billing",       items:40, files:12, auto:31, todo:9,  block:0,  hp:13 },
+  { name:"Shipping",      items:27, files:7,  auto:11, todo:14, block:2,  hp:8  },
+  { name:"Admin",         items:44, files:11, auto:30, todo:14, block:0,  hp:5  },
+  { name:"Auth / SSO",    items:9,  files:0,  auto:0,  todo:9,  block:0,  hp:3  },
+];
+
+const STATE_LABEL = { full:"Fully documented", partly:"Partly documented", tests:"Tests exist", page:"Page exists", none:"Not modeled" };
+
+// ---- RENDER ----
+function totals(){
+  let domains=0, feats=0, pass=0, total=0;
+  PHASES.forEach(p=>p.domains.forEach(d=>{ domains++; feats+=d.feats; const m=d.rules.match(/(\d+)\/(\d+)/); if(m){pass+=+m[1]; total+=+m[2];}}));
+  return {domains, feats, pass, total};
+}
+const T = totals();
+document.getElementById("meta").innerHTML =
+  `${T.domains} domains <span class="dot">·</span> ${T.feats} modeled features <span class="dot">·</span> ${T.pass}/${T.total} rules pass <span class="dot">·</span> regenerated 2026-05-30`;
+
+const phasesEl = document.getElementById("phases");
+PHASES.forEach(p=>{
+  const lbl = document.createElement("div"); lbl.className="phase-label"; lbl.textContent=p.label; phasesEl.appendChild(lbl);
+  const grid = document.createElement("div"); grid.className="cards";
+  p.domains.forEach(d=>{
+    const c=document.createElement("div"); c.className="card "+d.state;
+    c.innerHTML = `<div class="card-head"><div class="card-name">${d.name}</div>
+      <div class="card-state">${STATE_LABEL[d.state]}</div></div>
+      <div class="card-stats"><b>${d.feats}</b> features <span style="color:var(--line)">·</span> <b>${d.rules}</b> rules<br>
+      <b>${d.ui}</b> UI <span style="color:var(--line)">·</span> <b>${d.api}</b> API specs<br>
+      <b>${d.po}</b> page objects <span style="color:var(--line)">·</span> <b>${d.routes}</b> routes</div>`;
+    grid.appendChild(c);
+  });
+  phasesEl.appendChild(grid);
+});
+
+// heatmap
+function cellData(tier, dom){
+  const v = (HEAT[tier]||{})[dom];
+  if(v===undefined) return null;
+  if(typeof v==="number") return {n:v, blocked:0};
+  return v;
+}
+const heat = document.getElementById("heat");
+let thead = "<thead><tr><th></th>" + HEAT_DOMAINS.map(d=>`<th>${d}</th>`).join("") + "</tr></thead>";
+let tbody = "<tbody>";
+TIERS.forEach(tier=>{
+  tbody += `<tr><th>${tier}</th>`;
+  HEAT_DOMAINS.forEach(dom=>{
+    const cd = cellData(tier,dom);
+    if(!cd){ tbody += `<td><div class="cell na">·</div></td>`; }
+    else {
+      const badge = cd.blocked ? `<span class="badge">${cd.blocked}</span>` : "";
+      tbody += `<td><div class="cell has" data-tier="${tier}" data-dom="${dom}">${cd.n}${badge}</div></td>`;
+    }
+  });
+  tbody += "</tr>";
+});
+tbody += "</tbody>";
+heat.innerHTML = thead + tbody;
+
+// priority bars
+const priEl = document.getElementById("pri");
+PRIORITY.forEach(d=>{
+  const known = d.auto+d.todo+d.block || 1;
+  const card = document.createElement("div"); card.className="pri";
+  card.innerHTML = `<div class="pri-head"><div class="pri-name">${d.name}</div>
+    <div class="pri-count">${d.items} items · ${d.files} files</div></div>
+    <div class="bar">
+      <span class="b-auto" style="width:${d.auto/known*100}%"></span>
+      <span class="b-todo" style="width:${d.todo/known*100}%"></span>
+      <span class="b-block" style="width:${d.block/known*100}%"></span>
+    </div>
+    <div class="pri-nums">
+      <span class="n-auto"><b>${d.auto}</b>automated</span>
+      <span class="n-todo"><b>${d.todo}</b>todo</span>
+      <span class="n-block"><b>${d.block}</b>blocked</span>
+      <span class="n-hp"><b>${d.hp}</b>high-pri</span>
+    </div>`;
+  priEl.appendChild(card);
+});
+
+// drawer
+const scrim=document.getElementById("scrim"), drawer=document.getElementById("drawer");
+function openDrawer(tier, dom){
+  const cd = cellData(tier,dom);
+  const key = tier+"|"+dom;
+  document.getElementById("d-eyebrow").textContent = tier + " × " + dom;
+  document.getElementById("d-title").textContent = cd.n + " test file" + (cd.n>1?"s":"");
+  const crit = (FILES[key]||[]).filter(f=>f.includes("|crit")).length;
+  document.getElementById("d-lead").innerHTML =
+    `<b>${cd.n}</b> files in tier <code style="font-family:var(--mono);font-size:11px">${tier.toLowerCase()}</code> for domain <b>${dom}</b>.` +
+    (crit?`<br>${crit} critical-tagged.`:"") + (cd.blocked?` <br><span style="color:var(--blocked)">${cd.blocked} blocked.</span>`:"");
+  const filesEl=document.getElementById("d-files"); filesEl.innerHTML="";
+  const files = FILES[key] || Array.from({length:Math.min(cd.n,6)},(_,i)=>`spec/${tier.toLowerCase().replace(/-/g,'/')}/${dom.toLowerCase()}/case-${i+1}.spec.ts`);
+  files.forEach(f=>{
+    const [path,tag]=f.split("|");
+    const li=document.createElement("li");
+    li.innerHTML = `<span>${path}</span>${tag?`<span class="tag ${tag==='crit'?'crit':'daily'}">${tag==='crit'?'critical':tag}</span>`:""}`;
+    filesEl.appendChild(li);
+  });
+  const bw=document.getElementById("d-blocked-wrap"), bl=document.getElementById("d-blocked");
+  const blocked = BLOCKED[key];
+  if(blocked){ bw.style.display="block"; bl.innerHTML=""; blocked.forEach(b=>{ const li=document.createElement("li"); const m=b.match(/^(B-\d+)(.*)$/); li.innerHTML=m?`<span class="bid">${m[1]}</span>${m[2]}`:b; bl.appendChild(li);}); }
+  else bw.style.display="none";
+  scrim.classList.add("open"); drawer.classList.add("open");
+}
+function closeDrawer(){ scrim.classList.remove("open"); drawer.classList.remove("open"); }
+document.addEventListener("click", e=>{
+  const cell=e.target.closest(".cell.has");
+  if(cell){ openDrawer(cell.dataset.tier, cell.dataset.dom); }
+});
+document.getElementById("close").addEventListener("click", closeDrawer);
+scrim.addEventListener("click", closeDrawer);
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeDrawer(); });
+</script>
+</body>
+</html>

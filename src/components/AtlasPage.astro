@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { useTranslations, getLocalePath } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+import { atlas } from '../data/atlas';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const c = atlas[lang];
+const homePath = getLocalePath(lang, '/');
+const demoSrc = '/coverage-atlas-demo.html';
+const siteName = lang === 'ru' ? 'Ник Миранович' : 'Nick Miranovich';
+---
+
+<Layout
+  title={`${c.title} • ${siteName}`}
+  description={c.teaserBody}
+  lang={lang}
+  pageMode="professional"
+>
+  <!-- Header -->
+  <header class="flex items-center justify-between w-full">
+    <a href={homePath} class="text-muted-foreground hover:text-foreground transition-colors text-sm">
+      {t('backToHome')}
+    </a>
+    <LanguageSwitcher lang={lang} />
+  </header>
+
+  <article class="flex flex-col gap-y-6">
+    <header class="flex flex-col gap-y-4">
+      <h1 class="font-cormorant text-3xl font-semibold text-foreground">{c.title}</h1>
+      <div class="flex max-w-2xl flex-col gap-y-3">
+        {c.intro.map((p) => (
+          <p class="text-[0.95rem] leading-relaxed text-muted-foreground">{p}</p>
+        ))}
+      </div>
+    </header>
+
+    <!-- Live demo, full width -->
+    <div class="atlas-demo-wrap overflow-hidden rounded-xl border border-border bg-card">
+      <iframe
+        src={demoSrc}
+        class="atlas-demo"
+        title="Coverage Atlas — interactive demo"
+        loading="lazy"
+      ></iframe>
+    </div>
+    <a
+      href={demoSrc}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="self-start text-sm text-muted-foreground transition-colors hover:text-gold"
+    >
+      {c.openFull}
+    </a>
+
+    <!-- How to read it -->
+    <section class="flex flex-col gap-y-5 border-t border-border pt-6">
+      <h2 class="font-cormorant text-2xl font-semibold text-foreground">{c.howTitle}</h2>
+
+      <div class="flex flex-col gap-y-3">
+        <p class="text-[0.95rem] leading-relaxed text-muted-foreground">{c.statesIntro}</p>
+        <ul class="flex flex-col gap-y-2">
+          {c.states.map((s) => (
+            <li class="flex items-baseline gap-3 text-[0.95rem] leading-relaxed text-muted-foreground">
+              <span class="mt-1 h-3 w-3 shrink-0 rounded-sm" style={`background:${s.color}`} aria-hidden="true"></span>
+              <span><strong class="text-foreground">{s.label}</strong> — {s.desc}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-y-2">
+        <h3 class="font-cormorant text-lg font-semibold text-foreground">{c.heatmapTitle}</h3>
+        <p class="max-w-2xl text-[0.95rem] leading-relaxed text-muted-foreground">{c.heatmapBody}</p>
+      </div>
+
+      <div class="flex flex-col gap-y-2">
+        <h3 class="font-cormorant text-lg font-semibold text-foreground">{c.drawerTitle}</h3>
+        <p class="max-w-2xl text-[0.95rem] leading-relaxed text-muted-foreground">{c.drawerBody}</p>
+      </div>
+    </section>
+
+    <!-- Honest note -->
+    <p class="max-w-2xl border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground italic">
+      {c.note}
+    </p>
+  </article>
+</Layout>
+
+<style>
+  .atlas-demo {
+    display: block;
+    width: 100%;
+    height: 1120px;
+    border: 0;
+  }
+
+  @media (max-width: 640px) {
+    .atlas-demo {
+      height: 760px;
+    }
+  }
+</style>
